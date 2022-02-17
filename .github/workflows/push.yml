@@ -33,15 +33,6 @@ jobs:
       - name: Installing dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Lint
-        run: yarn lint
-
-      - name: Build
-        run: yarn build
-
-      - name: Tests
-        run: yarn test
-        
   Lint:
     needs: Checkout
     runs-on: ubuntu-latest
