@@ -9,12 +9,12 @@ export interface Tag {
 
 export interface Image {
   id: string
-  type: string
+  type: string | ArrayBuffer | null
 }
 
 export interface MData {
   id: string
-  value: string
+  value: string | boolean
 }
 
 export interface User {
@@ -22,17 +22,19 @@ export interface User {
 }
 
 export interface Content {
-  createdAt: Date
+  createdAt: number | string
+  lastModified: number | string | null
   title: string
   content: string
   categories: Category[]
   tags: Tag[]
   images: Image[]
   metadata: MData[]
-  user: User
+  user?: User
 }
 
 export interface Wiki {
   id: string
+  version: number
   content: Content
 }
