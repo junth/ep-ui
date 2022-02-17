@@ -1,5 +1,5 @@
 import React from 'react'
-import { HStack, Image, Text } from '@chakra-ui/react'
+import { HStack, Image, Text, VStack } from '@chakra-ui/react'
 import { RiMore2Fill } from 'react-icons/ri'
 import { tokenDetails } from '@/data/WalletData'
 import WalletDetailsWrapper from './WalletDetailsWrapper'
@@ -25,9 +25,15 @@ const WalletDetails = ({
       </HStack>
 
       <HStack>
-        <Text mr={3} as="strong" fontWeight="extrabold">
-          {balance}
-        </Text>
+        <VStack align="flex-end">
+          <Text fontWeight="extrabold">
+            {balance}
+          </Text>
+          <Text mr={3} color="GrayText" fontSize="sm" fontWeight="bold">
+            ${balance} USD
+          </Text>
+        </VStack>
+      
         <RiMore2Fill color="color" fontSize="20" fontWeight="bold" />
       </HStack>
     </>
