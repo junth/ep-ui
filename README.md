@@ -22,38 +22,27 @@ Here a list of handy information to develop using this repo.
 
 ### Develop
 
-To develop all apps and packages (nextjs, hardhat blockchain, nestJS API), run the following command:
+To develop in local, run the following command:
 
 ```bash
 yarn dev
 ```
 
-### Services
+### Prepare (Husky)
 
-If you want to run services (postgresql, thegraph, ipfs):
-
-```bash
-yarn clean-services && yarn services
-```
-
-### Add dummy data to the graph
+First time you install the repo make sure you run the following command to use our git hooks:
 
 ```bash
-yarn services-post-test
+yarn prepare
 ```
 
 ### Build
 
-To build all apps and packages, run the following command:
+To build run the following command:
 
 ```bash
 yarn build
 ```
-
-### Workarounds
-
-In order to run services you need to have installed docker in your computer.
-Sometimes its needed to create a folder ipfs & folder postgres under packages/graph/data
 
 ## Contributing
 
@@ -64,7 +53,6 @@ Please report bugs big and small by [opening an issue](https://github.com/Everip
 ## Useful Links
 
 - https://metamask.io/ <- wallet for login
-- https://thegraph.com/docs/en/about/introduction/ <- our graphql decentralized implementation
 - https://ipfs.io/#why <- data hosting
 
 - https://chakra-ui.com/ <- ui lib
