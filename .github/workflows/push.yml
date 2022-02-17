@@ -1,9 +1,9 @@
 name: Push checks
 on: [push]
 jobs:
-  Push-Checks:
+  Checkout:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 2
     steps:
 
       - name: Setup Node.js environment
@@ -39,5 +39,29 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Tests
+        run: yarn test
+        
+  Lint:
+    needs: Checkout
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Lint
+        run: yarn lint
+        
+  Build:
+    needs: Checkout
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Build
+        run: yarn build
+        
+  Test:
+    needs: Checkout
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
       - name: Tests
         run: yarn test
