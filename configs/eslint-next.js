@@ -89,7 +89,6 @@ module.exports = {
     '**/*.js',
     '**/*.json',
     'node_modules',
-    '.turbo',
     '.next',
     'public',
   ],
