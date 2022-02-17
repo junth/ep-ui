@@ -3,7 +3,7 @@ on: [push]
 jobs:
   Checkout:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 4
     steps:
 
       - name: Setup Node.js environment
@@ -16,7 +16,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 1
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -32,27 +32,9 @@ jobs:
 
       - name: Installing dependencies
         run: yarn install --frozen-lockfile
-
-  Lint:
-    needs: Checkout
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    steps:
       - name: Lint
         run: yarn lint
-        
-  Build:
-    needs: Checkout
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    steps:
       - name: Build
         run: yarn build
-        
-  Test:
-    needs: Checkout
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    steps:
       - name: Tests
         run: yarn test
