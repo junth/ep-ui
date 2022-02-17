@@ -18,7 +18,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the first category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. ',
     imageCard: `https://picsum.photos/seed/first-category/400/580`,
-    imageHero: `https:/.photos/seed/first-category/600/300`,
+    imageHero: `https:/picsum.photos/seed/first-category/1200/600`,
     icon: BsPaletteFill,
   },
   {
@@ -27,7 +27,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the second category consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/second-category/400/580`,
-    imageHero: `https://picsum.photos/seed/second-category/600/300`,
+    imageHero: `https://picsum.photos/seed/second-category/1200/600`,
     icon: BsPatchMinusFill,
   },
   {
@@ -36,7 +36,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the third category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/third-category/400/580`,
-    imageHero: `https://picsum.photos/seed/third-category/600/300`,
+    imageHero: `https://picsum.photos/seed/third-category/1200/600`,
     icon: BsWalletFill,
   },
   {
@@ -45,7 +45,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the fourth category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/fourth-category/400/580`,
-    imageHero: `https://picsum.photos/seed/fourth-category/600/300`,
+    imageHero: `https://picsum.photos/seed/fourth-category/1200/600`,
     icon: BsTrophyFill,
   },
   {
@@ -54,7 +54,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the fifth category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/fifth-category/400/580`,
-    imageHero: `https://picsum.photos/seed/fifth-category/600/300`,
+    imageHero: `https://picsum.photos/seed/fifth-category/1200/600`,
     icon: BsTerminalFill,
   },
   {
@@ -63,7 +63,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the sixth category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/sixth-category/400/580`,
-    imageHero: `https://picsum.photos/seed/sixth-category/600/300`,
+    imageHero: `https://picsum.photos/seed/sixth-category/1200/600`,
     icon: BsSpeakerFill,
   },
   {
@@ -72,7 +72,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the seventh category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/seventh-category/400/580`,
-    imageHero: `https://picsum.photos/seed/seventh-category/600/300`,
+    imageHero: `https://picsum.photos/seed/seventh-category/1200/600`,
     icon: BsShieldFill,
   },
   {
@@ -81,7 +81,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the eighth category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/eighth-category/400/580`,
-    imageHero: `https://picsum.photos/seed/eighth-category/600/300`,
+    imageHero: `https://picsum.photos/seed/eighth-category/1200/600`,
     icon: BsPrinterFill,
   },
   {
@@ -90,7 +90,7 @@ export const sampleCategories: CategoryDataType = [
     description:
       'This is the ninth category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
     imageCard: `https://picsum.photos/seed/ninth-category/400/580`,
-    imageHero: `https://picsum.photos/seed/ninth-category/600/300`,
+    imageHero: `https://picsum.photos/seed/ninth-category/1200/600`,
     icon: BsPiggyBankFill,
   },
 ]

@@ -15,7 +15,10 @@ const Category: NextPage = () => {
   console.log(categoryData)
   return (
     <Box mt="-12" bgColor="pageBg" pb={12}>
-      <Image src="/images/categories-backdrop.png" height="250px" />
+      <Image
+        src={categoryData?.imageHero || '/images/categories-backdrop.png'}
+        height="250px"
+      />
       <Flex mx="auto" justifyContent="center" mt={12}>
         <Icon
           as={categoryData?.icon}
@@ -48,11 +51,10 @@ const Category: NextPage = () => {
         >
           {[...Array(6)].map(i => (
             <Box
+              key={i}
               h="250px"
               w="100%"
-              bgColor={`hsl(${Math.floor(
-                Math.random() * (350 + i),
-              )}, 10%, 80%)`}
+              bgColor={`hsl(${Math.floor(Math.random() * 360)}, 10%, 80%)`}
             />
           ))}
         </SimpleGrid>
