@@ -28,7 +28,7 @@
     "@fontsource/poppins": "^4.5.0",
     "@reduxjs/toolkit": "^1.7.1",
     "@rtk-query/graphql-request-base-query": "^1.0.3",
-    "axios": "^0.24.0",
+    "axios": "^0.26.0",
     "boring-avatars": "^1.6.1",
     "contracts": "*",
     "ethers": "^5.5.4",
