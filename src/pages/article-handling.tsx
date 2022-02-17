@@ -8,8 +8,8 @@ import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { getAccount } from '@/utils/getAccount'
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
-import { WikiAbi } from '../abi/Wiki.abi'
 import Modal from '@/components/Elements/Modal/Modal'
+import { WikiAbi } from '../abi/Wiki.abi'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,

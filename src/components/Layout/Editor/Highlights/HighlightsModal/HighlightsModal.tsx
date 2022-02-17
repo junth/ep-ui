@@ -24,9 +24,9 @@ import Modal from '@/components/Elements/Modal/Modal'
 import Button from '@/components/Elements/Button/Button'
 import Select from '@/components/Elements/Select/Select'
 import Checkbox from '@/components/Elements/Checkbox/Checkbox'
-import FlexRow from '../FlexRow/FlexRow'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { Category, MData, Wiki } from '@/types'
+import FlexRow from '../FlexRow/FlexRow'
 
 const pageTypeOptions: Array<string> = [
   'Person',

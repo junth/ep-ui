@@ -12,12 +12,12 @@ import { useAppDispatch } from '@/store/hook'
 import Button from '@/components/Elements/Button/Button'
 import ImageInput from '@/components/Elements/ImageInput/ImageInput'
 import Input from '@/components/Elements/Input/Input'
+import { getWikiMetadataById } from '@/utils/getWikiFields'
+import { Category, Content } from '@/types'
 import FlexRowContainer from './FlexRowContainer/FlexRowContainer'
 import Dropzone from '../../../Elements/Dropzone/Dropzone'
 import FlexRow from './FlexRow/FlexRow'
 import HighlightsModal from './HighlightsModal/HighlightsModal'
-import { getWikiMetadataById } from '@/utils/getWikiFields'
-import { Category, Content } from '@/types'
 
 const Highlights = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

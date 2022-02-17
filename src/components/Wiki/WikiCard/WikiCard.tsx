@@ -123,7 +123,7 @@ const WikiCard = ({ wiki }: WikiCardProps) => (
         {wiki.content.content}
       </Text>
       <BlogAuthor
-        name={shortenAccount(wiki.content.user.id)}
+        name={shortenAccount(wiki?.content?.user?.id || '')}
         date={new Date('2021-04-06T19:01:27Z')}
       />
     </Box>
