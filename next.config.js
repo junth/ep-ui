@@ -6,11 +6,6 @@ module.exports = {
     styledComponents: true,
   },
   images: {
-    domains: [
-      'storage.googleapis.com',
-      'storage.opensea.io',
-      'lh3.googleusercontent.com',
-      'images.pexels.com',
-    ], // for demo data
+    domains: ['picsum.photos'], // for demo data
   },
 }
