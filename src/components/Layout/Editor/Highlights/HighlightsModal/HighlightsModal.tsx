@@ -125,8 +125,6 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
     })
   }
 
-  console.log(wiki)
-
   return (
     <Modal
       title="Edit a metadata item"
