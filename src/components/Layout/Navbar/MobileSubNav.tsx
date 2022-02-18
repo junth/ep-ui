@@ -38,7 +38,7 @@ const MobileSubNav = ({
         {activeMenu?.label}
       </Text>
     </Flex>
-    <Box height="100%" overflowY="scroll">
+    <Box h="calc(100vh - 300px)" overflowY="scroll">
       {activeMenu?.subItem?.map((item, key) => (
         <NextLink href={item.href} key={key} passHref>
           <Link

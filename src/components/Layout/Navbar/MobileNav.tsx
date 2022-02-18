@@ -113,7 +113,12 @@ const MobileNav = ({ toggleWalletDrawer, setHamburger }: MobileNavType) => {
             )}
           </Stack>
         ) : (
-          <MobileSubNav handleClick={setShowSubNav} activeMenu={currentMenu} />
+          <Box h="calc(100vh - 220px)">
+            <MobileSubNav
+              handleClick={setShowSubNav}
+              activeMenu={currentMenu}
+            />
+          </Box>
         )}
       </Box>
       <Box display={{ lg: 'block', xl: 'none' }}>
