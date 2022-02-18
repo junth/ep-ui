@@ -12,7 +12,6 @@ const Category: NextPage = () => {
   const categoryData = sampleCategories.find(
     c => c.slug === `categories/${category}`,
   )
-  console.log(categoryData)
   return (
     <Box mt="-12" bgColor="pageBg" pb={12}>
       <Image
