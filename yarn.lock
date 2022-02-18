@@ -8854,6 +8854,41 @@ ipfs-core-types@^0.10.1:
     multiaddr "^10.0.0"
     multiformats "^9.5.1"
 
+ipfs-core-types@^0.9.1-rc.5+b9382bc5:
+  version "0.9.1-rc.5"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.9.1-rc.5.tgz#f1149aeb9c3d78a88b0f8ba24d3e416b2512c514"
+  integrity sha512-MJwVJapwoySfjADWJsy3YvtWekc1n57AtBIC+Jj54vrEhA3xmMEM1ewCD8v71Ed9aolBAGdmZx0+5lMXA1iRHg==
+  dependencies:
+    interface-datastore "^6.0.2"
+    multiaddr "^10.0.0"
+    multiformats "^9.4.13"
+
+ipfs-core-utils@^0.13.1-rc.5+b9382bc5:
+  version "0.13.1-rc.5"
+  resolved "https://registry.yarnpkg.com/ipfs-core-utils/-/ipfs-core-utils-0.13.1-rc.5.tgz#f709a1c3992abc8cb77ab68c6eb647228332111e"
+  integrity sha512-bd8ZqbOYt6n3c1E9HDbtGu6+P0zyDMaub1YFGLX+8zsaxFGjZ7k4F9CT8CqAuX4A9zX3e2ktqMJ6A1r6GkGc7g==
+  dependencies:
+    any-signal "^3.0.0"
+    blob-to-it "^1.0.1"
+    browser-readablestream-to-it "^1.0.1"
+    debug "^4.1.1"
+    err-code "^3.0.1"
+    ipfs-core-types "^0.9.1-rc.5+b9382bc5"
+    ipfs-unixfs "^6.0.3"
+    ipfs-utils "^9.0.2"
+    it-all "^1.0.4"
+    it-map "^1.0.4"
+    it-peekable "^1.0.2"
+    it-to-stream "^1.0.0"
+    merge-options "^3.0.4"
+    multiaddr "^10.0.0"
+    multiaddr-to-uri "^8.0.0"
+    multiformats "^9.4.13"
+    nanoid "^3.1.23"
+    parse-duration "^1.0.0"
+    timeout-abort-controller "^3.0.0"
+    uint8arrays "^3.0.0"
+
 ipfs-core-utils@^0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/ipfs-core-utils/-/ipfs-core-utils-0.14.1.tgz#b2d66f929ca853fc0525dec4043546ebaaa3a627"
@@ -8948,6 +8983,29 @@ ipfs-core@^0.14.1:
     parse-duration "^1.0.0"
     peer-id "^0.16.0"
     timeout-abort-controller "^3.0.0"
+    uint8arrays "^3.0.0"
+
+ipfs-http-client@^55.0.1-rc.5:
+  version "55.0.1-rc.5"
+  resolved "https://registry.yarnpkg.com/ipfs-http-client/-/ipfs-http-client-55.0.1-rc.5.tgz#19bcf746dc5df0db7ce99c561ad9b2cd505bdce5"
+  integrity sha512-AcnhBH340GEURmaJOjjtopwwhYrcVrClCP5IWZ5VsTP2Q7u+LaqPYUEv4053QAxlpLoW/FeFEExkU2ClIvmIoQ==
+  dependencies:
+    "@ipld/dag-cbor" "^7.0.0"
+    "@ipld/dag-json" "^8.0.1"
+    "@ipld/dag-pb" "^2.1.3"
+    any-signal "^3.0.0"
+    debug "^4.1.1"
+    err-code "^3.0.1"
+    ipfs-core-types "^0.9.1-rc.5+b9382bc5"
+    ipfs-core-utils "^0.13.1-rc.5+b9382bc5"
+    ipfs-utils "^9.0.2"
+    it-first "^1.0.6"
+    it-last "^1.0.4"
+    merge-options "^3.0.4"
+    multiaddr "^10.0.0"
+    multiformats "^9.4.13"
+    parse-duration "^1.0.0"
+    stream-to-it "^0.2.2"
     uint8arrays "^3.0.0"
 
 ipfs-http-client@^56.0.1:
@@ -11070,7 +11128,7 @@ multicast-dns@^7.2.0:
     dns-packet "^5.2.2"
     thunky "^1.0.2"
 
-multiformats@^9.0.0, multiformats@^9.0.2, multiformats@^9.0.4, multiformats@^9.1.0, multiformats@^9.1.2, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.4.7, multiformats@^9.5.1, multiformats@^9.5.4:
+multiformats@^9.0.0, multiformats@^9.0.2, multiformats@^9.0.4, multiformats@^9.1.0, multiformats@^9.1.2, multiformats@^9.4.13, multiformats@^9.4.2, multiformats@^9.4.5, multiformats@^9.4.7, multiformats@^9.5.1, multiformats@^9.5.4:
   version "9.6.4"
   resolved "https://registry.npmjs.org/multiformats/-/multiformats-9.6.4.tgz#5dce1f11a407dbb69aa612cb7e5076069bb759ca"
   integrity sha512-fCCB6XMrr6CqJiHNjfFNGT0v//dxOBMrOMqUIzpPc/mmITweLEyhvMpY9bF+jZ9z3vaMAau5E8B68DW77QMXkg==
