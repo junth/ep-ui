@@ -250,8 +250,8 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
           <RiTimer2Line /> <Text>Last Modified</Text>
         </FlexRow>
         <Text>
-          {wiki.content.lastModified !== null
-            ? wiki.content.lastModified
+          {currentWiki.content.lastModified !== null
+            ? currentWiki.content.lastModified
             : 'No modified date'}
         </Text>
       </SimpleGrid>

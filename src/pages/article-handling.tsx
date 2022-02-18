@@ -10,6 +10,8 @@ import { getAccount } from '@/utils/getAccount'
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import Modal from '@/components/Elements/Modal/Modal'
 import { WikiAbi } from '../abi/Wiki.abi'
+import { Wiki } from '@/types'
+import { useAppDispatch } from '@/store/hook'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
@@ -40,8 +42,9 @@ const initialEditorValue = `
 `
 
 const ArticleHandling = () => {
+  const wiki = useSelector((state: any) => state.wiki as Wiki)
+  const dispatch = useAppDispatch()
   const [{ data: accountData }] = useAccount()
-  const wiki = useSelector((state: any) => state.wiki)
   const [md, setMd] = useState<string>()
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>()
@@ -86,9 +89,9 @@ const ArticleHandling = () => {
         ...tmp.content,
         createdAt: Math.floor(new Date(tmp.content.createdAt).getTime() / 1000),
         lastModified: Math.floor(
-          new Date(tmp.content.lastModified).getTime() / 1000,
+          new Date(String(tmp.content.lastModified)).getTime() / 1000,
         ),
-        content: md,
+        content: String(md),
         user: {
           id: getAccount(accountData),
         },
@@ -101,6 +104,21 @@ const ArticleHandling = () => {
     } = await axios.post('/api/ipfs', tmp)
 
     if (ipfs) saveHashInTheBlockchain(ipfs)
+  }
+
+  const disableSaveButton = () =>
+    wiki.content.images.length === 0 ||
+    loading ||
+    wiki.content.lastModified === null
+
+  const handleOnEditorChanges = (val: string) => {
+    if (val) {
+      setMd(val)
+      dispatch({
+        type: 'wiki/setCurrentWiki',
+        payload: { content: { lastModified: new Date().toUTCString() } },
+      })
+    }
   }
 
   useEffect(() => {
@@ -125,9 +143,7 @@ const ArticleHandling = () => {
       <GridItem h={[400, 500]} rowSpan={[1, 1, 2]} colSpan={[3, 3, 2, 2, 2]}>
         <Editor
           initialValue={initialEditorValue}
-          onChange={val => {
-            if (val) setMd(val)
-          }}
+          onChange={handleOnEditorChanges}
         />
       </GridItem>
       <GridItem rowSpan={[1, 1, 2]} colSpan={[3, 3, 1, 1, 1]}>
@@ -135,7 +151,7 @@ const ArticleHandling = () => {
       </GridItem>
       <GridItem rowSpan={1} colSpan={3}>
         <Flex direction="row" justifyContent="center" alignItems="center">
-          <Button disabled={loading} onClick={saveOnIpfs}>
+          <Button disabled={disableSaveButton()} onClick={saveOnIpfs}>
             {!loading ? 'Save' : 'Loading'}
           </Button>
         </Flex>
