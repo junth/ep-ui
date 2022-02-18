@@ -22,7 +22,7 @@ const MobileSubNav = ({
     height="xl"
   >
     <Flex
-      py={5}
+      py={4}
       justify="flex-start"
       align="center"
       _hover={{
@@ -45,7 +45,7 @@ const MobileSubNav = ({
         <NextLink href={item.href} key={key} passHref>
           <Link
             href="passRef"
-            py={4}
+            py={3}
             display="flex"
             justifyContent="flex-start"
             alignItems="center"
