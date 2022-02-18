@@ -129,7 +129,7 @@ const Navbar = () => {
                   )
                 }
               >
-                <ColorModeToggle />
+                <ColorModeToggle isInMobileMenu={false} />
               </NavMenu>
               <Icon
                 color="linkColor"

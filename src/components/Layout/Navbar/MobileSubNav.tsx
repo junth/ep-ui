@@ -42,6 +42,7 @@ const MobileSubNav = ({
       {activeMenu?.subItem?.map((item, key) => (
         <NextLink href={item.href} key={key} passHref>
           <Link
+            href="passRef"
             py={4}
             display="flex"
             justifyContent="flex-start"

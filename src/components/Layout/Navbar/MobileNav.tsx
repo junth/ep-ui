@@ -98,7 +98,7 @@ const MobileNav = ({ toggleWalletDrawer, setHamburger }: MobileNavType) => {
               />
             ))}
             <Menu>
-              <Box mx={'-8'} pt={2}>
+              <Box mx="-8" pt={2}>
                 <ColorModeToggle isInMobileMenu />
               </Box>
             </Menu>
