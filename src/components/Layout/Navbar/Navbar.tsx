@@ -51,6 +51,7 @@ const Navbar = () => {
       position="fixed"
       zIndex={1500}
       w="full"
+      h={isHamburgerOpen ? '100%' : 'unset'}
       bg="subMenuBg"
       px={{ base: 4, md: 8 }}
       borderBottomWidth={1}
@@ -174,7 +175,11 @@ const Navbar = () => {
         setHamburger={setHamburger}
       />
 
-      <Collapse in={isHamburgerOpen} animateOpacity>
+      <Collapse
+        in={isHamburgerOpen}
+        animateOpacity
+        style={{ margin: '0 -15px' }}
+      >
         <MobileNav setHamburger={setHamburger} toggleWalletDrawer={onToggle} />
       </Collapse>
     </Box>
