@@ -38,13 +38,13 @@ const CategoriesList = () => {
             _hover={{ boxShadow: 'rgb(4 17 29 / 25%) 0px 0px 8px 0px' }}
             cursor="pointer"
             borderWidth="1px"
-            borderColor="#2222222a"
+            borderColor="DimColor"
             bgColor="homeCardBg"
             borderRadius="12px"
             overflow="hidden"
           >
             <Image
-              bgColor="#0000002a"
+              bgColor="DimColor"
               src={category.imageCard}
               h="180px"
               w="100%"

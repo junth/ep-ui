@@ -1,5 +1,7 @@
 import { CategoryDataType } from '@/types/CategoryDataTypes'
 import {
+  BsBagFill,
+  BsBriefcaseFill,
   BsPaletteFill,
   BsPatchMinusFill,
   BsPiggyBankFill,
@@ -92,5 +94,23 @@ export const sampleCategories: CategoryDataType = [
     imageCard: `https://picsum.photos/seed/ninth-category/400/580`,
     imageHero: `https://picsum.photos/seed/ninth-category/1200/600`,
     icon: BsPiggyBankFill,
+  },
+  {
+    slug: 'categories/tenth-category',
+    title: 'Tenth Category',
+    description:
+      'This is the tenth category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
+    imageCard: `https://picsum.photos/seed/tenth-category/400/580`,
+    imageHero: `https://picsum.photos/seed/tenth-category/1200/600`,
+    icon: BsBriefcaseFill,
+  },
+  {
+    slug: 'categories/eleventh-category',
+    title: 'Eleventh Category',
+    description:
+      'This is the eleventh category consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. lorem ipsum dolor sit amet consectetur consectetur consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem. consectetur adipisicing elit. Quisquam, quidem.',
+    imageCard: `https://picsum.photos/seed/eleventh-category/400/580`,
+    imageHero: `https://picsum.photos/seed/eleventh-category/1200/600`,
+    icon: BsBagFill,
   },
 ]

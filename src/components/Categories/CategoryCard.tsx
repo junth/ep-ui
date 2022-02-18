@@ -30,7 +30,8 @@ const CategoryCard = ({
   <LinkBox
     as="article"
     bgColor="cardBg"
-    border="1px solid #2222222a"
+    borderWidth="1px"
+    borderColor="dimColor"
     _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' }}
     overflow="hidden"
     borderRadius="12px"
