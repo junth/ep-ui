@@ -38,8 +38,6 @@ const Connectors = () => {
     (BalanceType | ErrorType)[] | null
   >(null)
 
-  console.log(walletDetails)
-
   const [totalBalance, setTotalBalance] = useState<number | null | undefined>(
     null,
   )
@@ -130,7 +128,7 @@ const Connectors = () => {
                   <WalletDetails
                     symbol={details?.data?.symbol}
                     balance={shortenBalance(Number(details?.data?.formatted))}
-                    tokenArray={balanceBreakdown}
+                    tokensArray={balanceBreakdown}
                   />
                   <Divider />
                 </React.Fragment>
