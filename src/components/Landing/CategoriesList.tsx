@@ -40,7 +40,7 @@ const CategoriesList = () => {
             borderWidth="1px"
             borderColor="#2222222a"
             bgColor="homeCardBg"
-            borderRadius="12px"
+            borderRadius={3}
             overflow="hidden"
           >
             <Image
