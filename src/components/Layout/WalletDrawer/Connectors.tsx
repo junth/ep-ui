@@ -15,8 +15,13 @@ import shortenBalance from '@/utils/shortenBallance'
 import {
   fetchWalletBalance,
   fetchRateAndCalculateTotalBalance,
+  calculateTotalBalance,
 } from '@/utils/fetchWalletBalance'
-import { BalanceType, ErrorType } from '@/types/WalletBalanceType'
+import {
+  BalanceType,
+  ErrorType,
+  TokenDetailsType,
+} from '@/types/WalletBalanceType'
 import config from '@/config'
 import WalletDetails from './WalletDetails'
 
@@ -33,6 +38,8 @@ const Connectors = () => {
     (BalanceType | ErrorType)[] | null
   >(null)
 
+  console.log(walletDetails)
+
   const [totalBalance, setTotalBalance] = useState<number | null | undefined>(
     null,
   )
@@ -40,6 +47,10 @@ const Connectors = () => {
 
   const [totalBalanceIsLoading, setTotalBalanceIsLoading] =
     useState<boolean>(true)
+
+  const [balanceBreakdown, setBalanceBreakDown] = useState<
+    TokenDetailsType[] | null
+  >(null)
 
   useEffect(() => {
     if (address) {
@@ -51,14 +62,17 @@ const Connectors = () => {
         {
           addressOrName: address,
         },
-      ]).then(response => setWalletDetails(response))
+      ]).then(response => {
+        setWalletDetails(response)
+      })
     }
   }, [address, getBalance])
 
   useEffect(() => {
     if (walletDetails) {
-      fetchRateAndCalculateTotalBalance(walletDetails).then(total => {
-        setTotalBalance(total)
+      fetchRateAndCalculateTotalBalance(walletDetails).then(result => {
+        setTotalBalance(calculateTotalBalance(result))
+        setBalanceBreakDown(result)
         setTotalBalanceIsLoading(false)
       })
     }
@@ -109,13 +123,14 @@ const Connectors = () => {
               </Text>
             </Center>
           </Flex>
-          {walletDetails && walletDetails.length > 0 && (
+          {balanceBreakdown && walletDetails && walletDetails.length > 0 && (
             <Box border="1px" borderColor="gray.200" borderRadius="lg">
               {walletDetails.map((details, key) => (
                 <React.Fragment key={key}>
                   <WalletDetails
                     symbol={details?.data?.symbol}
                     balance={shortenBalance(Number(details?.data?.formatted))}
+                    tokenArray={balanceBreakdown}
                   />
                   <Divider />
                 </React.Fragment>
