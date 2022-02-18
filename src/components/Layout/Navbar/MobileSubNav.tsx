@@ -7,9 +7,11 @@ import NextLink from 'next/link'
 const MobileSubNav = ({
   activeMenu,
   handleClick,
+  setHamburger,
 }: {
   activeMenu: NavItem | null
   handleClick: (status: boolean) => void
+  setHamburger: React.Dispatch<React.SetStateAction<boolean>>
 }) => (
   <Stack
     direction="column"
@@ -52,6 +54,7 @@ const MobileSubNav = ({
             }}
             fontSize="lg"
             px={6}
+            onClick={() => setHamburger(false)}
           >
             <HStack>
               {item.hasImage && (
