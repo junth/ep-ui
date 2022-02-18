@@ -33,8 +33,16 @@ export interface Content {
   user?: User
 }
 
+export enum Language {
+  SPANISH = 'Español',
+  ENGLISH = 'English',
+  CHINESE = '中文',
+  KOREAN = '한국어',
+}
+
 export interface Wiki {
   id: string
   version: number
   content: Content
+  language: Language
 }

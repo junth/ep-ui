@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Wiki } from '@/types'
+import { Language, Wiki } from '@/types'
 
 const initialState: Wiki = {
   id: '',
   version: 1,
+  language: Language.SPANISH,
   content: {
     createdAt: new Date().toUTCString(),
     lastModified: null,
@@ -16,10 +17,6 @@ const initialState: Wiki = {
       {
         id: 'adult-content',
         value: true,
-      },
-      {
-        id: 'language',
-        value: 'Español',
       },
       {
         id: 'page-type',
@@ -37,6 +34,7 @@ const wikiSlice = createSlice({
       // eslint-disable-next-line no-param-reassign
       state = {
         ...state,
+        ...action.payload,
         content: { ...state.content, ...action.payload.content },
       }
       return state

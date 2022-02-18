@@ -25,7 +25,7 @@ import Button from '@/components/Elements/Button/Button'
 import Select from '@/components/Elements/Select/Select'
 import Checkbox from '@/components/Elements/Checkbox/Checkbox'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
-import { Category, MData, Wiki } from '@/types'
+import { Category, Language, MData, Wiki } from '@/types'
 import FlexRow from '../FlexRow/FlexRow'
 
 const pageTypeOptions: Array<string> = [
@@ -51,7 +51,12 @@ const categoryOptions: Array<string> = [
   'Miscellaneous',
 ]
 
-const languageOptions: Array<string> = ['English', 'Español', '한국어', '中文']
+const languageOptions = [
+  Language.ENGLISH,
+  Language.SPANISH,
+  Language.CHINESE,
+  Language.KOREAN,
+]
 
 const HighlightsModal = ({ onClose, ...rest }: any) => {
   const dispatch = useAppDispatch()
@@ -61,7 +66,10 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
   const SecondaryButton = (
     <Button
       onClick={() => {
-        dispatch({ type: 'wiki/setCurrentWiki', payload: wiki })
+        dispatch({
+          type: 'wiki/setCurrentWiki',
+          payload: wiki,
+        })
         onClose()
       }}
     >
@@ -116,6 +124,8 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
       },
     })
   }
+
+  console.log(wiki)
 
   return (
     <Modal
@@ -217,7 +227,10 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
         </FlexRow>
         <Select
           onChange={event =>
-            handleSetWikiMetadata({ id: 'language', value: event.target.value })
+            setWiki({
+              ...wiki,
+              language: event.target.value as Language,
+            })
           }
           placeholder="Language"
         >
