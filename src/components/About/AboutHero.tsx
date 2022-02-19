@@ -14,8 +14,8 @@ const AboutHero = () => (
     <Box flex={1} p={{ base: 8, lg: 12 }}>
       <Heading mb={4}>Bringing knowledge to the blockchain.</Heading>
       <Text opacity={0.6}>
-        Everipedia's mission is to bring the world's knowledge on-chain through
-        the IQ token.
+        Everipedia&apos;s mission is to bring the world&apos;s knowledge
+        on-chain through the IQ token.
       </Text>
       <ButtonGroup size="lg" mt={4} spacing={{ base: 4, lg: 8 }}>
         <LinkButton href="/categories" w={{ base: 32, lg: 40 }}>
