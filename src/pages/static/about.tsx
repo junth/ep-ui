@@ -3,6 +3,7 @@ import { Box } from '@chakra-ui/react'
 import AboutHero from '@/components/About/AboutHero'
 import AboutFeatures from '@/components/About/AboutFeatures'
 import AboutAsSeenIn from '@/components/About/AboutAsSeenIn'
+import AboutCommunity from '@/components/About/AboutCommunity'
 
 const About = () => (
   <Box maxW="7xl" mx="auto" mt={4}>
@@ -10,6 +11,7 @@ const About = () => (
     <Box px={8}>
       <AboutFeatures />
       <AboutAsSeenIn />
+      <AboutCommunity />
     </Box>
   </Box>
 )

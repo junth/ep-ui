@@ -30,7 +30,7 @@ const AboutHero = () => (
       flex={1}
       marginInlineStart="0 !important"
       src="/images/about-everipedia.svg"
-      w={{ base: '100%', lg: '50%' }}
+      w={{ base: '100%', sm: '80%', md: '60%', lg: '50%' }}
     />
   </HStack>
 )

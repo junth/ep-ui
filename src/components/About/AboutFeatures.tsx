@@ -4,11 +4,11 @@ import { MdArticle, MdDesignServices, MdOutlinePeopleAlt } from 'react-icons/md'
 import AboutFeaturesCard from './AboutFeaturesCard'
 
 const AboutFeatures = () => (
-  <VStack spacing={8} maxW="7xl" mx="auto" my={16}>
+  <VStack spacing={8} maxW="5xl" mx="auto" my={16}>
     <Heading size="lg">
       Taking the Online Encyclopedia into the Modern Age
     </Heading>
-    <Text align={{ base: 'left', lg: 'center' }} maxW="6xl" opacity={0.6}>
+    <Text align={{ base: 'left', lg: 'center' }} maxW="3xl" opacity={0.6}>
       Everipedia uses blockchain technology to help us fulfill our vision for a
       world where all knowledge is available to all people - a world in which
       everyone, everywhere can participate in sharing what they know and
