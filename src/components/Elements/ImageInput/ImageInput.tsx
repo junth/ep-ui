@@ -1,16 +1,31 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
 import { RiCloseLine } from 'react-icons/ri'
+import axios from 'axios'
+import buffer from 'buffer'
 
 import Button from '../Button/Button'
 import Input from '../Input/Input'
 
 type ImageInputType = {
   setHideDropzone: (hide: boolean) => void
+  setImage: (f: string | ArrayBuffer | null) => void
 }
 
-const ImageInput = ({ setHideDropzone }: ImageInputType) => {
+const ImageInput = ({ setHideDropzone, setImage }: ImageInputType) => {
   const [imgSrc, setImageSrc] = useState<string>()
+
+  const handleOnImageInputChanges = async (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
+    setImageSrc(event.target.value)
+    setHideDropzone(true)
+
+    const { data } = await axios.get(String(event.target.value), {
+      responseType: 'arraybuffer',
+    })
+    setImage(new buffer.Buffer(data as Buffer))
+  }
 
   return (
     <Flex
@@ -41,10 +56,7 @@ const ImageInput = ({ setHideDropzone }: ImageInputType) => {
         </Flex>
       ) : (
         <Input
-          onChange={event => {
-            setImageSrc(event.target.value)
-            setHideDropzone(true)
-          }}
+          onChange={handleOnImageInputChanges}
           placeholder="Paste a link here"
         />
       )}

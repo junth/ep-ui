@@ -32,6 +32,11 @@ const Highlights = () => {
       payload: { content: { ...object } },
     })
 
+  const handleSetImage = (value: string | ArrayBuffer | null) =>
+    handleDispatch({
+      images: [{ id: '', type: value }],
+    })
+
   return (
     <Flex
       direction="column"
@@ -57,17 +62,18 @@ const Highlights = () => {
       {!hideDropzone && (
         <>
           <Dropzone
-            setImage={value => {
-              handleDispatch({
-                images: [{ id: '', type: value }],
-              })
-            }}
+            setImage={handleSetImage}
             setHideImageInput={setHideImageInput}
           />
           <br />
         </>
       )}
-      {!hideImageInput && <ImageInput setHideDropzone={setHideDropzone} />}
+      {!hideImageInput && (
+        <ImageInput
+          setImage={handleSetImage}
+          setHideDropzone={setHideDropzone}
+        />
+      )}
 
       <Divider my="10px" />
       <Flex direction="column" justifyContent="center" alignItems="center">

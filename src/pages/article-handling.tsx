@@ -49,7 +49,7 @@ const ArticleHandling = () => {
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>()
 
-  const [{ data: postData, /* error, */ loading }, write] = useContractWrite(
+  const [{ /* data: postData,  error, */ loading }, write] = useContractWrite(
     {
       addressOrName: process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS || '',
       contractInterface: WikiAbi,
@@ -79,7 +79,7 @@ const ArticleHandling = () => {
     await result.data?.wait(2)
 
     setOpenTxDetailsDialog(true)
-    setTxHash(postData?.hash)
+    setTxHash(result.data?.hash)
   }
 
   const saveOnIpfs = async () => {

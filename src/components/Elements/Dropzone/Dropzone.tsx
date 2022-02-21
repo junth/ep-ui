@@ -27,7 +27,6 @@ const Dropzone = ({ setHideImageInput, setImage }: DropzoneType) => {
 
         reader.readAsArrayBuffer(f)
       })
-      // setImage(acceptedFiles[0])
       setHideImageInput(true)
     },
     [setPaths],
