@@ -37,6 +37,10 @@ export const semanticTokens: SemanticTokens = {
       default: 'white',
       _dark: 'gray.700',
     },
+    toolTipBg: {
+      default: 'black',
+      _dark: 'gray.500',
+    },
     cardBg: {
       default: 'white',
       _dark: 'gray.600',
