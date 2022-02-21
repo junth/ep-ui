@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux'
 import { getAccount } from '@/utils/getAccount'
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import Modal from '@/components/Elements/Modal/Modal'
-import { WikiAbi } from '../abi/Wiki.abi'
 import { Wiki } from '@/types'
 import { useAppDispatch } from '@/store/hook'
+import { WikiAbi } from '../abi/Wiki.abi'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
@@ -109,7 +109,8 @@ const ArticleHandling = () => {
   const disableSaveButton = () =>
     wiki.content.images.length === 0 ||
     loading ||
-    wiki.content.lastModified === null
+    wiki.content.lastModified === null ||
+    !accountData?.address
 
   const handleOnEditorChanges = (val: string) => {
     if (val) {
