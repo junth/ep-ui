@@ -74,8 +74,13 @@ const ArticleHandling = () => {
     return ipfs
   }
 
-  const saveHashInTheBlockchain = async (hash: string) =>
-    write({ args: [hash] })
+  const saveHashInTheBlockchain = async (hash: string) => {
+    const result = await write({ args: [hash] })
+    await result.data?.wait(2)
+
+    setOpenTxDetailsDialog(true)
+    setTxHash(postData?.hash)
+  }
 
   const saveOnIpfs = async () => {
     const imageHash = await saveImage()
@@ -121,13 +126,6 @@ const ArticleHandling = () => {
       })
     }
   }
-
-  useEffect(() => {
-    if (postData) {
-      setOpenTxDetailsDialog(true)
-      setTxHash(postData.hash)
-    }
-  }, [postData])
 
   useEffect(() => {
     setMd(initialEditorValue)
