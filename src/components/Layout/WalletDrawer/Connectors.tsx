@@ -7,7 +7,8 @@ import {
   Text,
   Center,
   useColorModeValue,
-  Spinner, Tooltip
+  Spinner,
+  Tooltip,
 } from '@chakra-ui/react'
 import ConnectorDetails from '@/components/Layout/WalletDrawer/ConnectorDetails'
 import { walletsLogos } from '@/data/WalletData'
@@ -77,19 +78,32 @@ const Connectors = () => {
   }, [walletDetails])
 
   const bg = useColorModeValue('primary', 'brand.900')
-  const tooltipText = "A crypto wallet is an application or hardware device that allows individuals to store and retrieve digital items."
+  const tooltipText =
+    'A crypto wallet is an application or hardware device that allows individuals to store and retrieve digital items.'
 
   return (
     <>
-      {!accountData &&
+      {!accountData && (
         <Text mb="6" mt="3" color="gray.500" fontWeight="bold" fontSize="sm">
-          Connect with one of our available&nbsp;  
-          <Tooltip hasArrow borderRadius={8} placement='bottom-end' textAlign="center" p={3} fontWeight="bold" color="white" bg="toolTipBg" label={tooltipText}>
-             <Text d="inline" fontWeight="bold" color="primary">Wallet&nbsp;</Text>
+          Connect with one of our available&nbsp;
+          <Tooltip
+            hasArrow
+            borderRadius={8}
+            placement="bottom-end"
+            textAlign="center"
+            p={3}
+            fontWeight="bold"
+            color="white"
+            bg="toolTipBg"
+            label={tooltipText}
+          >
+            <Text d="inline" fontWeight="bold" color="primary">
+              Wallet&nbsp;
+            </Text>
           </Tooltip>
-           providers or create a new one.
+          providers or create a new one.
         </Text>
-      }
+      )}
       <Box justifyContent="center" alignItems="center">
         {accountData ? (
           <>
