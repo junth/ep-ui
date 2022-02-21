@@ -61,5 +61,9 @@ export const semanticTokens: SemanticTokens = {
       default: 'gray.400',
       _dark: 'gray.700',
     },
+    socialIconColor: {
+      default: 'gray.700',
+      _dark: 'gray.100',
+    },
   },
 }

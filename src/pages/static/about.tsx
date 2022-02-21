@@ -4,14 +4,16 @@ import AboutHero from '@/components/About/AboutHero'
 import AboutFeatures from '@/components/About/AboutFeatures'
 import AboutAsSeenIn from '@/components/About/AboutAsSeenIn'
 import AboutCommunity from '@/components/About/AboutCommunity'
+import AboutOurTeam from '@/components/About/AboutOurTeam'
 
 const About = () => (
   <Box maxW="7xl" mx="auto" mt={4}>
     <AboutHero />
     <Box px={8}>
       <AboutFeatures />
-      <AboutAsSeenIn />
       <AboutCommunity />
+      <AboutAsSeenIn />
+      <AboutOurTeam />
     </Box>
   </Box>
 )

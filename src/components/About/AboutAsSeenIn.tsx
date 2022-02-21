@@ -1,11 +1,11 @@
 import React from 'react'
 import { VStack, Heading, Flex } from '@chakra-ui/react'
-import CNNLogo from './AsSeenLogos/cnn.svg'
-import ForbesLogo from './AsSeenLogos/forbes.svg'
-import ReutersLogo from './AsSeenLogos/reuters.svg'
-import WiredLogo from './AsSeenLogos/wired.svg'
-import CoinDeskLogo from './AsSeenLogos/coindesk.svg'
-import FortuneLogo from './AsSeenLogos/fortune.svg'
+import CNNLogo from './logos/cnn.svg'
+import ForbesLogo from './logos/forbes.svg'
+import ReutersLogo from './logos/reuters.svg'
+import WiredLogo from './logos/wired.svg'
+import CoinDeskLogo from './logos/coindesk.svg'
+import FortuneLogo from './logos/fortune.svg'
 
 const AboutAsSeenIn = () => (
   <VStack

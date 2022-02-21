@@ -14,6 +14,6 @@ module.exports = {
     return config
   },
   images: {
-    domains: ['picsum.photos'], // for demo data
+    domains: ['picsum.photos', 'everipedia.org'], // for demo data
   },
 }
