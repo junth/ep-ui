@@ -24,9 +24,9 @@ import {
   TokenDetailsType,
 } from '@/types/WalletBalanceType'
 import config from '@/config'
-import WalletDetails from './WalletDetails'
 import { useDispatch } from 'react-redux'
 import { updateUserDetails } from '@/store/slices/user-slice'
+import WalletDetails from '@/components/Layout/WalletDrawer/WalletDetails'
 
 const Connectors = () => {
   const [{ data }, connect] = useConnect()
