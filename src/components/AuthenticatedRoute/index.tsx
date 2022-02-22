@@ -1,26 +1,18 @@
+import { RootState } from '@/store/store'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useAccount } from 'wagmi'
 
 export const authenticatedRoute = (WrappedComponent: any) =>
   function (props: any) {
-    const [{ data: accountData }] = useAccount({
-      fetchEns: true,
-    })
     const router = useRouter()
-    const states = useSelector(state => state)
+    const {user} = useSelector((state: RootState) => state.user)
     useEffect(() => {
-        console.log(states)
-        console.log(states)
-        console.log(states)
-        console.log(states)
-        console.log(states)
-      if (!accountData) {
+      if (!user) {
         router.push('/login')
       }
     }, [])
-    if (accountData) {
+    if (user) {
       return <WrappedComponent {...props} />
     }
     return null

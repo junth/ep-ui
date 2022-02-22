@@ -15,10 +15,10 @@ const userSlice = createSlice({
   reducers: {
     updateUserDetails: (state, action: PayloadAction<AccountDataType>) => {
       state.user = action.payload
-    }
+    },
   },
 })
 
-export const { updateUserDetails} = userSlice.actions
+export const { updateUserDetails } = userSlice.actions
 
 export default userSlice.reducer

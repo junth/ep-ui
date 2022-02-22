@@ -1,7 +1,7 @@
 import { createWrapper } from 'next-redux-wrapper'
 import { configureStore } from '@reduxjs/toolkit'
 import { wikiApi } from '@/services/wikis'
-import {appReducer, messagesReducer, userReducer} from '@/store/slices'
+import { appReducer, messagesReducer, userReducer } from '@/store/slices'
 
 const makeStore = () =>
   configureStore({
