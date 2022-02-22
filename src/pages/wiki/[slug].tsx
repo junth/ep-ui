@@ -31,7 +31,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   store => async context => {
     const slug = context.params?.slug
     if (typeof slug === 'string') {
-      store.dispatch(getWiki.initiate(slug))
+      store.dispatch(getWiki.initiate(slug) as any)
     }
 
     await Promise.all(getRunningOperationPromises())

@@ -33,7 +33,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
   store => async context => {
     const address = context.params?.address
     if (typeof address === 'string') {
-      store.dispatch(getUserWikis.initiate(address))
+      store.dispatch(getUserWikis.initiate(address) as any)
     }
 
     await Promise.all(getRunningOperationPromises())

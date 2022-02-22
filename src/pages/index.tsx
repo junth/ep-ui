@@ -37,7 +37,7 @@ export const Home: NextPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   store => async () => {
-    store.dispatch(getWikis.initiate())
+    store.dispatch(getWikis.initiate() as any)
     await Promise.all(getRunningOperationPromises())
 
     return {
