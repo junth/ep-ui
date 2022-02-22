@@ -127,7 +127,7 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
 
   return (
     <Modal
-      title="Edit a metadata item"
+      title="Edit metadata"
       enableBottomCloseButton
       SecondaryButton={SecondaryButton}
       onClose={onClose}

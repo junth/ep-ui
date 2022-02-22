@@ -10,9 +10,14 @@ import Input from '../Input/Input'
 type ImageInputType = {
   setHideDropzone: (hide: boolean) => void
   setImage: (f: string | ArrayBuffer | null) => void
+  deleteImage: () => void
 }
 
-const ImageInput = ({ setHideDropzone, setImage }: ImageInputType) => {
+const ImageInput = ({
+  setHideDropzone,
+  setImage,
+  deleteImage,
+}: ImageInputType) => {
   const [imgSrc, setImageSrc] = useState<string>()
 
   const handleOnImageInputChanges = async (
@@ -49,6 +54,7 @@ const ImageInput = ({ setHideDropzone, setImage }: ImageInputType) => {
             onClick={() => {
               setImageSrc(undefined)
               setHideDropzone(false)
+              deleteImage()
             }}
           >
             <RiCloseLine />

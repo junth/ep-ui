@@ -8,9 +8,14 @@ import Button from '../Button/Button'
 type DropzoneType = {
   setHideImageInput: (hide: boolean) => void
   setImage: (f: string | ArrayBuffer | null) => void
+  deleteImage: () => void
 }
 
-const Dropzone = ({ setHideImageInput, setImage }: DropzoneType) => {
+const Dropzone = ({
+  setHideImageInput,
+  setImage,
+  deleteImage,
+}: DropzoneType) => {
   const [paths, setPaths] = useState([])
 
   const onDrop = useCallback(
@@ -80,6 +85,7 @@ const Dropzone = ({ setHideImageInput, setImage }: DropzoneType) => {
             onClick={() => {
               setPaths([])
               setHideImageInput(false)
+              deleteImage()
             }}
           >
             <RiCloseLine />

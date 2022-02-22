@@ -37,6 +37,12 @@ const Highlights = () => {
       images: [{ id: '', type: value }],
     })
 
+  const handleDeleteImage = () => {
+    handleDispatch({
+      images: [],
+    })
+  }
+
   return (
     <Flex
       direction="column"
@@ -64,6 +70,7 @@ const Highlights = () => {
           <Dropzone
             setImage={handleSetImage}
             setHideImageInput={setHideImageInput}
+            deleteImage={handleDeleteImage}
           />
           <br />
         </>
@@ -72,6 +79,7 @@ const Highlights = () => {
         <ImageInput
           setImage={handleSetImage}
           setHideDropzone={setHideDropzone}
+          deleteImage={handleDeleteImage}
         />
       )}
 
