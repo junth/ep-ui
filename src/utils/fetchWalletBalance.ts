@@ -40,6 +40,7 @@ export const fetchRateAndCalculateTotalBalance = async (
         }
       }
     } catch (err) {
+      // eslint-disable-next-line
       console.error(err)
     }
     return null
