@@ -1,8 +1,7 @@
 import { SimpleGrid, VStack, Heading, Box } from '@chakra-ui/react'
 import React from 'react'
 
-const AboutLatestFromBlog = () => {
-  return (
+const AboutLatestFromBlog = () => (
     <VStack spacing={8} maxW="7xl" mx="auto" my={16}>
       <Heading size="lg">Latest from our blog</Heading>
       <SimpleGrid
@@ -29,6 +28,5 @@ const AboutLatestFromBlog = () => {
       </SimpleGrid>
     </VStack>
   )
-}
 
 export default AboutLatestFromBlog
