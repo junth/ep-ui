@@ -25,6 +25,8 @@ import {
 } from '@/types/WalletBalanceType'
 import config from '@/config'
 import WalletDetails from './WalletDetails'
+import { useDispatch } from 'react-redux'
+import { updateUserDetails } from '@/store/slices/user-slice'
 
 const Connectors = () => {
   const [{ data }, connect] = useConnect()
@@ -51,8 +53,11 @@ const Connectors = () => {
     TokenDetailsType[] | null
   >(null)
 
+  const dispatch = useDispatch()
+
   useEffect(() => {
     if (address) {
+      dispatch(updateUserDetails(accountData))
       fetchWalletBalance(getBalance, [
         {
           addressOrName: address,

@@ -6,7 +6,10 @@ import { useSelector } from 'react-redux'
 export const authenticatedRoute = (WrappedComponent: any) =>
   function (props: any) {
     const router = useRouter()
-    const {user} = useSelector((state: RootState) => state.user)
+    const { user } = useSelector((state: RootState) => state.user)
+    console.log(user)
+    console.log(user)
+    console.log(user)
     useEffect(() => {
       if (!user) {
         router.push('/login')
