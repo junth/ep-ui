@@ -14,7 +14,7 @@ import { Image } from '../Elements/Image/Image'
 const CategoriesList = () => {
   const categoriesData = [
     {
-      slug: 'categories',
+      slug: '/categories',
       title: 'All Categories',
       imageCard: `https://picsum.photos/seed/categories/400/580`,
     },
