@@ -6,14 +6,13 @@ import {
   Box,
   IconButton,
 } from '@chakra-ui/react'
-import React, { ReactNode } from 'react'
-import AboutOurTeamSlider from './AboutOurTeamSlider'
+import React from 'react'
 import { TeamData } from '@/data/MeetOurTeamData'
-import { Image } from '../Elements/Image/Image'
 import { BsLinkedin, BsTwitter } from 'react-icons/bs'
 import { IconType } from 'react-icons/lib'
 import EveripediaLogo from './logos/everipedia.svg'
-import NextLink from 'next/link'
+import { Image } from '../Elements/Image/Image'
+import AboutOurTeamSlider from './AboutOurTeamSlider'
 
 const IconButtonSocial = ({
   name,
@@ -66,7 +65,7 @@ const AboutOurTeam = () => (
                 className="teamMember__image"
                 src={teamMember.image}
                 alt={teamMember.name}
-                priority={true}
+                priority
                 overflow="hidden"
                 rounded="full"
               />

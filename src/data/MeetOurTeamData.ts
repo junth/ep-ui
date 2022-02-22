@@ -1,4 +1,5 @@
 import { TeamDataType } from '@/types/TeamDataType'
+
 export const TeamData: TeamDataType = [
   {
     image:
