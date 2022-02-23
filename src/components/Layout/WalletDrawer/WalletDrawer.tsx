@@ -15,7 +15,7 @@ import {
   HStack,
   Image,
   MenuList,
-  MenuItem,
+  MenuItem,Spinner
 } from '@chakra-ui/react'
 import { useAccount } from 'wagmi'
 import { FocusableElement } from '@chakra-ui/utils'
@@ -110,9 +110,12 @@ const WalletDrawer = ({
                     </MenuItem>
                     <Divider />
                     <MenuItem py={3} icon={<RiRefreshLine size={25} />}>
-                      <Text fontSize="small" fontWeight="bold">
-                        Refresh
-                      </Text>
+                      <Flex>
+                        <Text flex="1" fontSize="small" fontWeight="bold">
+                          Refresh
+                        </Text>
+                        <Spinner size="sm"/>
+                      </Flex>
                     </MenuItem>
                   </MenuList>
                 )}
