@@ -22,8 +22,6 @@ export interface User {
 }
 
 export interface Content {
-  createdAt: number | string
-  lastModified: number | string | null
   title: string
   content: string
   categories: Category[]

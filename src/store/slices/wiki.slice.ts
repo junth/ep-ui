@@ -6,8 +6,6 @@ const initialState: Wiki = {
   version: 1,
   language: LanguagesISOEnum.EN,
   content: {
-    createdAt: new Date().toUTCString(),
-    lastModified: null,
     title: 'Wiki title',
     content: '',
     categories: [{ id: 'general', title: 'general category' }],

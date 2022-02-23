@@ -21,7 +21,6 @@ import { getAccount } from '@/utils/getAccount'
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import Modal from '@/components/Elements/Modal/Modal'
 import { Wiki } from '@/types'
-import { useAppDispatch } from '@/store/hook'
 import { WikiAbi } from '../abi/Wiki.abi'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
@@ -54,7 +53,6 @@ const initialEditorValue = `
 
 const ArticleHandling = () => {
   const wiki = useSelector((state: any) => state.wiki as Wiki)
-  const dispatch = useAppDispatch()
   const [{ data: accountData }] = useAccount()
   const [md, setMd] = useState<string>()
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)
@@ -119,10 +117,6 @@ const ArticleHandling = () => {
       ...tmp,
       content: {
         ...tmp.content,
-        createdAt: Math.floor(new Date(tmp.content.createdAt).getTime() / 1000),
-        lastModified: Math.floor(
-          new Date(String(tmp.content.lastModified)).getTime() / 1000,
-        ),
         content: String(md),
         user: {
           id: getAccount(accountData),
@@ -139,18 +133,11 @@ const ArticleHandling = () => {
   }
 
   const disableSaveButton = () =>
-    wiki.content.images.length === 0 ||
-    loading ||
-    wiki.content.lastModified === null ||
-    !accountData?.address
+    wiki.content.images.length === 0 || loading || !accountData?.address
 
   const handleOnEditorChanges = (val: string) => {
     if (val) {
       setMd(val)
-      dispatch({
-        type: 'wiki/setCurrentWiki',
-        payload: { content: { lastModified: new Date().toUTCString() } },
-      })
     }
   }
 

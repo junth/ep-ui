@@ -11,8 +11,6 @@ import {
 import {
   RiFolder3Fill,
   RiGobletLine,
-  RiTimerLine,
-  RiTimer2Line,
   RiTranslate2,
   RiSurveyFill,
 } from 'react-icons/ri'
@@ -75,7 +73,6 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
       ...prev,
       content: {
         ...prev.content,
-        lastModified: new Date().toUTCString(),
         metadata: prev.content.metadata.map((m: MData) =>
           m.id === ob.id ? { ...m, value: ob.value } : m,
         ),
@@ -234,22 +231,6 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
         </Select>
 
         <CustomDivider />
-
-        <FlexRow>
-          <RiTimerLine /> <Text>Creation</Text>
-        </FlexRow>
-        <Text>{wiki.content.createdAt}</Text>
-
-        <CustomDivider />
-
-        <FlexRow>
-          <RiTimer2Line /> <Text>Last Modified</Text>
-        </FlexRow>
-        <Text>
-          {currentWiki.content.lastModified !== null
-            ? currentWiki.content.lastModified
-            : 'No modified date'}
-        </Text>
       </SimpleGrid>
     </Modal>
   )
