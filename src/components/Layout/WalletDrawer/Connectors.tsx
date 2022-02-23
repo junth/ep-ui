@@ -24,22 +24,25 @@ import {
   TokenDetailsType,
 } from '@/types/WalletBalanceType'
 import config from '@/config'
-import { useDispatch } from 'react-redux'
-import { updateUserDetails } from '@/store/slices/user-slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUserDetails, updateWalletDetails } from '@/store/slices/user-slice'
 import WalletDetails from '@/components/Layout/WalletDrawer/WalletDetails'
+import { RootState } from '@/store/store'
 
 const Connectors = () => {
+
   const [{ data }, connect] = useConnect()
 
   const [{ data: accountData }] = useAccount({
     fetchEns: true,
   })
   const address = accountData ? accountData.address : null
+
   const [, getBalance] = useBalance()
 
-  const [walletDetails, setWalletDetails] = useState<
-    (BalanceType | ErrorType)[] | null
-  >(null)
+  const {walletDetails} = useSelector((state: RootState) => state.user)
+
+  const dispatch = useDispatch()
 
   const [totalBalance, setTotalBalance] = useState<number | null | undefined>(
     null,
@@ -53,10 +56,8 @@ const Connectors = () => {
     TokenDetailsType[] | null
   >(null)
 
-  const dispatch = useDispatch()
-
   useEffect(() => {
-    if (address) {
+    if (address && !walletDetails) {
       dispatch(updateUserDetails(accountData))
       fetchWalletBalance(getBalance, [
         {
@@ -67,7 +68,7 @@ const Connectors = () => {
           addressOrName: address,
         },
       ]).then(response => {
-        setWalletDetails(response)
+        dispatch(updateWalletDetails(response))
       })
     }
   }, [address, getBalance])
