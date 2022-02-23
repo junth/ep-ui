@@ -16,7 +16,8 @@ import {
   Image,
   MenuList,
   MenuItem,
-  Spinner,createStandaloneToast
+  Spinner,
+  createStandaloneToast,
 } from '@chakra-ui/react'
 import { useAccount, useBalance } from 'wagmi'
 import { FocusableElement } from '@chakra-ui/utils'
@@ -34,14 +35,15 @@ import { fetchWalletBalance } from '@/utils/fetchWalletBalance'
 import config from '@/config'
 import { useDispatch } from 'react-redux'
 import { updateWalletDetails } from '@/store/slices/user-slice'
+import { ToastDataType } from '@/types/ToastDataType'
 
-const toastProperties = {
+const toastProperties: ToastDataType = {
   description: 'Account successfully refreshed',
   status: 'success',
   duration: 4000,
   isClosable: true,
-  position: "bottom-right",
-  variant: "left-accent"
+  position: 'bottom-right',
+  variant: 'left-accent',
 }
 
 type WalletDrawerType = {
@@ -60,7 +62,8 @@ const WalletDrawer = ({
   const [{ data: accountData }, disconnect] = useAccount({
     fetchEns: true,
   })
-  const [accountRefreshLoading, setAccountRefreshLoader] = useState<boolean>(false)
+  const [accountRefreshLoading, setAccountRefreshLoader] =
+    useState<boolean>(false)
   const toast = createStandaloneToast()
   const [, getBalance] = useBalance()
   const address = accountData ? accountData.address : null
@@ -72,7 +75,7 @@ const WalletDrawer = ({
   }
   const handleAccountRefresh = () => {
     setAccountRefreshLoader(true)
-    if(address){
+    if (address) {
       fetchWalletBalance(getBalance, [
         {
           addressOrName: address,
@@ -85,7 +88,7 @@ const WalletDrawer = ({
         dispatch(updateWalletDetails(response))
       })
     }
-    setTimeout(()=>{
+    setTimeout(() => {
       setAccountRefreshLoader(false)
       toast(toastProperties)
     }, 3000)
@@ -148,14 +151,17 @@ const WalletDrawer = ({
                       </Text>
                     </MenuItem>
                     <Divider />
-                    <MenuItem onClick={handleAccountRefresh}  closeOnSelect={false} py={3} icon={<RiRefreshLine size={25} />}>
+                    <MenuItem
+                      onClick={handleAccountRefresh}
+                      closeOnSelect={false}
+                      py={3}
+                      icon={<RiRefreshLine size={25} />}
+                    >
                       <Flex>
                         <Text flex="1" fontSize="small" fontWeight="bold">
                           Refresh
                         </Text>
-                        {
-                          accountRefreshLoading && <Spinner size="sm" />
-                        }
+                        {accountRefreshLoading && <Spinner size="sm" />}
                       </Flex>
                     </MenuItem>
                   </MenuList>

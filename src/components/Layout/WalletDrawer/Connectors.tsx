@@ -19,18 +19,18 @@ import {
   calculateTotalBalance,
 } from '@/utils/fetchWalletBalance'
 import {
-  BalanceType,
-  ErrorType,
   TokenDetailsType,
 } from '@/types/WalletBalanceType'
 import config from '@/config'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateUserDetails, updateWalletDetails } from '@/store/slices/user-slice'
+import {
+  updateUserDetails,
+  updateWalletDetails,
+} from '@/store/slices/user-slice'
 import WalletDetails from '@/components/Layout/WalletDrawer/WalletDetails'
 import { RootState } from '@/store/store'
 
 const Connectors = () => {
-
   const [{ data }, connect] = useConnect()
 
   const [{ data: accountData }] = useAccount({
@@ -40,7 +40,7 @@ const Connectors = () => {
 
   const [, getBalance] = useBalance()
 
-  const {walletDetails} = useSelector((state: RootState) => state.user)
+  const { walletDetails } = useSelector((state: RootState) => state.user)
 
   const dispatch = useDispatch()
 
