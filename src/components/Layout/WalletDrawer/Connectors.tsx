@@ -18,7 +18,6 @@ import {
   fetchRateAndCalculateTotalBalance,
   calculateTotalBalance,
 } from '@/utils/fetchWalletBalance'
-import { TokenDetailsType } from '@/types/WalletBalanceType'
 import config from '@/config'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -37,7 +36,9 @@ const Connectors = () => {
   })
   const address = accountData ? accountData.address : null
   const [, getBalance] = useBalance()
-  const { walletDetails, totalBalance, balanceBreakdown } = useSelector((state: RootState) => state.user)
+  const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
+    (state: RootState) => state.user,
+  )
   const dispatch = useDispatch()
   const dollarUSLocale = Intl.NumberFormat('en-US')
   const [totalBalanceIsLoading, setTotalBalanceIsLoading] =

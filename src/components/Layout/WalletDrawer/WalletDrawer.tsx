@@ -75,8 +75,8 @@ const WalletDrawer = ({
   }
 
   const handleAccountRefresh = () => {
-    setAccountRefreshLoader(true)
     if (address) {
+      setAccountRefreshLoader(true)
       fetchWalletBalance(getBalance, [
         {
           addressOrName: address,
