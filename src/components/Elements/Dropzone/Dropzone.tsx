@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 import { useDropzone } from 'react-dropzone'
 import { RiCloseLine } from 'react-icons/ri'
+import { useAccount } from 'wagmi'
+
 import buffer from 'buffer'
 import Button from '../Button/Button'
 
@@ -17,6 +19,7 @@ const Dropzone = ({
   deleteImage,
 }: DropzoneType) => {
   const [paths, setPaths] = useState([])
+  const [{ data: accountData }] = useAccount()
 
   const onDrop = useCallback(
     acceptedFiles => {
@@ -62,7 +65,7 @@ const Dropzone = ({
           }}
           {...getRootProps()}
         >
-          <input {...getInputProps()} />
+          <input disabled={!accountData?.address} {...getInputProps()} />
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (

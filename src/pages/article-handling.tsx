@@ -57,13 +57,14 @@ const ArticleHandling = () => {
   const [md, setMd] = useState<string>()
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>()
+  const [submittingWiki, setSubmittingWiki] = useState(false)
   const [txError, setTxError] = useState({
     title: '',
     description: '',
     opened: false,
   })
 
-  const [{ /* data: postData,  error, */ loading }, write] = useContractWrite(
+  const [, write] = useContractWrite(
     {
       addressOrName:
         process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS ||
@@ -105,9 +106,12 @@ const ArticleHandling = () => {
       description: result.error.message,
       opened: true,
     })
+
+    setSubmittingWiki(false)
   }
 
   const saveOnIpfs = async () => {
+    setSubmittingWiki(true)
     const imageHash = await saveImage()
 
     let tmp = { ...wiki }
@@ -133,12 +137,10 @@ const ArticleHandling = () => {
   }
 
   const disableSaveButton = () =>
-    wiki.content.images.length === 0 || loading || !accountData?.address
+    wiki.content.images.length === 0 || submittingWiki || !accountData?.address
 
   const handleOnEditorChanges = (val: string) => {
-    if (val) {
-      setMd(val)
-    }
+    if (val) setMd(val)
   }
 
   useEffect(() => {
@@ -182,8 +184,13 @@ const ArticleHandling = () => {
               />
             </Alert>
           )}
-          <Button disabled={disableSaveButton()} onClick={saveOnIpfs}>
-            {!loading ? 'Save' : 'Loading'}
+          <Button
+            isLoading={submittingWiki}
+            loadingText="Loading"
+            disabled={disableSaveButton()}
+            onClick={saveOnIpfs}
+          >
+            Save
           </Button>
         </Flex>
       </GridItem>
