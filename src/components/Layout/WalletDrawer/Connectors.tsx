@@ -18,12 +18,12 @@ import {
   fetchRateAndCalculateTotalBalance,
   calculateTotalBalance,
 } from '@/utils/fetchWalletBalance'
-import {
-  TokenDetailsType,
-} from '@/types/WalletBalanceType'
+import { TokenDetailsType } from '@/types/WalletBalanceType'
 import config from '@/config'
 import { useDispatch, useSelector } from 'react-redux'
 import {
+  updateBalanceBreakdown,
+  updateTotalBalance,
   updateUserDetails,
   updateWalletDetails,
 } from '@/store/slices/user-slice'
@@ -32,29 +32,16 @@ import { RootState } from '@/store/store'
 
 const Connectors = () => {
   const [{ data }, connect] = useConnect()
-
   const [{ data: accountData }] = useAccount({
     fetchEns: true,
   })
   const address = accountData ? accountData.address : null
-
   const [, getBalance] = useBalance()
-
-  const { walletDetails } = useSelector((state: RootState) => state.user)
-
+  const { walletDetails, totalBalance, balanceBreakdown } = useSelector((state: RootState) => state.user)
   const dispatch = useDispatch()
-
-  const [totalBalance, setTotalBalance] = useState<number | null | undefined>(
-    null,
-  )
   const dollarUSLocale = Intl.NumberFormat('en-US')
-
   const [totalBalanceIsLoading, setTotalBalanceIsLoading] =
     useState<boolean>(true)
-
-  const [balanceBreakdown, setBalanceBreakDown] = useState<
-    TokenDetailsType[] | null
-  >(null)
 
   useEffect(() => {
     if (address && !walletDetails) {
@@ -76,8 +63,8 @@ const Connectors = () => {
   useEffect(() => {
     if (walletDetails) {
       fetchRateAndCalculateTotalBalance(walletDetails).then(result => {
-        setTotalBalance(calculateTotalBalance(result))
-        setBalanceBreakDown(result)
+        dispatch(updateTotalBalance(calculateTotalBalance(result)))
+        dispatch(updateBalanceBreakdown(result))
         setTotalBalanceIsLoading(false)
       })
     }

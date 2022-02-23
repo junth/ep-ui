@@ -73,6 +73,7 @@ const WalletDrawer = ({
     onClose()
     setHamburger(true)
   }
+
   const handleAccountRefresh = () => {
     setAccountRefreshLoader(true)
     if (address) {
@@ -86,12 +87,10 @@ const WalletDrawer = ({
         },
       ]).then(response => {
         dispatch(updateWalletDetails(response))
+        setAccountRefreshLoader(false)
+        toast(toastProperties)
       })
     }
-    setTimeout(() => {
-      setAccountRefreshLoader(false)
-      toast(toastProperties)
-    }, 3000)
   }
 
   return (
