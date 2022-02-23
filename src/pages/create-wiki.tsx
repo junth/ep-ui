@@ -51,7 +51,7 @@ const initialEditorValue = `
   - yep, an item
 `
 
-const ArticleHandling = () => {
+const CreateWiki = () => {
   const wiki = useSelector((state: any) => state.wiki as Wiki)
   const [{ data: accountData }] = useAccount()
   const [md, setMd] = useState<string>()
@@ -221,4 +221,4 @@ const ArticleHandling = () => {
   )
 }
 
-export default ArticleHandling
+export default CreateWiki
