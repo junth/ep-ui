@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { Grid, GridItem, Flex, Button, Text } from '@chakra-ui/react'
+import {
+  Grid,
+  GridItem,
+  Flex,
+  Button,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CloseButton,
+} from '@chakra-ui/react'
 import { useAccount, useContractWrite } from 'wagmi'
 import slugify from 'slugify'
 import axios from 'axios'
@@ -48,10 +59,17 @@ const ArticleHandling = () => {
   const [md, setMd] = useState<string>()
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>()
+  const [txError, setTxError] = useState({
+    title: '',
+    description: '',
+    opened: false,
+  })
 
   const [{ /* data: postData,  error, */ loading }, write] = useContractWrite(
     {
-      addressOrName: process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS || '0x9332ad5290cf8de41107712ef408eb0c47dcb057',
+      addressOrName:
+        process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS ||
+        '0x9332ad5290cf8de41107712ef408eb0c47dcb057',
       contractInterface: WikiAbi,
     },
     'post',
@@ -78,8 +96,17 @@ const ArticleHandling = () => {
     const result = await write({ args: [hash] })
     await result.data?.wait(2)
 
-    setOpenTxDetailsDialog(true)
-    setTxHash(result.data?.hash)
+    if (!result.error) {
+      setOpenTxDetailsDialog(true)
+      setTxHash(result.data?.hash)
+      return
+    }
+
+    setTxError({
+      title: 'Error!',
+      description: result.error.message,
+      opened: true,
+    })
   }
 
   const saveOnIpfs = async () => {
@@ -149,7 +176,25 @@ const ArticleHandling = () => {
         <Highlights />
       </GridItem>
       <GridItem rowSpan={1} colSpan={3}>
-        <Flex direction="row" justifyContent="center" alignItems="center">
+        <Flex direction="column" justifyContent="center" alignItems="center">
+          {txError.opened && (
+            <Alert status="error" maxW="md" mb="3">
+              <AlertIcon />
+              <AlertTitle>{txError.title}</AlertTitle>
+              <AlertDescription>{txError.description}</AlertDescription>
+              <CloseButton
+                onClick={() =>
+                  setTxError({
+                    title: '',
+                    description: '',
+                    opened: false,
+                  })
+                }
+                position="absolute"
+                right="5px"
+              />
+            </Alert>
+          )}
           <Button disabled={disableSaveButton()} onClick={saveOnIpfs}>
             {!loading ? 'Save' : 'Loading'}
           </Button>
@@ -160,6 +205,7 @@ const ArticleHandling = () => {
         enableBottomCloseButton
         isOpen={openTxDetailsDialog}
         onClose={() => setOpenTxDetailsDialog(false)}
+        isCentered
         SecondaryButton={
           <Button
             onClick={() =>
