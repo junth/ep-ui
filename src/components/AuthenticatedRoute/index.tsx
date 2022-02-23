@@ -10,12 +10,9 @@ export const authenticatedRoute = <P extends object>(
     const router = useRouter()
     const { user } = useSelector((state: RootState) => state.user)
     useEffect(() => {
-      const verifyUserAuthentication = () => {
-        if (!user) {
-          router.push('/login')
-        }
+      if (!user) {
+        router.push('/login')
       }
-      verifyUserAuthentication()
     }, [])
     if (user) {
       return <WrappedComponent {...props} />
