@@ -45,6 +45,14 @@ export const semanticTokens: SemanticTokens = {
       default: 'white',
       _dark: 'gray.600',
     },
+    carouselArrowBg: {
+      default: 'white',
+      _dark: 'gray.600',
+    },
+    carouselArrowBorderColor: {
+      default: 'gray.300',
+      _dark: 'gray.600',
+    },
     mobileMenuBorderColor: {
       default: 'gray.300',
       _dark: 'gray.700',
@@ -56,6 +64,10 @@ export const semanticTokens: SemanticTokens = {
     borderColorHover: {
       default: 'gray.400',
       _dark: 'gray.700',
+    },
+    socialIconColor: {
+      default: 'gray.700',
+      _dark: 'gray.100',
     },
   },
 }

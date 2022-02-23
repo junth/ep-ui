@@ -10,7 +10,7 @@ const Category: NextPage = () => {
   const router = useRouter()
   const category = router.query.category as string
   const categoryData = sampleCategories.find(
-    c => c.slug === `categories/${category}`,
+    c => c.slug === `/categories/${category}`,
   )
   return (
     <Box mt="-12" bgColor="pageBg" pb={12}>

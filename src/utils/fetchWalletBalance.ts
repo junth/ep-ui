@@ -40,7 +40,7 @@ export const fetchRateAndCalculateTotalBalance = async (
         }
       }
     } catch (err) {
-      return null
+      console.error(err)
     }
     return null
   })

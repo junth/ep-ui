@@ -29,7 +29,7 @@ export const NAV_ITEMS: NavItem[] = [
       ...sampleCategories
         .map(({ title, slug, icon }) => ({
           label: title,
-          href: `/${slug}`,
+          href: slug,
           hasImage: true,
           icon,
         }))
