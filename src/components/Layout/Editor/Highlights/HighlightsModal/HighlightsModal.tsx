@@ -51,13 +51,6 @@ const categoryOptions: Array<string> = [
   'Miscellaneous',
 ]
 
-// const languageOptions = [
-//   Language.ENGLISH,
-//   Language.SPANISH,
-//   Language.CHINESE,
-//   Language.KOREAN,
-// ]
-
 const HighlightsModal = ({ onClose, ...rest }: any) => {
   const dispatch = useAppDispatch()
   const currentWiki = useSelector((state: any) => state.wiki)
