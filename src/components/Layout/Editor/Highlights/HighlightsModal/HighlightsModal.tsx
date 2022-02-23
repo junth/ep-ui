@@ -131,6 +131,7 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
       enableBottomCloseButton
       SecondaryButton={SecondaryButton}
       onClose={onClose}
+      isCentered
       {...rest}
     >
       <SimpleGrid columns={2} spacing={2}>
