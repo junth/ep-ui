@@ -17,5 +17,3 @@ export const authenticatedRoute = (WrappedComponent: any) =>
     }
     return null
   }
-
-export default authenticatedRoute
