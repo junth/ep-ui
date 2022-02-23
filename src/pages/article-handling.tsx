@@ -51,7 +51,7 @@ const ArticleHandling = () => {
 
   const [{ /* data: postData,  error, */ loading }, write] = useContractWrite(
     {
-      addressOrName: process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS || '',
+      addressOrName: process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS || '0x9332ad5290cf8de41107712ef408eb0c47dcb057',
       contractInterface: WikiAbi,
     },
     'post',
