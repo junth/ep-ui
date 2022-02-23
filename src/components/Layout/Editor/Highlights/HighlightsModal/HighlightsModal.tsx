@@ -25,7 +25,7 @@ import Button from '@/components/Elements/Button/Button'
 import Select from '@/components/Elements/Select/Select'
 import Checkbox from '@/components/Elements/Checkbox/Checkbox'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
-import { Category, Language, MData, Wiki } from '@/types'
+import { Category, Languages, LanguagesISOEnum, MData, Wiki } from '@/types'
 import FlexRow from '../FlexRow/FlexRow'
 
 const pageTypeOptions: Array<string> = [
@@ -51,12 +51,12 @@ const categoryOptions: Array<string> = [
   'Miscellaneous',
 ]
 
-const languageOptions = [
-  Language.ENGLISH,
-  Language.SPANISH,
-  Language.CHINESE,
-  Language.KOREAN,
-]
+// const languageOptions = [
+//   Language.ENGLISH,
+//   Language.SPANISH,
+//   Language.CHINESE,
+//   Language.KOREAN,
+// ]
 
 const HighlightsModal = ({ onClose, ...rest }: any) => {
   const dispatch = useAppDispatch()
@@ -228,13 +228,15 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
           onChange={event =>
             setWiki({
               ...wiki,
-              language: event.target.value as Language,
+              language: event.target.value as LanguagesISOEnum,
             })
           }
           placeholder="Language"
         >
-          {languageOptions.map(o => (
-            <option key={o}>{o}</option>
+          {Object.keys(Languages).map((o, idx) => (
+            <option key={o} value={o}>
+              {Object.values(Languages)[idx]}
+            </option>
           ))}
         </Select>
 

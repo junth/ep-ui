@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { Language, Wiki } from '@/types'
+import { LanguagesISOEnum, Wiki } from '@/types'
 
 const initialState: Wiki = {
   id: '',
   version: 1,
-  language: Language.SPANISH,
+  language: LanguagesISOEnum.EN,
   content: {
     createdAt: new Date().toUTCString(),
     lastModified: null,

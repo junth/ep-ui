@@ -33,16 +33,32 @@ export interface Content {
   user?: User
 }
 
-export enum Language {
+enum LanguagesValuesEnum {
   SPANISH = 'Español',
   ENGLISH = 'English',
   CHINESE = '中文',
   KOREAN = '한국어',
 }
 
+export enum LanguagesISOEnum {
+  EN = 'en',
+  ES = 'es',
+  ZH = 'zh',
+  KO = 'ko',
+}
+
+type LanguagesType = Record<LanguagesISOEnum, LanguagesValuesEnum>
+
+export const Languages: LanguagesType = {
+  en: LanguagesValuesEnum.ENGLISH,
+  es: LanguagesValuesEnum.SPANISH,
+  zh: LanguagesValuesEnum.CHINESE,
+  ko: LanguagesValuesEnum.KOREAN,
+}
+
 export interface Wiki {
   id: string
   version: number
   content: Content
-  language: Language
+  language: LanguagesISOEnum
 }
