@@ -11,7 +11,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\" --loglevel warn",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "gen:theme-typings": "chakra-cli tokens ./src/theme/index.ts",
+    "postinstall": "yarn gen:theme-typings"
   },
   "dependencies": {
     "@chakra-ui/color-mode": "^1.4.1",
@@ -53,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
+    "@chakra-ui/cli": "^1.8.1",
     "@storybook/addon-actions": "^6.4.12",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
