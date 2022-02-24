@@ -36,6 +36,7 @@ import config from '@/config'
 import { useDispatch } from 'react-redux'
 import { updateWalletDetails } from '@/store/slices/user-slice'
 import { ToastDataType } from '@/types/ToastDataType'
+import chakraTheme  from '@/theme'
 
 const toastProperties: ToastDataType = {
   description: 'Account successfully refreshed',
@@ -64,7 +65,7 @@ const WalletDrawer = ({
   })
   const [accountRefreshLoading, setAccountRefreshLoader] =
     useState<boolean>(false)
-  const toast = createStandaloneToast()
+  const toast = createStandaloneToast({theme: chakraTheme})
   const [, getBalance] = useBalance()
   const address = accountData ? accountData.address : null
   const dispatch = useDispatch()
@@ -141,16 +142,6 @@ const WalletDrawer = ({
                     </MenuItem>
                     <Divider />
                     <MenuItem
-                      onClick={disconnect}
-                      py={3}
-                      icon={<RiLogoutBoxRLine size={25} />}
-                    >
-                      <Text fontSize="small" fontWeight="bold">
-                        Logout
-                      </Text>
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem
                       onClick={handleAccountRefresh}
                       closeOnSelect={false}
                       py={3}
@@ -162,6 +153,16 @@ const WalletDrawer = ({
                         </Text>
                         {accountRefreshLoading && <Spinner size="sm" />}
                       </Flex>
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem
+                      onClick={disconnect}
+                      py={3}
+                      icon={<RiLogoutBoxRLine size={25} />}
+                    >
+                      <Text fontSize="small" fontWeight="bold">
+                        Logout
+                      </Text>
                     </MenuItem>
                   </MenuList>
                 )}
