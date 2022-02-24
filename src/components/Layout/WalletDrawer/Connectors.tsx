@@ -69,7 +69,7 @@ const Connectors = () => {
         setTotalBalanceIsLoading(false)
       })
     }
-  }, [walletDetails])
+  }, [walletDetails, dispatch])
 
   const bg = useColorModeValue('primary', 'brand.900')
   const tooltipText =
