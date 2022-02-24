@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
   Badge,
+  Checkbox,
   CloseButton,
   Divider,
   Flex,
@@ -21,7 +22,6 @@ import { useAppDispatch } from '@/store/hook'
 import Modal from '@/components/Elements/Modal/Modal'
 import Button from '@/components/Elements/Button/Button'
 import Select from '@/components/Elements/Select/Select'
-import Checkbox from '@/components/Elements/Checkbox/Checkbox'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import {
   Category,
@@ -98,9 +98,10 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
 
     if (!wiki.content.categories.find((c: Category) => c.title === category))
       setWiki((prev: Wiki) => ({
-        ...currentWiki,
+        ...prev,
         content: {
-          ...currentWiki.content,
+          ...prev.content,
+          images: [...currentWiki.content.images],
           categories: [
             ...prev.content.categories,
             { id: slugify(category.toLowerCase()), title: category },
@@ -221,6 +222,7 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
           <RiTranslate2 /> <Text>Language</Text>
         </FlexRow>
         <Select
+          value={wiki.language}
           onChange={event =>
             setWiki({
               ...wiki,

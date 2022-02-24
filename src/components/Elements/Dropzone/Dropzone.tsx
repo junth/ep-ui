@@ -6,6 +6,7 @@ import { useAccount } from 'wagmi'
 
 import buffer from 'buffer'
 import Button from '../Button/Button'
+import { Image } from '../Image/Image'
 
 type DropzoneType = {
   setHideImageInput: (hide: boolean) => void
@@ -75,7 +76,7 @@ const Dropzone = ({
       ) : (
         <Flex direction="column" w="full" h="full">
           {paths.map(path => (
-            <img key={path} src={path} alt="highlight" />
+            <Image w="350px" h="300px" key={path} src={path} alt="highlight" />
           ))}
           <Button
             w="25%"

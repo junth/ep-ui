@@ -1,5 +1,12 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Flex, Text, Divider, useDisclosure, Badge } from '@chakra-ui/react'
+import {
+  Flex,
+  Text,
+  Divider,
+  useDisclosure,
+  Badge,
+  Input,
+} from '@chakra-ui/react'
 import {
   RiFolder3Fill,
   RiGobletLine,
@@ -11,7 +18,6 @@ import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/store/hook'
 import Button from '@/components/Elements/Button/Button'
 import ImageInput from '@/components/Elements/ImageInput/ImageInput'
-import Input from '@/components/Elements/Input/Input'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { Category, Content, Languages, Wiki } from '@/types/Wiki'
 import FlexRowContainer from './FlexRowContainer/FlexRowContainer'
