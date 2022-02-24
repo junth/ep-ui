@@ -5,7 +5,6 @@ import axios from 'axios'
 import buffer from 'buffer'
 
 import Button from '../Button/Button'
-import { Image } from '../Image/Image'
 
 type ImageInputType = {
   setHideDropzone: (hide: boolean) => void
