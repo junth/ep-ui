@@ -23,7 +23,13 @@ import Button from '@/components/Elements/Button/Button'
 import Select from '@/components/Elements/Select/Select'
 import Checkbox from '@/components/Elements/Checkbox/Checkbox'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
-import { Category, Languages, LanguagesISOEnum, MData, Wiki } from '@/types'
+import {
+  Category,
+  Languages,
+  LanguagesISOEnum,
+  MData,
+  Wiki,
+} from '@/types/Wiki'
 import FlexRow from '../FlexRow/FlexRow'
 
 const pageTypeOptions: Array<string> = [

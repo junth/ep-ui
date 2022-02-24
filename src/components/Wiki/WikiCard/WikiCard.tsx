@@ -8,7 +8,7 @@ import {
   Tag,
   Text,
 } from '@chakra-ui/react'
-import { Wiki, Tag as TagType } from '@/types'
+import { Wiki, Tag as TagType } from '@/types/Wiki'
 import Link from '@/components/Elements/Link/Link'
 
 import shortenAccount from '@/utils/shortenAccount'

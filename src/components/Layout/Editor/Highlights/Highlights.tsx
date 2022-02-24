@@ -13,7 +13,7 @@ import Button from '@/components/Elements/Button/Button'
 import ImageInput from '@/components/Elements/ImageInput/ImageInput'
 import Input from '@/components/Elements/Input/Input'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
-import { Category, Content, Wiki } from '@/types'
+import { Category, Content, Languages, Wiki } from '@/types/Wiki'
 import FlexRowContainer from './FlexRowContainer/FlexRowContainer'
 import Dropzone from '../../../Elements/Dropzone/Dropzone'
 import FlexRow from './FlexRow/FlexRow'
@@ -105,7 +105,7 @@ const Highlights = () => {
           <FlexRow>
             <RiTranslate2 /> <Text>Language</Text>
           </FlexRow>
-          <Text>{currentWiki.language}</Text>
+          <Text>{Languages[currentWiki.language]}</Text>
         </FlexRowContainer>
         <Flex
           justifyContent="center"

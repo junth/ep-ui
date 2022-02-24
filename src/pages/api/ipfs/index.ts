@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { create } from 'ipfs-http-client'
 import axios from 'axios'
-import { Wiki } from '@/types'
+import { Wiki } from '@/types/Wiki'
 
 const pinToPinata = async (payload: Wiki | any): Promise<string> => {
   const body = {

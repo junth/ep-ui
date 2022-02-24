@@ -21,7 +21,7 @@ import { useSelector } from 'react-redux'
 import { getAccount } from '@/utils/getAccount'
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import Modal from '@/components/Elements/Modal/Modal'
-import { Wiki } from '@/types'
+import { Wiki } from '@/types/Wiki'
 import { WikiAbi } from '../abi/Wiki.abi'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
@@ -97,6 +97,8 @@ const CreateWiki = () => {
     const result = await write({ args: [hash] })
     await result.data?.wait(2)
 
+    setSubmittingWiki(false)
+
     if (!result.error) {
       setOpenTxDetailsDialog(true)
       setTxHash(result.data?.hash)
@@ -109,8 +111,6 @@ const CreateWiki = () => {
       description: result.error.message,
       opened: true,
     })
-
-    setSubmittingWiki(false)
   }
 
   const saveOnIpfs = async () => {

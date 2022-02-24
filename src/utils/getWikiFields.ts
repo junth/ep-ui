@@ -1,4 +1,4 @@
-import { Category, MData, Wiki } from '@/types'
+import { Category, MData, Wiki } from '@/types/Wiki'
 
 export const getWikiMetadataById = (wiki: Wiki, id: string) =>
   wiki.content.metadata.find((m: MData) => m.id === id)

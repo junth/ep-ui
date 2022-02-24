@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { LanguagesISOEnum, Wiki } from '@/types'
+import { LanguagesISOEnum, Wiki } from '@/types/Wiki'
 
 const initialState: Wiki = {
   id: '',
