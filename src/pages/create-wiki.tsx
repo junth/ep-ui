@@ -11,6 +11,7 @@ import {
   AlertTitle,
   AlertDescription,
   CloseButton,
+  Center,
 } from '@chakra-ui/react'
 import { useAccount, useContractWrite } from 'wagmi'
 import slugify from 'slugify'
@@ -58,6 +59,7 @@ const CreateWiki = () => {
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)
   const [txHash, setTxHash] = useState<string>()
   const [submittingWiki, setSubmittingWiki] = useState(false)
+  const [wikiHash, setWikiHash] = useState<string>()
   const [txError, setTxError] = useState({
     title: '',
     description: '',
@@ -98,6 +100,7 @@ const CreateWiki = () => {
     if (!result.error) {
       setOpenTxDetailsDialog(true)
       setTxHash(result.data?.hash)
+      setWikiHash(hash)
       return
     }
 
@@ -216,6 +219,18 @@ const CreateWiki = () => {
         <Text align="center">
           The wiki was successfully posted on the Polygon blockchain!
         </Text>
+        <Center mt="4">
+          <Button
+            as="a"
+            href={`${process.env.NEXT_PUBLIC_PINATA_GATEWAY_BASE_URL}${wikiHash}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="sm"
+            variant="outline"
+          >
+            See in IPFS
+          </Button>
+        </Center>
       </Modal>
     </Grid>
   )
