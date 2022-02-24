@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import {
+  Button,
   Modal as ChakraModal,
   ModalBody,
   ModalCloseButton,
@@ -9,7 +10,6 @@ import {
   ModalOverlay,
   ModalProps,
 } from '@chakra-ui/react'
-import Button from '../Button/Button'
 
 type ModalType = ModalProps & {
   title: string

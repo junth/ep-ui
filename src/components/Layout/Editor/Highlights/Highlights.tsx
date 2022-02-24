@@ -6,6 +6,7 @@ import {
   useDisclosure,
   Badge,
   Input,
+  Button,
 } from '@chakra-ui/react'
 import {
   RiFolder3Fill,
@@ -16,7 +17,6 @@ import {
 import { useSelector } from 'react-redux'
 
 import { useAppDispatch } from '@/store/hook'
-import Button from '@/components/Elements/Button/Button'
 import ImageInput from '@/components/Elements/ImageInput/ImageInput'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { Category, Content, Languages, Wiki } from '@/types/Wiki'

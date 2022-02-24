@@ -1,10 +1,8 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Flex, Input } from '@chakra-ui/react'
+import { Button, Flex, Input } from '@chakra-ui/react'
 import { RiCloseLine } from 'react-icons/ri'
 import axios from 'axios'
 import buffer from 'buffer'
-
-import Button from '../Button/Button'
 
 type ImageInputType = {
   setHideDropzone: (hide: boolean) => void

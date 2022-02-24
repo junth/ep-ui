@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import {
   Badge,
+  Button,
   Checkbox,
   CloseButton,
   Divider,
   Flex,
   GridItem,
+  Select,
   SimpleGrid,
   Text,
 } from '@chakra-ui/react'
@@ -20,8 +22,6 @@ import slugify from 'slugify'
 
 import { useAppDispatch } from '@/store/hook'
 import Modal from '@/components/Elements/Modal/Modal'
-import Button from '@/components/Elements/Button/Button'
-import Select from '@/components/Elements/Select/Select'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import {
   Category,

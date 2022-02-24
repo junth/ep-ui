@@ -1,11 +1,10 @@
 import React, { useCallback, useState } from 'react'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex } from '@chakra-ui/react'
 import { useDropzone } from 'react-dropzone'
 import { RiCloseLine } from 'react-icons/ri'
 import { useAccount } from 'wagmi'
 
 import buffer from 'buffer'
-import Button from '../Button/Button'
 import { Image } from '../Image/Image'
 
 type DropzoneType = {
