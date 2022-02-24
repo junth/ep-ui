@@ -14,15 +14,15 @@ import {
   Center,
 } from '@chakra-ui/react'
 import { useAccount, useContractWrite } from 'wagmi'
+import { useSelector } from 'react-redux'
 import slugify from 'slugify'
 import axios from 'axios'
 
-import { useSelector } from 'react-redux'
 import { getAccount } from '@/utils/getAccount'
-import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
-import Modal from '@/components/Elements/Modal/Modal'
+import { Modal } from '@/components/Elements'
 import { Wiki } from '@/types/Wiki'
 import { WikiAbi } from '../abi/Wiki.abi'
+import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
