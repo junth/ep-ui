@@ -26,9 +26,7 @@ function timeSince(timeStamp: string) {
   const seconds = Math.floor(
     (new Date().valueOf() - new Date(timeStamp).valueOf()) / 1000,
   )
-
   let interval = seconds / 31536000
-
   if (interval > 1) {
     return `${Math.floor(interval)} years`
   }
@@ -51,6 +49,17 @@ function timeSince(timeStamp: string) {
   return `${Math.floor(seconds)} seconds`
 }
 
+function timeReminding(timeStamp: string) {
+  const seconds = Math.floor(
+    (new Date().valueOf() - new Date(timeStamp).valueOf()) / 1000,
+  )
+  const timeRemaining = 12 * 3600 - seconds
+  const hours = Math.floor(timeRemaining / 3600)
+  const minutes = Math.floor((timeRemaining - hours * 3600) / 60)
+  if (hours > 0) return `${hours}h ${minutes}m`
+  return `${minutes}m`
+}
+
 const ActivityCard = ({
   wikiImg,
   title,
@@ -62,6 +71,7 @@ const ActivityCard = ({
   lastModTimeStamp,
 }: ActivityCardProps) => {
   const [timeModified, setTimeModified] = useState<string | null>()
+  const [voteTimeReminding, setVoteTimeReminding] = useState<string | null>()
   const editDetails = useBreakpointValue({
     base: (
       <Text fontSize="14px" opacity={0.6}>
@@ -94,6 +104,7 @@ const ActivityCard = ({
     // update last modified time every 5 seconds
     const intervalId = setInterval(() => {
       setTimeModified(timeSince(lastModTimeStamp))
+      setVoteTimeReminding(timeReminding(lastModTimeStamp))
     }, 5000)
 
     // clean up setInterval
@@ -103,12 +114,13 @@ const ActivityCard = ({
   return (
     <HStack
       bgColor="cardBg"
-      justifyContent={{ base: 'center', sm: 'space-between' }}
+      justifyContent="space-between"
       borderWidth="1px"
       borderColor="cardBorder"
       borderRadius="lg"
       boxShadow="0px 4px 8px rgba(0, 0, 0, 0.10)"
-      p={{ base: 3, lg: 5 }}
+      px={{ base: 3, lg: 5 }}
+      py={{ base: 3, lg: 1 }}
       w="100%"
     >
       <HStack maxW="70%">
@@ -150,7 +162,7 @@ const ActivityCard = ({
         <VStack spacing={2} display={{ base: 'none', lg: 'flex' }}>
           <Button>Vote</Button>
           <Text fontSize="14px" opacity={0.6} whiteSpace="nowrap">
-            11h 30m remaining
+            {voteTimeReminding} remaining
           </Text>
         </VStack>
         <HStack
