@@ -52,7 +52,7 @@ const Highlights = () => {
     <Flex
       direction="column"
       minW="360px"
-      w={['full', 'full', 400]}
+      w={['full', 'full', 'full', 400]}
       border="1px"
       borderColor="gray.200"
       borderRadius="7px"

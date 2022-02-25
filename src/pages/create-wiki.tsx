@@ -155,17 +155,23 @@ const CreateWiki = () => {
       templateColumns="repeat(3, 1fr)"
       templateRows="repeat(3, 1fr)"
       gap={4}
-      h="1200px"
-      mt="15px"
+      h={['1350px', '1450px', '1450px', '1100px']}
+      my="15px"
     >
-      <GridItem h={[400, 500]} rowSpan={[1, 1, 2]} colSpan={[3, 3, 2, 2, 2]}>
+      <GridItem
+        h={[300, 400, 400, 500]}
+        rowSpan={[1, 1, 1, 2]}
+        colSpan={[3, 3, 3, 2, 2]}
+      >
         <Editor
           initialValue={initialEditorValue}
           onChange={handleOnEditorChanges}
         />
       </GridItem>
-      <GridItem rowSpan={[1, 1, 2]} colSpan={[3, 3, 1, 1, 1]}>
-        <Highlights />
+      <GridItem rowSpan={[1, 2, 2, 2]} colSpan={[3, 3, 3, 1, 1]}>
+        <Center>
+          <Highlights />
+        </Center>
       </GridItem>
       <GridItem rowSpan={1} colSpan={3}>
         <Flex direction="column" justifyContent="center" alignItems="center">

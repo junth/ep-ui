@@ -14,9 +14,9 @@ const Editor = ({ onChange, initialValue }: EditorType) => {
   const editorRef = useRef(null)
 
   return (
-    <Box m={10}>
+    <Box m={0} w="100%" h="100%">
       <ToastUIEditor
-        height="600px"
+        height="100%"
         initialValue={initialValue}
         ref={editorRef}
         onChange={() =>
