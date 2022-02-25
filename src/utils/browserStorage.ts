@@ -1,3 +1,4 @@
+
 const storageKey = 'p7buryPtcG'
 
 export const loadState = () => {
@@ -11,6 +12,6 @@ export const loadState = () => {
 }
 
 export function saveState(state: any) {
-    const serializedState = JSON.stringify(state)
-    localStorage.setItem(storageKey, serializedState)
+  const serializedState = JSON.stringify(state)
+  localStorage.setItem(storageKey, serializedState)
 }
