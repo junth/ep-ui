@@ -98,7 +98,7 @@ const ActivityCard = ({
 
     // clean up setInterval
     return () => clearInterval(intervalId)
-  })
+  }, [])
 
   return (
     <HStack
@@ -108,7 +108,7 @@ const ActivityCard = ({
       borderColor="cardBorder"
       borderRadius="lg"
       boxShadow="0px 4px 8px rgba(0, 0, 0, 0.10)"
-      p={'5'}
+      p="5"
       w="100%"
     >
       <HStack maxW="70%">
