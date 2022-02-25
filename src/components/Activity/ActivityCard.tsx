@@ -98,7 +98,7 @@ const ActivityCard = ({
 
     // clean up setInterval
     return () => clearInterval(intervalId)
-  }, [])
+  }, [lastModTimeStamp])
 
   return (
     <HStack
