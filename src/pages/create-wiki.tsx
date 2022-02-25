@@ -68,8 +68,7 @@ const CreateWiki = () => {
 
   const [, write] = useContractWrite(
     {
-      addressOrName:
-        String(process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS) || '',
+      addressOrName: process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS || '',
       contractInterface: WikiAbi,
     },
     'post',
