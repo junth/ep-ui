@@ -16,11 +16,10 @@ import {
 } from 'react-icons/ri'
 import { useSelector } from 'react-redux'
 
+import { ImageInput, Dropzone } from '@/components/Elements'
 import { useAppDispatch } from '@/store/hook'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { Category, Content, Languages, Wiki } from '@/types/Wiki'
-import ImageInput from '@/components/Elements/ImageInput/ImageInput'
-import Dropzone from '../../../Elements/Dropzone/Dropzone'
 import FlexRowContainer from './FlexRowContainer/FlexRowContainer'
 import FlexRow from './FlexRow/FlexRow'
 import HighlightsModal from './HighlightsModal/HighlightsModal'
