@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { HStack, VStack, Heading, Text, Button } from '@chakra-ui/react'
+import {
+  HStack,
+  VStack,
+  Heading,
+  Text,
+  Box,
+  Button,
+  useBreakpointValue,
+} from '@chakra-ui/react'
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa'
 import { Image } from '../Elements/Image/Image'
 
@@ -54,6 +62,30 @@ const ActivityCard = ({
   lastModTimeStamp,
 }: ActivityCardProps) => {
   const [timeModified, setTimeModified] = useState<string | null>()
+  const editDetails = useBreakpointValue({
+    base: (
+      <Text fontSize="14px" opacity={0.6}>
+        {timeModified} ago
+      </Text>
+    ),
+    md: (
+      <Text fontSize="14px" opacity={0.6}>
+        {editor} edited <b>{timeModified} ago</b> |{' '}
+        {isFirstEdit ? 'First Edit' : `${percentChanged * 100}% Changed `}
+      </Text>
+    ),
+    lg: (
+      <Text fontSize="14px" opacity={0.6}>
+        {editor} edited <b>{timeModified} ago</b> |{' '}
+        {isFirstEdit ? 'First Edit' : `${percentChanged * 100}% Changed `}(
+        {wordsChanged} words)
+      </Text>
+    ),
+  })
+  const buttonSize = useBreakpointValue({
+    base: 'sm',
+    lg: 'md',
+  })
 
   useEffect(() => {
     // set last modified time on first render
@@ -76,53 +108,61 @@ const ActivityCard = ({
       borderColor="cardBorder"
       borderRadius="lg"
       boxShadow="0px 4px 8px rgba(0, 0, 0, 0.10)"
-      p={4}
+      p={'5'}
       w="100%"
     >
-      <HStack>
+      <HStack maxW="70%">
         <Image
+          flexShrink={0}
           src={wikiImg}
           alt="wikiImg"
-          h={100}
-          w={100}
+          h={{ base: 65, lg: 100 }}
+          w={{ base: 65, lg: 100 }}
           borderRadius="lg"
           overflow="hidden"
         />
         <VStack
           alignItems="start"
-          p={4}
-          maxW="xl"
+          px={4}
+          spacing={{ base: 1, lg: 2 }}
+          minW={0}
           mx="auto"
-          my={{ base: '10', lg: '16' }}
         >
-          <Heading as="h2" size="md" letterSpacing="wide">
+          <Heading
+            as="h2"
+            fontSize={{ base: '18px', md: '20px' }}
+            maxW="100%"
+            letterSpacing="wide"
+            overflow="hidden"
+            whiteSpace="nowrap"
+            textOverflow="ellipsis"
+          >
             {title}
           </Heading>
-          <Text>{brief}</Text>
-          <HStack>
-            <Text fontSize="14px" opacity={0.6}>
-              {/* God's General edited 2 hours ago | First Edit (547 words) | Comment */}
-              {editor} edited <b>{timeModified} ago</b> |{' '}
-              {isFirstEdit ? 'First Edit' : `${percentChanged * 100}% Changed `}
-              ({wordsChanged} words)
-            </Text>
-          </HStack>
+          <Box maxH="50px" overflow="hidden">
+            <Text display={{ base: 'none', lg: 'flex' }}>{brief}</Text>
+          </Box>
+          <HStack>{editDetails}</HStack>
         </VStack>
       </HStack>
-      <HStack spacing={10}>
-        <VStack spacing={2}>
+      <HStack gap={10}>
+        <VStack spacing={2} display={{ base: 'none', lg: 'flex' }}>
           <Button>Vote</Button>
-          <Text fontSize="14px" opacity={0.6}>
+          <Text fontSize="14px" opacity={0.6} whiteSpace="nowrap">
             11h 30m remaining
           </Text>
         </VStack>
-        <HStack spacing={3}>
+        <HStack
+          marginInlineStart="0 !important"
+          flexDirection={{ base: 'column', lg: 'row' }}
+          gap={3}
+        >
           <Button
             aria-label="up-vote"
             leftIcon={<FaThumbsDown color="#e04c60" />}
             variant="outline"
             p={3}
-            size="md"
+            size={buttonSize}
             color="linkColor"
           >
             0 IQ
@@ -132,7 +172,7 @@ const ActivityCard = ({
             leftIcon={<FaThumbsUp color="#318c48" />}
             variant="outline"
             p={3}
-            size="md"
+            size={buttonSize}
             color="linkColor"
           >
             50 IQ
