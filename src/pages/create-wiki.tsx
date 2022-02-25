@@ -18,10 +18,10 @@ import { useSelector } from 'react-redux'
 import slugify from 'slugify'
 import axios from 'axios'
 
+import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import { getAccount } from '@/utils/getAccount'
 import { Modal } from '@/components/Elements'
 import { Wiki } from '@/types/Wiki'
-import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import { WikiAbi } from '../abi/Wiki.abi'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
