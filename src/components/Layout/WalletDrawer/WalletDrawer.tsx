@@ -36,7 +36,7 @@ import config from '@/config'
 import { useDispatch } from 'react-redux'
 import { updateWalletDetails } from '@/store/slices/user-slice'
 import { ToastDataType } from '@/types/ToastDataType'
-import chakraTheme  from '@/theme'
+import chakraTheme from '@/theme'
 
 const toastProperties: ToastDataType = {
   description: 'Account successfully refreshed',
@@ -65,7 +65,7 @@ const WalletDrawer = ({
   })
   const [accountRefreshLoading, setAccountRefreshLoader] =
     useState<boolean>(false)
-  const toast = createStandaloneToast({theme: chakraTheme})
+  const toast = createStandaloneToast({ theme: chakraTheme })
   const [, getBalance] = useBalance()
   const address = accountData ? accountData.address : null
   const dispatch = useDispatch()

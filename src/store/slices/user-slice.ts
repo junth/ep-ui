@@ -1,14 +1,13 @@
 import { AccountDataType } from '@/types/AccountDataType'
 import {
-  ErrorType,
-  BalanceType,
   TokenDetailsType,
+  ConvertedBalanceType,
 } from '@/types/WalletBalanceType'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface UserState {
   user: AccountDataType | null
-  walletDetails: (BalanceType | ErrorType)[] | null
+  walletDetails: ConvertedBalanceType[] | null
   totalBalance: number | null | undefined
   balanceBreakdown: TokenDetailsType[] | null
 }
@@ -29,7 +28,7 @@ const userSlice = createSlice({
     },
     updateWalletDetails: (
       state,
-      action: PayloadAction<(BalanceType | ErrorType)[] | null>,
+      action: PayloadAction<ConvertedBalanceType[] | null>,
     ) => {
       state.walletDetails = action.payload
     },
