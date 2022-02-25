@@ -103,12 +103,12 @@ const ActivityCard = ({
   return (
     <HStack
       bgColor="cardBg"
-      justifyContent="space-between"
+      justifyContent={{ base: 'center', sm: 'space-between' }}
       borderWidth="1px"
       borderColor="cardBorder"
       borderRadius="lg"
       boxShadow="0px 4px 8px rgba(0, 0, 0, 0.10)"
-      p="5"
+      p={{ base: 3, lg: 5 }}
       w="100%"
     >
       <HStack maxW="70%">
@@ -126,11 +126,12 @@ const ActivityCard = ({
           px={4}
           spacing={{ base: 1, lg: 2 }}
           minW={0}
+          p={{ base: 1, lg: 4 }}
           mx="auto"
         >
           <Heading
             as="h2"
-            fontSize={{ base: '18px', md: '20px' }}
+            fontSize={{ base: '16px', md: '20px' }}
             maxW="100%"
             letterSpacing="wide"
             overflow="hidden"
