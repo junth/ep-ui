@@ -9,7 +9,6 @@ import {
 import { store } from '@/store/store'
 import { GetServerSideProps } from 'next'
 
-
 const User = () => {
   const router = useRouter()
   const { address } = router.query
@@ -30,7 +29,7 @@ const User = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async context => {
   const address = context.params?.address
   if (typeof address === 'string') {
     store.dispatch(getUserWikis.initiate(address))
@@ -40,6 +39,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {},
   }
 }
-
 
 export default User
