@@ -1,4 +1,3 @@
-
 const storageKey = 'p7buryPtcG'
 
 export const loadState = () => {
