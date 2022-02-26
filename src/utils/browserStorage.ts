@@ -14,3 +14,7 @@ export function saveState(state: any) {
   const serializedState = JSON.stringify(state)
   localStorage.setItem(storageKey, serializedState)
 }
+
+export function removeStateFromStorage(){
+    localStorage.removeItem(storageKey)
+}

@@ -37,6 +37,7 @@ import { useDispatch } from 'react-redux'
 import { updateWalletDetails } from '@/store/slices/user-slice'
 import { ToastDataType } from '@/types/ToastDataType'
 import chakraTheme from '@/theme'
+import { removeStateFromStorage } from '@/utils/browserStorage'
 
 const toastProperties: ToastDataType = {
   description: 'Account successfully refreshed',
@@ -92,6 +93,11 @@ const WalletDrawer = ({
         toast(toastProperties)
       })
     }
+  }
+
+  const handleLogOut = () => {
+    disconnect()
+    removeStateFromStorage()
   }
 
   return (
@@ -156,7 +162,7 @@ const WalletDrawer = ({
                     </MenuItem>
                     <Divider />
                     <MenuItem
-                      onClick={disconnect}
+                      onClick={handleLogOut}
                       py={3}
                       icon={<RiLogoutBoxRLine size={25} />}
                     >
