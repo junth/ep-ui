@@ -27,8 +27,9 @@ const Activity = () => (
           {/* Most Recent Activity Section */}
           <TabPanel px={0}>
             <VStack spacing={4}>
-              {ActivityData.map(activity => (
+              {ActivityData.map((activity, i) => (
                 <ActivityCard
+                  key={i}
                   wikiImg={activity.wikiImg}
                   title={activity.title}
                   brief={activity.brief}
@@ -44,8 +45,9 @@ const Activity = () => (
           {/* Expiring Soon Activity Section */}
           <TabPanel px={0}>
             <VStack spacing={4}>
-              {ActivityData.reverse().map(activity => (
+              {ActivityData.reverse().map((activity, i) => (
                 <ActivityCard
+                  key={i}
                   wikiImg={activity.wikiImg}
                   title={activity.title}
                   brief={activity.brief}

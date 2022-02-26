@@ -181,12 +181,14 @@ const ActivityCard = ({
           marginInlineStart="0 !important"
           flexDirection={{ base: 'column', lg: 'row' }}
           gap={3}
+          minW={0}
         >
           <Button
             aria-label="up-vote"
             leftIcon={<FaThumbsDown color="#e04c60" />}
             variant="outline"
             p={3}
+            m={0}
             size={buttonSize}
             color="linkColor"
           >
@@ -197,6 +199,7 @@ const ActivityCard = ({
             leftIcon={<FaThumbsUp color="#318c48" />}
             variant="outline"
             p={3}
+            m={0}
             size={buttonSize}
             color="linkColor"
           >
