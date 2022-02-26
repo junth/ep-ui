@@ -20,7 +20,7 @@ const App = (props: AppProps) => {
   store.subscribe(
     debounce(() => {
       saveState(store.getState())
-    }, 300),
+    }, 4000),
   )
 
   return (
