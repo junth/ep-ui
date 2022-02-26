@@ -14,7 +14,6 @@ module.exports = {
     domains: [
       'picsum.photos',
       'everipedia.org',
-      'everipedia-storage.s3.amazonaws.com',
     ], // for demo data
   },
 }
