@@ -170,7 +170,7 @@ const ActivityCard = ({
           <HStack>{editDetails}</HStack>
         </VStack>
       </HStack>
-      <HStack gap={10}>
+      <HStack gap={10} ml="0 !important">
         <VStack spacing={2} display={{ base: 'none', lg: 'flex' }}>
           <Button>Vote</Button>
           <Text fontSize="14px" opacity={0.6} whiteSpace="nowrap">
@@ -188,7 +188,7 @@ const ActivityCard = ({
             leftIcon={<FaThumbsDown color="#e04c60" />}
             variant="outline"
             p={3}
-            m={0}
+            mx={0}
             size={buttonSize}
             color="linkColor"
           >
@@ -199,7 +199,7 @@ const ActivityCard = ({
             leftIcon={<FaThumbsUp color="#318c48" />}
             variant="outline"
             p={3}
-            m={0}
+            mx={0}
             size={buttonSize}
             color="linkColor"
           >
