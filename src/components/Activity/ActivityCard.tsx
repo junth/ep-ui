@@ -5,10 +5,12 @@ import {
   Heading,
   Text,
   Box,
+  Link,
   Button,
   useBreakpointValue,
 } from '@chakra-ui/react'
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa'
+import NextLink from 'next/link'
 import { Image } from '../Elements/Image/Image'
 
 interface ActivityCardProps {
@@ -79,15 +81,25 @@ const ActivityCard = ({
       </Text>
     ),
     md: (
-      <Text fontSize="14px" opacity={0.6}>
-        {editor} edited <b>{timeModified} ago</b> |{' '}
-        {isFirstEdit ? 'First Edit' : `${percentChanged * 100}% Changed `}
+      <Text fontSize="14px" color="linkColor">
+        <NextLink href="#" passHref>
+          <Link href="passRef" color="brand.500" fontWeight="bold">
+            {editor}
+          </Link>
+        </NextLink>{' '}
+        edited <b>{timeModified} ago</b> |{' '}
+        {isFirstEdit ? 'First Edit ' : `${percentChanged * 100}% Changed `}
       </Text>
     ),
     lg: (
-      <Text fontSize="14px" opacity={0.6}>
-        {editor} edited <b>{timeModified} ago</b> |{' '}
-        {isFirstEdit ? 'First Edit' : `${percentChanged * 100}% Changed `}(
+      <Text fontSize="14px" color="linkColor">
+        <NextLink href="#" passHref>
+          <Link href="passRef" color="brand.500" fontWeight="bold">
+            {editor}
+          </Link>
+        </NextLink>{' '}
+        edited <b>{timeModified} ago</b> |{' '}
+        {isFirstEdit ? 'First Edit ' : `${percentChanged * 100}% Changed `}(
         {wordsChanged} words)
       </Text>
     ),
