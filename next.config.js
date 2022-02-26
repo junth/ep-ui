@@ -11,9 +11,6 @@ module.exports = {
   },
   styledComponents: true,
   images: {
-    domains: [
-      'picsum.photos',
-      'everipedia.org',
-    ], // for demo data
+    domains: ['picsum.photos', 'everipedia.org'], // for demo data
   },
 }
