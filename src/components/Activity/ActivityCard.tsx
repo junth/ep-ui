@@ -104,10 +104,6 @@ const ActivityCard = ({
       </Text>
     ),
   })
-  const buttonSize = useBreakpointValue({
-    base: 'sm',
-    lg: 'md',
-  })
 
   useEffect(() => {
     // set last modified time on first render
@@ -188,8 +184,8 @@ const ActivityCard = ({
             leftIcon={<FaThumbsDown color="#e04c60" />}
             variant="outline"
             p={3}
-            mx={0}
-            size={buttonSize}
+            fontSize={{ base: '14px', lg: '16px' }}
+            height={{ base: '30px', lg: '40px' }}
             color="linkColor"
           >
             0 IQ
@@ -199,8 +195,8 @@ const ActivityCard = ({
             leftIcon={<FaThumbsUp color="#318c48" />}
             variant="outline"
             p={3}
-            mx={0}
-            size={buttonSize}
+            fontSize={{ base: '14px', lg: '16px' }}
+            height={{ base: '30px', lg: '40px' }}
             color="linkColor"
           >
             50 IQ
