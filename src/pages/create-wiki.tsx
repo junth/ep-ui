@@ -22,6 +22,7 @@ import { getAccount } from '@/utils/getAccount'
 import { Modal } from '@/components/Elements'
 import { useAppSelector } from '@/store/hook'
 import { WikiAbi } from '../abi/Wiki.abi'
+import config from '@/config'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
@@ -67,9 +68,7 @@ const CreateWiki = () => {
 
   const [, write] = useContractWrite(
     {
-      addressOrName:
-        process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS ||
-        '0x9332ad5290cf8de41107712ef408eb0c47dcb057',
+      addressOrName: config.wikiContractAddress,
       contractInterface: WikiAbi,
     },
     'post',
@@ -211,9 +210,7 @@ const CreateWiki = () => {
         SecondaryButton={
           <Button
             onClick={() =>
-              window.open(
-                `${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_BASE_URL}tx/${txHash}`,
-              )
+              window.open(`${config.blockExplorerUrl}tx/${txHash}`)
             }
             variant="outline"
           >
@@ -227,7 +224,7 @@ const CreateWiki = () => {
         <Center mt="4">
           <Button
             as="a"
-            href={`${process.env.NEXT_PUBLIC_PINATA_GATEWAY_BASE_URL}${wikiHash}`}
+            href={`${config.pinataBaseUrl}${wikiHash}`}
             target="_blank"
             rel="noopener noreferrer"
             size="sm"
