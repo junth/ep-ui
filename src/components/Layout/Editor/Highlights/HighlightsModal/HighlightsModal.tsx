@@ -7,6 +7,7 @@ import {
   Divider,
   Flex,
   GridItem,
+  ModalProps,
   Select,
   SimpleGrid,
   Text,
@@ -20,7 +21,7 @@ import {
 import { useSelector } from 'react-redux'
 import slugify from 'slugify'
 
-import { useAppDispatch } from '@/store/hook'
+import { useAppDispatch, useAppSelector } from '@/store/hook'
 import Modal from '@/components/Elements/Modal/Modal'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import {
@@ -55,9 +56,13 @@ const categoryOptions: Array<string> = [
   'Miscellaneous',
 ]
 
-const HighlightsModal = ({ onClose, ...rest }: any) => {
+const HighlightsModal = ({
+  onClose = () => {},
+  isOpen = false,
+  ...rest
+}: Partial<ModalProps>) => {
   const dispatch = useAppDispatch()
-  const currentWiki = useSelector((state: any) => state.wiki)
+  const currentWiki = useAppSelector(state => state.wiki)
   const [wiki, setWiki] = useState<Wiki>({ ...currentWiki })
 
   const SecondaryButton = (
@@ -128,6 +133,7 @@ const HighlightsModal = ({ onClose, ...rest }: any) => {
       enableBottomCloseButton
       SecondaryButton={SecondaryButton}
       onClose={onClose}
+      isOpen={isOpen}
       isCentered
       {...rest}
     >

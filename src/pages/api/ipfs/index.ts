@@ -3,7 +3,7 @@ import { create } from 'ipfs-http-client'
 import axios from 'axios'
 import { Wiki } from '@/types/Wiki'
 
-const pinToPinata = async (payload: Wiki | any): Promise<string> => {
+const pinToPinata = async (payload: Wiki): Promise<string> => {
   const body = {
     pinataMetadata: {
       name:

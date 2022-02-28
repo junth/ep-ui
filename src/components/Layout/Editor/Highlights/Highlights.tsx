@@ -14,10 +14,9 @@ import {
   RiTranslate2,
   RiSurveyFill,
 } from 'react-icons/ri'
-import { useSelector } from 'react-redux'
 
 import { ImageInput, Dropzone } from '@/components/Elements'
-import { useAppDispatch } from '@/store/hook'
+import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { Category, Content, Languages, Wiki } from '@/types/Wiki'
 import FlexRowContainer from './FlexRowContainer/FlexRowContainer'
@@ -26,7 +25,7 @@ import HighlightsModal from './HighlightsModal/HighlightsModal'
 
 const Highlights = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const currentWiki = useSelector((state: any) => state.wiki as Wiki)
+  const currentWiki = useAppSelector(state => state.wiki)
   const [hideDropzone, setHideDropzone] = useState(false)
   const [hideImageInput, setHideImageInput] = useState(false)
   const dispatch = useAppDispatch()

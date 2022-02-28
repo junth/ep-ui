@@ -14,15 +14,14 @@ import {
   Center,
 } from '@chakra-ui/react'
 import { useAccount, useContractWrite } from 'wagmi'
-import { useSelector } from 'react-redux'
 import slugify from 'slugify'
 import axios from 'axios'
 
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import { getAccount } from '@/utils/getAccount'
 import { Modal } from '@/components/Elements'
-import { Wiki } from '@/types/Wiki'
 import { WikiAbi } from '../abi/Wiki.abi'
+import { useAppSelector } from '@/store/hook'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
@@ -53,7 +52,7 @@ const initialEditorValue = `
 `
 
 const CreateWiki = () => {
-  const wiki = useSelector((state: any) => state.wiki as Wiki)
+  const wiki = useAppSelector(state => state.wiki)
   const [{ data: accountData }] = useAccount()
   const [md, setMd] = useState<string>()
   const [openTxDetailsDialog, setOpenTxDetailsDialog] = useState<boolean>(false)

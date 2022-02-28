@@ -29,13 +29,12 @@ const wikiSlice = createSlice({
   initialState,
   reducers: {
     setCurrentWiki(state, action) {
-      // eslint-disable-next-line no-param-reassign
-      state = {
+      const newState = {
         ...state,
         ...action.payload,
         content: { ...state.content, ...action.payload.content },
       }
-      return state
+      return newState
     },
   },
 })
