@@ -18,11 +18,11 @@ import slugify from 'slugify'
 import axios from 'axios'
 
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
+import config from '@/config'
 import { getAccount } from '@/utils/getAccount'
 import { Modal } from '@/components/Elements'
 import { useAppSelector } from '@/store/hook'
 import { WikiAbi } from '../abi/Wiki.abi'
-import config from '@/config'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
