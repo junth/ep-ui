@@ -12,7 +12,7 @@ type Connector =
   | WalletLinkConnector
 
 const connectors = ({ chainId }: { chainId?: number }): Connector[] => {
-  const {infuraId} = config
+  const { infuraId } = config
   const rpcUrl =
     chains.find(x => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0]
   return [
