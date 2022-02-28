@@ -44,7 +44,7 @@ const userSlice = createSlice({
     ) => {
       state.balanceBreakdown = action.payload
     },
-    setStateToDefault:() => initialState
+    setStateToDefault: () => initialState,
   },
 })
 
@@ -53,7 +53,7 @@ export const {
   updateWalletDetails,
   updateTotalBalance,
   updateBalanceBreakdown,
-  setStateToDefault
+  setStateToDefault,
 } = userSlice.actions
 
 export default userSlice.reducer

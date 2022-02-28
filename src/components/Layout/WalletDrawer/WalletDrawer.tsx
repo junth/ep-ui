@@ -34,7 +34,10 @@ import DisplayAvatar from '@/components/Elements/Avatar/Avatar'
 import { fetchWalletBalance } from '@/utils/fetchWalletBalance'
 import config from '@/config'
 import { useDispatch } from 'react-redux'
-import { setStateToDefault, updateWalletDetails } from '@/store/slices/user-slice'
+import {
+  setStateToDefault,
+  updateWalletDetails,
+} from '@/store/slices/user-slice'
 import { ToastDataType } from '@/types/ToastDataType'
 import chakraTheme from '@/theme'
 import { removeStateFromStorage } from '@/utils/browserStorage'

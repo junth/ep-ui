@@ -14,7 +14,7 @@ export const authenticatedRoute = <P extends object>(
         router.push({
           pathname: '/login',
           query: { from: router.pathname },
-        }) 
+        })
       }
     }, [user])
 
