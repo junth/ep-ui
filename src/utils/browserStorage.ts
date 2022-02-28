@@ -1,4 +1,4 @@
-const storageKey = 'p7buryPtcG'
+const storageKey = 'serializedState'
 
 export const loadState = () => {
   try {
@@ -15,6 +15,6 @@ export function saveState(state: any) {
   localStorage.setItem(storageKey, serializedState)
 }
 
-export function removeStateFromStorage(){
-    localStorage.removeItem(storageKey)
+export function removeStateFromStorage() {
+  localStorage.removeItem(storageKey)
 }

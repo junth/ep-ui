@@ -10,7 +10,12 @@ const Login = () => {
   const router = useRouter()
   useEffect(() => {
     if (user) {
-      router.back()
+      if(router.query.from){
+        router.push(`${router.query.from}`)
+      }
+      else{
+        router.push('/')
+      }
     }
   }, [user])
 
