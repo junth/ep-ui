@@ -73,9 +73,16 @@ const Dropzone = ({
           )}
         </Box>
       ) : (
-        <Flex direction="column" w="full" h="full">
+        <Flex direction="column" w="full" h="full" justify="center">
           {paths.map(path => (
-            <Image w="350px" h="300px" key={path} src={path} alt="highlight" />
+            <Image
+              mx="auto"
+              w="350px"
+              h="300px"
+              key={path}
+              src={path}
+              alt="highlight"
+            />
           ))}
           <Button
             w="25%"
