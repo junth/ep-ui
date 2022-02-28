@@ -1,5 +1,5 @@
-import React, { memo, useRef } from 'react'
-import { Box } from '@chakra-ui/react'
+import React, { memo, useEffect, useState, useRef } from 'react'
+import { Box, useColorMode } from '@chakra-ui/react'
 // eslint-disable-next-line import/no-extraneous-dependencies
 import '@toast-ui/editor/dist/toastui-editor.css'
 
@@ -11,12 +11,14 @@ type EditorType = {
 }
 
 const Editor = ({ onChange, initialValue }: EditorType) => {
+  const { colorMode } = useColorMode()
   const editorRef = useRef(null)
 
   return (
     <Box m={0} w="100%" h="100%">
       <ToastUIEditor
         height="100%"
+        theme={colorMode === 'dark' ? 'dark' : 'light'}
         initialValue={initialValue}
         ref={editorRef}
         onChange={() =>

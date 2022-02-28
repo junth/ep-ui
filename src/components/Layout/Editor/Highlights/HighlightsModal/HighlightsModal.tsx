@@ -193,6 +193,7 @@ const HighlightsModal = ({
               flexDirection="row"
               alignItems="center"
               m="1"
+              key={c.title}
               justifyContent="space-between"
             >
               {c.title}

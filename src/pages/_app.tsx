@@ -10,6 +10,7 @@ import Layout from '@/components/Layout/Layout/Layout'
 import wrapper from '@/store/store'
 import SEOHeader from '@/components/SEO/Headers'
 import chakraTheme from '../theme'
+import './static/assets/dark-mode.css'
 
 const App = (props: AppProps) => {
   const { Component, pageProps, router } = props
