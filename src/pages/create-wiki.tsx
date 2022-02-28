@@ -20,8 +20,8 @@ import axios from 'axios'
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import { getAccount } from '@/utils/getAccount'
 import { Modal } from '@/components/Elements'
-import { WikiAbi } from '../abi/Wiki.abi'
 import { useAppSelector } from '@/store/hook'
+import { WikiAbi } from '../abi/Wiki.abi'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,

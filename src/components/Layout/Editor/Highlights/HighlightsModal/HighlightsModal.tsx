@@ -18,7 +18,6 @@ import {
   RiTranslate2,
   RiSurveyFill,
 } from 'react-icons/ri'
-import { useSelector } from 'react-redux'
 import slugify from 'slugify'
 
 import { useAppDispatch, useAppSelector } from '@/store/hook'

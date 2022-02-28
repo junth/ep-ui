@@ -18,7 +18,7 @@ import {
 import { ImageInput, Dropzone } from '@/components/Elements'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
-import { Category, Content, Languages, Wiki } from '@/types/Wiki'
+import { Category, Content, Languages } from '@/types/Wiki'
 import FlexRowContainer from './FlexRowContainer/FlexRowContainer'
 import FlexRow from './FlexRow/FlexRow'
 import HighlightsModal from './HighlightsModal/HighlightsModal'
