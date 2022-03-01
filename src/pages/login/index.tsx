@@ -10,19 +10,19 @@ const Login = () => {
   const router = useRouter()
   useEffect(()=> {
     if(user){
-        router.back()
+      router.back()
     }
   }, [user])
 
   return(
-    <Container centerContent mt="8" mb="24">
-    <Box w="xl">
-      <Heading fontWeight="extrabold" fontSize={23}>
-        Connect your wallet
-      </Heading>
-      <Connectors />
-    </Box>
-  </Container>
+      <Container centerContent mt="8" mb="24">
+        <Box w="xl">
+          <Heading fontWeight="extrabold" fontSize={23}>
+            Connect your wallet
+          </Heading>
+          <Connectors />
+        </Box>
+      </Container>
   )
 }
 
