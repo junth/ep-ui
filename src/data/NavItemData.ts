@@ -78,7 +78,7 @@ export const NAV_ICON: NavItem = {
   subItem: [
     {
       label: 'Profile',
-      href: '#',
+      href: '/user/profile',
       hasImage: true,
       icon: RiAccountCircleFill,
     },
