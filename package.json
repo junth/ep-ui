@@ -32,7 +32,7 @@
     "@rtk-query/graphql-request-base-query": "^1.0.3",
     "@types/react-slick": "^0.23.8",
     "axios": "^0.26.0",
-    "boring-avatars": "^1.6.1",
+    "boring-avatars": "^1.6.3",
     "contracts": "*",
     "ethers": "^5.5.4",
     "framer-motion": "^6",
@@ -51,7 +51,7 @@
     "react-slick": "^0.28.1",
     "slick-carousel": "^1.8.1",
     "wagmi": "^0.2.6",
-    "walletlink": "^2.4.2"
+    "walletlink": "^2.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
