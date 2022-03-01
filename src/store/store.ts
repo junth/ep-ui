@@ -1,6 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { wikiApi } from '@/services/wikis'
-import { appReducer, messagesReducer, userReducer } from '@/store/slices'
+import {
+  appReducer,
+  messagesReducer,
+  userReducer,
+  wikiReducer,
+} from '@/store/slices'
 import { loadState } from '@/utils/browserStorage'
 
 export const store = configureStore({
@@ -8,6 +13,7 @@ export const store = configureStore({
     app: appReducer,
     messages: messagesReducer,
     user: userReducer,
+    wiki: wikiReducer,
     [wikiApi.reducerPath]: wikiApi.reducer,
   },
   middleware: gDM =>

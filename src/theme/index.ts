@@ -1,6 +1,6 @@
 import { extendTheme, ThemeConfig, ColorMode } from '@chakra-ui/react'
 
-import { Dict } from '@chakra-ui/utils/src/types';
+import { Dict } from '@chakra-ui/utils/src/types'
 import { components } from './components'
 import { foundations } from './foundations'
 import { semanticTokens } from './semantic-tokens'

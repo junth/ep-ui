@@ -13,6 +13,7 @@ import { debounce } from 'debounce'
 import { saveState } from '@/utils/browserStorage'
 import { store } from '@/store/store'
 import chakraTheme from '../theme'
+import './static/assets/dark-mode.css'
 
 const App = (props: AppProps) => {
   const { Component, pageProps, router } = props

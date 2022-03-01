@@ -64,7 +64,8 @@ export const NAV_ITEMS: NavItem[] = [
   {
     id: 4,
     label: 'Create Wiki',
-    href: '/create',
+    hasSubItem: false,
+    href: '/create-wiki',
     icon: RiAddBoxFill,
   },
 ]
