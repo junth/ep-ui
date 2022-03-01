@@ -32,7 +32,7 @@
     "@rtk-query/graphql-request-base-query": "^1.0.3",
     "@types/react-slick": "^0.23.8",
     "axios": "^0.26.0",
-    "boring-avatars": "^1.6.1",
+    "boring-avatars": "^1.6.3",
     "contracts": "*",
     "ethers": "^5.5.4",
     "framer-motion": "^6",
