@@ -4,7 +4,7 @@ import { LinkButton } from '@/components/Elements'
 import { featuredArticle } from '@/data/FeaturesArticleData'
 
 const HeroCard = () => {
-  const { image, avatarImage, username, title } = featuredArticle 
+  const { image, avatarImage, username, title } = featuredArticle
 
   return (
     <Flex

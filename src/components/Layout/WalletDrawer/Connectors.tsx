@@ -46,7 +46,12 @@ const Connectors = () => {
 
   useEffect(() => {
     if (address && !walletDetails) {
-      dispatch(updateUserDetails(accountData))
+      const payload = {
+        address,
+        connector: undefined,
+        ens: accountData?.ens,
+      }
+      dispatch(updateUserDetails(payload))
       fetchWalletBalance(getBalance, [
         {
           addressOrName: address,
@@ -69,7 +74,7 @@ const Connectors = () => {
         setTotalBalanceIsLoading(false)
       })
     }
-  }, [walletDetails])
+  }, [walletDetails, dispatch])
 
   const bg = useColorModeValue('primary', 'brand.900')
   const tooltipText =

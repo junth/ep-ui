@@ -11,9 +11,13 @@ export const authenticatedRoute = <P extends object>(
     const { user } = useSelector((state: RootState) => state.user)
     useEffect(() => {
       if (!user) {
-        router.push('/login')
+        router.push({
+          pathname: '/login',
+          query: { from: router.pathname },
+        })
       }
-    }, [])
+    }, [user])
+
     if (user) {
       return <WrappedComponent {...props} />
     }
