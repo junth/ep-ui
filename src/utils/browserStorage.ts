@@ -11,7 +11,7 @@ export const loadState = () => {
 }
 
 export function saveState(state: any) {
-    if(typeof window !== "undefined"){
+    if (typeof window !== "undefined") {
         const serializedState = JSON.stringify(state)
         localStorage.setItem(storageKey, serializedState)
     }
