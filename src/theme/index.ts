@@ -24,7 +24,7 @@ const theme: Dict = extendTheme({
   config,
   ...foundations,
   semanticTokens,
-  styles
+  styles,
 })
 
 export default theme

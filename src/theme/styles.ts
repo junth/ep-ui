@@ -1,5 +1,5 @@
 export const styles = {
-  global: { 
+  global: {
     body: {
       fontFamily: 'body',
       bg: 'white',
