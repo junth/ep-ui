@@ -8,11 +8,8 @@ import {
   useDisclosure,
   HStack,
   Heading,
-  InputGroup,
-  InputLeftElement,
-  Input,
 } from '@chakra-ui/react'
-import { CloseIcon, HamburgerIcon, Search2Icon } from '@chakra-ui/icons'
+import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { RiWallet2Line, RiAccountCircleLine } from 'react-icons/ri'
 import { useAccount } from 'wagmi'
 import Link from '@/components/Elements/Link/Link'
@@ -22,6 +19,7 @@ import NavMenu from '@/components/Layout/Navbar/NavMenu'
 import { ColorModeToggle } from '@/components/Layout/Navbar/ColorModeToggle'
 import DisplayAvatar from '@/components/Elements/Avatar/Avatar'
 import { useRouter } from 'next/router'
+import { NavSearch } from '@/components/Layout/Navbar/NavSearch'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
 import WalletDrawer from '../WalletDrawer/WalletDrawer'
@@ -88,24 +86,7 @@ const Navbar = () => {
                 </Heading>
               </HStack>
             </Link>
-            <InputGroup
-              size="lg"
-              maxW="800px"
-              display={{ base: 'none', sm: 'none', md: 'block' }}
-            >
-              <InputLeftElement pointerEvents="none">
-                <Search2Icon color="gray.300" />
-              </InputLeftElement>
-              <Input
-                _focus={{ boxShadow: 'lg' }}
-                type="text"
-                placeholder="Search items, collections and accounts"
-                _placeholder={{
-                  fontSize: 'md',
-                  transform: 'translateY(-1px)',
-                }}
-              />
-            </InputGroup>
+            <NavSearch />
             <HStack
               ml={4}
               spacing={4}

@@ -1749,6 +1749,13 @@
   dependencies:
     "@chakra-ui/utils" "1.10.4"
 
+"@choc-ui/chakra-autocomplete@^4.18.1":
+  version "4.18.1"
+  resolved "https://registry.yarnpkg.com/@choc-ui/chakra-autocomplete/-/chakra-autocomplete-4.18.1.tgz#901ec514eff89de8d31f23f0449289d334a4bf3e"
+  integrity sha512-SzKo+ZPT29YcFsZwJFIqzMAR/0Ylky67Q7uvffrIDJ/Z/Ta+q05t4hfC7UWDh3wCkkvJNiLREAn+We/U9hr6Hw==
+  dependencies:
+    react-nanny "^2.9.0"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -11640,6 +11647,11 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-nanny@^2.9.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/react-nanny/-/react-nanny-2.12.0.tgz#8ee7d20319f81131fc1be50ddf3197f286a81dde"
+  integrity sha512-oQ3Mo2oBPVELl96IHc43zVsCJUt8BYoEXoeBtPJzTfTTVezQx3/CRZZ+4Ck6TITxawRTUiOcU8v7EPaGpDk01A==
 
 react-native-fetch-api@^2.0.0:
   version "2.0.0"
