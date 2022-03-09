@@ -93,7 +93,7 @@ export const NAV_ICON: NavItem = {
     {
       id: 503,
       label: 'Settings',
-      href: '/settings',
+      href: '/account/settings',
       hasImage: true,
       icon: RiSettings5Fill,
     },
