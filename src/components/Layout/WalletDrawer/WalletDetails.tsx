@@ -1,5 +1,5 @@
 import React from 'react'
-import { HStack, Image, Text, VStack} from '@chakra-ui/react'
+import { HStack, Image, Text, VStack } from '@chakra-ui/react'
 import { tokenDetails } from '@/data/WalletData'
 import shortenBalance from '@/utils/shortenBallance'
 import { TokenDetailsType } from '@/types/WalletBalanceType'
@@ -35,7 +35,7 @@ const WalletDetails = ({
             ${shortenBalance(getTokenValue(tokensArray, symbol))} USD
           </Text>
         </VStack>
-        <TokenDetailsMenu token={symbol}/>
+        <TokenDetailsMenu token={symbol} />
       </HStack>
     </>
   </WalletDetailsWrapper>
