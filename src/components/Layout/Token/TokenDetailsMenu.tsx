@@ -39,7 +39,7 @@ const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
       <MenuButton>
         <RiMore2Fill color="color" fontSize="20" fontWeight="bold" />
       </MenuButton>
-      <MenuList onClick={()=>handleAddTokenToMetamask(token)} boxShadow="xl">
+      <MenuList onClick={() => handleAddTokenToMetamask(token)} boxShadow="xl">
         <MenuItem>Add {token} token to Metamask</MenuItem>
       </MenuList>
     </Menu>
