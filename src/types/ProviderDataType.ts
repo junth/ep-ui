@@ -12,6 +12,12 @@ type JsonRpcRequest = {
   }
 }
 
+export interface ProviderRpcError extends Error {
+  message: string;
+  code: number;
+  data?: unknown;
+}
+
 export type JsonRpcResponse = {
   id: string | undefined
   jsonrpc: '2.0'

@@ -9,8 +9,8 @@ const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
   const { detectedProvider } = useSelector(
     (state: RootState) => state.providerNetwork,
   )
-  const handleAddIQERC20ToMetamask = async (tokenSymbol: string) =>{
-    if(tokenSymbol === "IQ"){
+  const handleAddTokenToMetamask = async (tokenSymbol: string|undefined) => {
+    if (tokenSymbol === 'IQ') {
       detectedProvider?.sendAsync(
         {
           method: 'metamask_watchAsset',
@@ -20,7 +20,8 @@ const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
               address: config.iqAddress,
               symbol: tokenSymbol,
               decimals: 18,
-              image:'https://pbs.twimg.com/profile_images/1414736076158033921/nResATsF_400x400.png',
+              image:
+                'https://pbs.twimg.com/profile_images/1414736076158033921/nResATsF_400x400.png',
             },
           },
           id: Math.round(Math.random() * 100000),
@@ -37,7 +38,10 @@ const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
       <MenuButton>
         <RiMore2Fill color="color" fontSize="20" fontWeight="bold" />
       </MenuButton>
-      <MenuList onClick={()=>handleAddIQERC20ToMetamask(token)} boxShadow="xl">
+      <MenuList
+        onClick={() => handleAddTokenToMetamask(token)}
+        boxShadow="xl"
+      >
         <MenuItem>Add {token} token to Metamask</MenuItem>
       </MenuList>
     </Menu>
