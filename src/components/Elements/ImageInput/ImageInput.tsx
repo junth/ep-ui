@@ -1,8 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Button, Flex, Input } from '@chakra-ui/react'
-import { RiCloseLine } from 'react-icons/ri'
+import { Button, Flex, Input, Image } from '@chakra-ui/react'
 import axios from 'axios'
-import Image from 'next/image'
 import buffer from 'buffer'
 
 type ImageInputType = {
@@ -23,11 +21,15 @@ const ImageInput = ({
   ) => {
     setImageSrc(event.target.value)
     setHideDropzone(true)
-
-    const { data } = await axios.get(String(event.target.value), {
-      responseType: 'arraybuffer',
-    })
-    setImage(new buffer.Buffer(data as Buffer))
+    try {
+      const { data } = await axios.get(String(event.target.value), {
+        responseType: 'arraybuffer',
+      })
+      setImage(new buffer.Buffer(data as Buffer))
+    } catch (error) {
+      return null
+    }
+    return null
   }
 
   return (
@@ -42,9 +44,10 @@ const ImageInput = ({
           direction="column"
           justifyContent="center"
           alignItems="center"
-          gap={4}
+          gap={5}
         >
-          <Image src={imgSrc} alt="input" />
+          <Image objectFit="cover" boxSize="300" src={imgSrc} alt="Input" />
+
           <Button
             w="25%"
             shadow="md"
@@ -55,7 +58,7 @@ const ImageInput = ({
               deleteImage()
             }}
           >
-            <RiCloseLine />
+            Delete
           </Button>
         </Flex>
       ) : (

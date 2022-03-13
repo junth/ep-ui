@@ -14,7 +14,19 @@ export const loadState = () => {
 
 export function saveState(state: RootState) {
   if (typeof window !== 'undefined') {
-    const serializedState = JSON.stringify(state)
+    let updatedState = state
+    if (state.providerNetwork) {
+      const providerNetwork = { detectedProvider: null }
+      updatedState = { ...state, providerNetwork }
+    }
+    if (state.wiki.content.images.length > 0) {
+      const wiki = {
+        ...state.wiki,
+        content: { ...state.wiki.content, images: [] },
+      }
+      updatedState = { ...state, wiki }
+    }
+    const serializedState = JSON.stringify(updatedState)
     localStorage.setItem(storageKey, serializedState)
   }
 }
