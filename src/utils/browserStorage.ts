@@ -19,9 +19,12 @@ export function saveState(state: RootState) {
       const providerNetwork = { detectedProvider: null }
       updatedState = { ...state, providerNetwork }
     }
-    if(state.wiki.content.images.length > 0){
-        const wiki = {...state.wiki, content: {...state.wiki.content, images: []}}
-        updatedState = {...state, wiki}
+    if (state.wiki.content.images.length > 0) {
+      const wiki = {
+        ...state.wiki,
+        content: { ...state.wiki.content, images: [] },
+      }
+      updatedState = { ...state, wiki }
     }
     const serializedState = JSON.stringify(updatedState)
     localStorage.setItem(storageKey, serializedState)
