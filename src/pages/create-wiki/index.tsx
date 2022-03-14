@@ -137,7 +137,7 @@ const CreateWiki = () => {
 
       setTriggerUpdate(String(pageType?.templateText))
     }
-  }, [wiki.content.metadata])
+  }, [wiki?.content?.metadata])
 
   useEffect(() => {
     setMd(initialEditorValue)
