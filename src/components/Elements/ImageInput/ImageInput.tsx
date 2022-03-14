@@ -47,7 +47,8 @@ const ImageInput = ({
           alignItems="center"
           gap={4}
         >
-          <Image src={`${imgSrc}`} alt="input" />
+          <Image mx="auto" w="350px" h="300px" src={`${imgSrc}`} alt="input" />
+          
           <Button
             w="25%"
             shadow="md"
