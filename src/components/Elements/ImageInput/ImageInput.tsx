@@ -18,6 +18,8 @@ const ImageInput = ({
 }: ImageInputType) => {
   const [imgSrc, setImageSrc] = useState<string>()
 
+  console.log(imgSrc)
+
   const handleOnImageInputChanges = async (
     event: ChangeEvent<HTMLInputElement>,
   ) => {
@@ -44,7 +46,7 @@ const ImageInput = ({
           alignItems="center"
           gap={4}
         >
-          <Image src={imgSrc} alt="input" />
+          <img src={`${imgSrc}`}  alt="input" />
           <Button
             w="25%"
             shadow="md"
