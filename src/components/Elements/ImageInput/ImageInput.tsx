@@ -48,7 +48,7 @@ const ImageInput = ({
           gap={4}
         >
           <Image mx="auto" w="350px" h="300px" src={`${imgSrc}`} alt="input" />
-          
+
           <Button
             w="25%"
             shadow="md"
