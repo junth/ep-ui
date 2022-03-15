@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Button, Flex, Input, Image, Box } from '@chakra-ui/react'
-import { RiCloseLine } from 'react-icons/ri'
+import { Button, Flex, Input, Image } from '@chakra-ui/react'
 import axios from 'axios'
 import buffer from 'buffer'
 
@@ -47,7 +46,7 @@ const ImageInput = ({
           alignItems="center"
           gap={5}
         >
-          <Image objectFit='cover' boxSize='300' src={imgSrc} alt='Input' />
+          <Image objectFit="cover" boxSize="300" src={imgSrc} alt="Input" />
 
           <Button
             w="25%"
