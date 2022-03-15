@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import config from '@/config'
 import { RootState } from '@/store/store'
 import { RiMore2Fill } from 'react-icons/ri'
+import { supportedTokens } from '@/data/SupportedToken'
 
 const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
   const { detectedProvider } = useSelector(
@@ -22,10 +23,9 @@ const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
               symbol: tokenSymbol,
               decimals: 18,
               image:
-                'https://pbs.twimg.com/profile_images/1414736076158033921/nResATsF_400x400.png',
+                'https://ipfs.everipedia.org/ipfs/QmXacPjgKBnpPgBsCdnavjqfndvfjnGG8UrQGt85r2XEXh',
             },
           },
-          id: Math.round(Math.random() * 100000),
         },
         () => {
           return null
@@ -39,9 +39,14 @@ const TokenDetailsMenu = ({ token }: { token: string | undefined }) => {
       <MenuButton>
         <RiMore2Fill color="color" fontSize="20" fontWeight="bold" />
       </MenuButton>
-      <MenuList onClick={() => handleAddTokenToMetamask(token)} boxShadow="xl">
-        <MenuItem>Add {token} token to Metamask</MenuItem>
-      </MenuList>
+      {token && supportedTokens[token]?.isActive && (
+        <MenuList
+          onClick={() => handleAddTokenToMetamask(token)}
+          boxShadow="xl"
+        >
+          <MenuItem>Add {token} token to Metamask</MenuItem>
+        </MenuList>
+      )}
     </Menu>
   )
 }
