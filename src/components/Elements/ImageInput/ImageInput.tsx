@@ -34,7 +34,7 @@ const ImageInput = ({
       })
     } catch (error) {
       toast({
-        title: "Image could not be fetched. Ensure you have the right link",
+        title: 'Image could not be fetched. Ensure you have the right link',
         status: 'error',
         duration: 2000,
       })
