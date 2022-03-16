@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react'
-import { Button, Flex, Input, Image } from '@chakra-ui/react'
+import { Button, Flex, Input, Image, useToast } from '@chakra-ui/react'
 import axios from 'axios'
 import buffer from 'buffer'
 
@@ -15,6 +15,7 @@ const ImageInput = ({
   deleteImage,
 }: ImageInputType) => {
   const [imgSrc, setImageSrc] = useState<string>()
+  const toast = useToast()
 
   const handleOnImageInputChanges = async (
     event: ChangeEvent<HTMLInputElement>,
@@ -26,8 +27,17 @@ const ImageInput = ({
         responseType: 'arraybuffer',
       })
       setImage(new buffer.Buffer(data as Buffer))
+      toast({
+        title: 'Image successfully Fetched',
+        status: 'success',
+        duration: 2000,
+      })
     } catch (error) {
-      return null
+      toast({
+        title: "Image could not be fetched. Ensure you have the right link",
+        status: 'error',
+        duration: 2000,
+      })
     }
     return null
   }
@@ -58,7 +68,7 @@ const ImageInput = ({
               deleteImage()
             }}
           >
-            Delete
+            Clear
           </Button>
         </Flex>
       ) : (
