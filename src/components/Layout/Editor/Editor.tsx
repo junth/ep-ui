@@ -61,7 +61,6 @@ const Editor = ({ onChange, initialValue, markdown }: EditorType) => {
           if (editorRef.current)
             onChange(editorRef.current.getInstance().getMarkdown())
         }}
-        
       />
     </Box>
   )
