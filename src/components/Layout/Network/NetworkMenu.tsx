@@ -68,6 +68,7 @@ const NetworkMenu = () => {
   }, [detectedProvider, handleChainChanged, dispatch])
 
   const handleNetworkSwitch = (newNetwork: Network) => {
+    
     if (newNetwork.chainId !== chainId) {
       onOpen()
       return
