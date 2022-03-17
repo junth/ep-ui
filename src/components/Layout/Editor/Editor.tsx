@@ -24,6 +24,7 @@ const Editor = ({ onChange, initialValue, markdown }: EditorType) => {
     callEditorMethod()
   }, [markdown, callEditorMethod])
 
+
   return (
     <Box m={0} w="100%" h="100%">
       <ToastUIEditor
@@ -35,6 +36,7 @@ const Editor = ({ onChange, initialValue, markdown }: EditorType) => {
           if (editorRef.current)
             onChange(editorRef.current.getInstance().getMarkdown())
         }}
+        
       />
     </Box>
   )
