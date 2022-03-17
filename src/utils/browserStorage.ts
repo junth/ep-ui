@@ -8,7 +8,7 @@ export const loadState = () => {
   try {
     const serializedInitialState = localStorage.getItem(storageKey)
 
-    if (!serializedInitialState) return undefined; 
+    if (!serializedInitialState) return undefined
 
     const setExpiry = JSON.parse(localStorage.getItem(storageKey) || '{}')
     if (currentDate.getTime() > setExpiry) {
@@ -26,6 +26,13 @@ export function saveState(state: RootState) {
     if (state.providerNetwork) {
       const providerNetwork = { detectedProvider: null }
       updatedState = { ...state, providerNetwork }
+    }
+    if (state.wiki.content.images.length > 0) {
+      const wiki = {
+        ...state.wiki,
+        content: { ...state.wiki.content, images: [] },
+      }
+      updatedState = { ...state, wiki }
     }
     const preSerializedState = {
       updatedState,
