@@ -26,7 +26,7 @@ const Editor = ({ onChange, initialValue, markdown }: EditorType) => {
   }, [markdown, callEditorMethod])
 
   const updateEditorHeaderBackground = (mode: 'dark' | 'light') => {
-    const backgroundColor = mode === "dark" ? "#232428" : "#f7f9fc"
+    const backgroundColor = mode === 'dark' ? '#232428' : '#f7f9fc'
     const editorContainer = containerRef.current?.getElementsByClassName(
       'toastui-editor-defaultUI',
     )[0]
