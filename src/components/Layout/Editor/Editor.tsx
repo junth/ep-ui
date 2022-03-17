@@ -25,19 +25,25 @@ const Editor = ({ onChange, initialValue, markdown }: EditorType) => {
     callEditorMethod()
   }, [markdown, callEditorMethod])
 
-  const updateEditorHeaderBackground = (mode: ("dark"|"light")) => {
-    let editorContainer = containerRef.current?.getElementsByClassName("toastui-editor-defaultUI")[0];
-    let editorTab = Array.from(containerRef.current?.getElementsByClassName('toastui-editor-md-tab-container') as HTMLCollectionOf<HTMLElement>)[0];
-    if(editorContainer){
-      if(mode === "dark"){
-          editorContainer.classList.add("toastui-editor-dark");
-          editorTab.style.backgroundColor = '#232428'      
-      }else{
-        editorTab.style.backgroundColor = '#f7f9fc'
-        editorContainer.classList.remove("toastui-editor-dark");  
+  const updateEditorHeaderBackground = (mode: 'dark' | 'light') => {
+    const backgroundColor = mode === "dark" ? "#232428" : "#f7f9fc"
+    const editorContainer = containerRef.current?.getElementsByClassName(
+      'toastui-editor-defaultUI',
+    )[0]
+    const editorTab = Array.from(
+      containerRef.current?.getElementsByClassName(
+        'toastui-editor-md-tab-container',
+      ) as HTMLCollectionOf<HTMLElement>,
+    )[0]
+    if (editorContainer) {
+      if (mode === 'dark') {
+        editorContainer.classList.add('toastui-editor-dark')
+        editorTab.style.backgroundColor = backgroundColor
+      } else {
+        editorTab.style.backgroundColor = backgroundColor
+        editorContainer.classList.remove('toastui-editor-dark')
       }
     }
-    
   }
 
   useEffect(() => {
