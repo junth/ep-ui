@@ -16,7 +16,7 @@ const config = {
   polygonMainnetChainId: 137,
   mumbaiTestnetChainId: 80001,
   ethereumMainnetChainId: 1,
-  binanceSmartChainId: 56
+  binanceSmartChainId: 56,
 }
 
 export default config
