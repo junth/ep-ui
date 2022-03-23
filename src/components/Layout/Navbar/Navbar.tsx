@@ -22,16 +22,13 @@ import { ColorModeToggle } from '@/components/Layout/Navbar/ColorModeToggle'
 import DisplayAvatar from '@/components/Elements/Avatar/Avatar'
 import { useRouter } from 'next/router'
 import { NavSearch } from '@/components/Layout/Navbar/NavSearch'
-import MobileNav from './MobileNav'
-import DesktopNav from './DesktopNav'
-import WalletDrawer from '../WalletDrawer/WalletDrawer'
 import { RootState } from '@/store/store'
 import networkMap from '@/utils/networkMap'
 import { updateNetworkProvider } from '@/store/slices/provider-slice'
 import NetworkErrorNotification from '@/components/Layout/Network/NetworkErrorNotification'
-
-
-
+import WalletDrawer from '../WalletDrawer/WalletDrawer'
+import DesktopNav from './DesktopNav'
+import MobileNav from './MobileNav'
 
 const Navbar = () => {
   const router = useRouter()
@@ -80,7 +77,6 @@ const Navbar = () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [router.events, isOpen, onToggle])
-
 
   useEffect(() => {
     const getConnectedChain = async (provider: any) => {
@@ -140,129 +136,136 @@ const Navbar = () => {
 
   return (
     <>
-    <Box
-      boxShadow="sm"
-      position="fixed"
-      zIndex={1500}
-      w="full"
-      h={isHamburgerOpen ? '100%' : 'unset'}
-      bg="subMenuBg"
-      px={{ base: 4, md: 8 }}
-      borderBottomWidth={1}
-    >
-      <Flex mx="auto" align="center">
-        <Box flex={1}>
-          <Flex
-            gap={{ base: 8, lg: 40, xl: 8 }}
-            h="70px"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Link
-              href="/"
-              mr={{ base: 0, xl: '9vw' }}
-              _hover={{ textDecoration: 'none' }}
+      <Box
+        boxShadow="sm"
+        position="fixed"
+        zIndex={1500}
+        w="full"
+        h={isHamburgerOpen ? '100%' : 'unset'}
+        bg="subMenuBg"
+        px={{ base: 4, md: 8 }}
+        borderBottomWidth={1}
+      >
+        <Flex mx="auto" align="center">
+          <Box flex={1}>
+            <Flex
+              gap={{ base: 8, lg: 40, xl: 8 }}
+              h="70px"
+              alignItems="center"
+              justifyContent="space-between"
             >
-              <HStack width="150px">
-                <Logo />
-                <Heading size="md" color="gray.900" _dark={{ color: 'white' }}>
-                  Everipedia
-                </Heading>
+              <Link
+                href="/"
+                mr={{ base: 0, xl: '9vw' }}
+                _hover={{ textDecoration: 'none' }}
+              >
+                <HStack width="150px">
+                  <Logo />
+                  <Heading
+                    size="md"
+                    color="gray.900"
+                    _dark={{ color: 'white' }}
+                  >
+                    Everipedia
+                  </Heading>
+                </HStack>
+              </Link>
+              <NavSearch />
+              <HStack
+                ml={4}
+                spacing={4}
+                display={{
+                  base: 'none',
+                  xl: 'flex',
+                }}
+              >
+                <DesktopNav />
+                <Box onMouseLeave={() => setVisibleMenu(null)}>
+                  <NavMenu
+                    navItem={NAV_ICON}
+                    setVisibleMenu={setVisibleMenu}
+                    visibleMenu={visibleMenu}
+                    label={
+                      accountData ? (
+                        <DisplayAvatar accountData={accountData} />
+                      ) : (
+                        <Icon
+                          cursor="pointer"
+                          fontSize="3xl"
+                          color="gray.600"
+                          _dark={{ color: 'gray.200' }}
+                          fontWeight={600}
+                          as={RiAccountCircleLine}
+                          mt={2}
+                          _hover={{
+                            textDecoration: 'none',
+                            color: 'linkHoverColor',
+                          }}
+                        />
+                      )
+                    }
+                  >
+                    <ColorModeToggle isInMobileMenu={false} />
+                  </NavMenu>
+                </Box>
+                <Icon
+                  color="linkColor"
+                  cursor="pointer"
+                  fontSize="3xl"
+                  onClick={handleWalletIconAction}
+                  fontWeight={600}
+                  as={RiWallet2Line}
+                  onMouseEnter={() => setVisibleMenu(null)}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: 'linkHoverColor',
+                  }}
+                />
               </HStack>
-            </Link>
-            <NavSearch />
-            <HStack
-              ml={4}
-              spacing={4}
-              display={{
-                base: 'none',
-                xl: 'flex',
-              }}
-            >
-              <DesktopNav />
-              <Box onMouseLeave={() => setVisibleMenu(null)}>
-                <NavMenu
-                  navItem={NAV_ICON}
-                  setVisibleMenu={setVisibleMenu}
-                  visibleMenu={visibleMenu}
-                  label={
-                    accountData ? (
-                      <DisplayAvatar accountData={accountData} />
+              <Box
+                display={{
+                  base: 'block',
+                  xl: 'none',
+                }}
+              >
+                <IconButton
+                  onClick={() => setHamburger(!isHamburgerOpen)}
+                  icon={
+                    isHamburgerOpen ? (
+                      <CloseIcon w={4} h={4} />
                     ) : (
-                      <Icon
-                        cursor="pointer"
-                        fontSize="3xl"
-                        color="gray.600"
-                        _dark={{ color: 'gray.200' }}
-                        fontWeight={600}
-                        as={RiAccountCircleLine}
-                        mt={2}
-                        _hover={{
-                          textDecoration: 'none',
-                          color: 'linkHoverColor',
-                        }}
-                      />
+                      <HamburgerIcon w={5} h={5} />
                     )
                   }
-                >
-                  <ColorModeToggle isInMobileMenu={false} />
-                </NavMenu>
+                  variant="ghost"
+                  aria-label="Toggle Navigation"
+                />
               </Box>
-              <Icon
-                color="linkColor"
-                cursor="pointer"
-                fontSize="3xl"
-                onClick={handleWalletIconAction}
-                fontWeight={600}
-                as={RiWallet2Line}
-                onMouseEnter={() => setVisibleMenu(null)}
-                _hover={{
-                  textDecoration: 'none',
-                  color: 'linkHoverColor',
-                }}
-              />
-            </HStack>
-            <Box
-              display={{
-                base: 'block',
-                xl: 'none',
-              }}
-            >
-              <IconButton
-                onClick={() => setHamburger(!isHamburgerOpen)}
-                icon={
-                  isHamburgerOpen ? (
-                    <CloseIcon w={4} h={4} />
-                  ) : (
-                    <HamburgerIcon w={5} h={5} />
-                  )
-                }
-                variant="ghost"
-                aria-label="Toggle Navigation"
-              />
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
+            </Flex>
+          </Box>
+        </Flex>
 
-      <WalletDrawer
-        isOpen={isOpen}
-        onClose={onClose}
-        finalFocusRef={loginButtonRef}
-        setHamburger={setHamburger}
-      />
+        <WalletDrawer
+          isOpen={isOpen}
+          onClose={onClose}
+          finalFocusRef={loginButtonRef}
+          setHamburger={setHamburger}
+        />
 
-      <Collapse
-        in={isHamburgerOpen}
-        animateOpacity
-        style={{ margin: '0 -15px' }}
-      >
-        <MobileNav setHamburger={setHamburger} toggleWalletDrawer={onToggle} />
-      </Collapse>
-    </Box>
-    <NetworkErrorNotification
+        <Collapse
+          in={isHamburgerOpen}
+          animateOpacity
+          style={{ margin: '0 -15px' }}
+        >
+          <MobileNav
+            setHamburger={setHamburger}
+            toggleWalletDrawer={onToggle}
+          />
+        </Collapse>
+      </Box>
+      <NetworkErrorNotification
         switchNetwork={handleSwitchNetwork}
-        onClose={()=>setOpenSwitch(false)}
+        onClose={() => setOpenSwitch(false)}
         isOpen={openSwitch}
       />
     </>

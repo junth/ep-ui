@@ -22,49 +22,46 @@ const NetworkMenu = () => {
   const handleNetworkSwitch = (newNetwork: Network) => {
     if (newNetwork.chainId === chainId) {
       setCurrentNetwork(newNetwork)
-      return
     }
   }
 
   return (
-    <>
-      <Menu>
-        <MenuButton pl={1} fontSize="md" fontWeight={600}>
-          <Button
-            variant="outline"
-            leftIcon={<Image src={currentNetwork.image} />}
-            rightIcon={<ChevronDownIcon />}
-          >
-            <Text fontSize="sm"> {currentNetwork.name} </Text>
-          </Button>
-        </MenuButton>
-        <MenuList>
-          <MenuGroup color="gray.500" title="Select Network">
-            {Networks.map((network, index) => (
-              <>
-                <MenuItem
-                  isDisabled={!network.isActive}
-                  py={3}
-                  onClick={() => handleNetworkSwitch(network)}
-                >
-                  <Image
-                    boxSize="24px"
-                    borderRadius="full"
-                    src={network.image}
-                    alt={network.name}
-                    mr={3}
-                  />
-                  <Text fontSize="small" fontWeight="bold">
-                    {network.name}
-                  </Text>
-                </MenuItem>
-                {index < Networks.length - 1 && <Divider />}
-              </>
-            ))}
-          </MenuGroup>
-        </MenuList>
-      </Menu>
-    </>
+    <Menu>
+      <MenuButton pl={1} fontSize="md" fontWeight={600}>
+        <Button
+          variant="outline"
+          leftIcon={<Image src={currentNetwork.image} />}
+          rightIcon={<ChevronDownIcon />}
+        >
+          <Text fontSize="sm"> {currentNetwork.name} </Text>
+        </Button>
+      </MenuButton>
+      <MenuList>
+        <MenuGroup color="gray.500" title="Select Network">
+          {Networks.map((network, index) => (
+            <>
+              <MenuItem
+                isDisabled={!network.isActive}
+                py={3}
+                onClick={() => handleNetworkSwitch(network)}
+              >
+                <Image
+                  boxSize="24px"
+                  borderRadius="full"
+                  src={network.image}
+                  alt={network.name}
+                  mr={3}
+                />
+                <Text fontSize="small" fontWeight="bold">
+                  {network.name}
+                </Text>
+              </MenuItem>
+              {index < Networks.length - 1 && <Divider />}
+            </>
+          ))}
+        </MenuGroup>
+      </MenuList>
+    </Menu>
   )
 }
 
