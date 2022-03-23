@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import {
   Box,
   Collapse,
@@ -12,6 +12,8 @@ import {
 import { CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import { RiWallet2Line, RiAccountCircleLine } from 'react-icons/ri'
 import { useAccount } from 'wagmi'
+import { useSelector, useDispatch } from 'react-redux'
+import detectEthereumProvider from '@metamask/detect-provider'
 import Link from '@/components/Elements/Link/Link'
 import { Logo } from '@/components/Elements/'
 import { NAV_ICON } from '@/data/NavItemData'
@@ -23,6 +25,13 @@ import { NavSearch } from '@/components/Layout/Navbar/NavSearch'
 import MobileNav from './MobileNav'
 import DesktopNav from './DesktopNav'
 import WalletDrawer from '../WalletDrawer/WalletDrawer'
+import { RootState } from '@/store/store'
+import networkMap from '@/utils/networkMap'
+import { updateNetworkProvider } from '@/store/slices/provider-slice'
+import NetworkErrorNotification from '@/components/Layout/Network/NetworkErrorNotification'
+
+
+
 
 const Navbar = () => {
   const router = useRouter()
@@ -33,11 +42,20 @@ const Navbar = () => {
 
   const [visibleMenu, setVisibleMenu] = useState<number | null>(null)
 
+  const [openSwitch, setOpenSwitch] = useState<boolean>(false)
+
   const [isHamburgerOpen, setHamburger] = useState<boolean>(false)
 
   const [{ data: accountData }] = useAccount({
     fetchEns: true,
   })
+  const dispatch = useDispatch()
+
+  const { chainId, chainName, rpcUrls } = networkMap.MUMBAI_TESTNET
+
+  const { detectedProvider } = useSelector(
+    (state: RootState) => state.providerNetwork,
+  )
 
   const handleWalletIconAction = () => {
     if (isHamburgerOpen) {
@@ -45,6 +63,15 @@ const Navbar = () => {
     }
     onToggle()
   }
+
+  const handleChainChanged = useCallback(
+    (chainDetails: string) => {
+      if (chainDetails !== chainId) {
+        setOpenSwitch(true)
+      }
+    },
+    [chainId],
+  )
 
   useEffect(() => {
     const handleRouteChange = () => isOpen && onToggle()
@@ -54,7 +81,65 @@ const Navbar = () => {
     }
   }, [router.events, isOpen, onToggle])
 
+
+  useEffect(() => {
+    const getConnectedChain = async (provider: any) => {
+      const connectedChainId = await provider.request({
+        method: 'eth_chainId',
+      })
+      handleChainChanged(connectedChainId)
+    }
+
+    const getDetectedProvider = async () => {
+      const provider: any = await detectEthereumProvider()
+      dispatch(updateNetworkProvider(provider))
+      getConnectedChain(provider)
+    }
+
+    if (!detectedProvider) {
+      getDetectedProvider()
+    } else {
+      detectedProvider.on('chainChanged', handleChainChanged)
+    }
+
+    return () => {
+      if (detectedProvider) {
+        detectedProvider.removeListener('chainChanged', handleChainChanged)
+      }
+    }
+  }, [detectedProvider, handleChainChanged, dispatch])
+
+  const handleSwitchNetwork = async () => {
+    try {
+      await detectedProvider?.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId }],
+      })
+      setOpenSwitch(false)
+    } catch (switchError: any) {
+      if (switchError.code === 4902) {
+        try {
+          await detectedProvider?.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId,
+                chainName,
+                rpcUrls,
+              },
+            ],
+          })
+          setOpenSwitch(false)
+        } catch (addError) {
+          return null
+        }
+      }
+    }
+    return null
+  }
+
   return (
+    <>
     <Box
       boxShadow="sm"
       position="fixed"
@@ -175,6 +260,12 @@ const Navbar = () => {
         <MobileNav setHamburger={setHamburger} toggleWalletDrawer={onToggle} />
       </Collapse>
     </Box>
+    <NetworkErrorNotification
+        switchNetwork={handleSwitchNetwork}
+        onClose={()=>setOpenSwitch(false)}
+        isOpen={openSwitch}
+      />
+    </>
   )
 }
 

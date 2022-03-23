@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import {
   Divider,
   Text,
@@ -9,99 +9,21 @@ import {
   MenuItem,
   Button,
   MenuGroup,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import detectEthereumProvider from '@metamask/detect-provider'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store/store'
 import { Network, Networks } from '@/data/NetworkData'
 import networkMap from '@/utils/networkMap'
-import NetworkErrorNotification from '@/components/Layout/Network/NetworkErrorNotification'
-import { updateNetworkProvider } from '@/store/slices/provider-slice'
 
 const NetworkMenu = () => {
   const [currentNetwork, setCurrentNetwork] = useState<Network>(Networks[0])
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const { detectedProvider } = useSelector(
-    (state: RootState) => state.providerNetwork,
-  )
 
-  const dispatch = useDispatch()
-
-  const { chainId, chainName, rpcUrls } = networkMap.MUMBAI_TESTNET
-
-  const handleChainChanged = useCallback(
-    (chainDetails: string) => {
-      if (chainDetails !== chainId) {
-        onOpen()
-      }
-    },
-    [onOpen, chainId],
-  )
-
-  useEffect(() => {
-    const getConnectedChain = async (provider: any) => {
-      const connectedChainId = await provider.request({
-        method: 'eth_chainId',
-      })
-      handleChainChanged(connectedChainId)
-    }
-
-    const getDetectedProvider = async () => {
-      const provider: any = await detectEthereumProvider()
-      dispatch(updateNetworkProvider(provider))
-      getConnectedChain(provider)
-    }
-
-    if (!detectedProvider) {
-      getDetectedProvider()
-    } else {
-      detectedProvider.on('chainChanged', handleChainChanged)
-    }
-
-    return () => {
-      if (detectedProvider) {
-        detectedProvider.removeListener('chainChanged', handleChainChanged)
-      }
-    }
-  }, [detectedProvider, handleChainChanged, dispatch])
+  const { chainId } = networkMap.MUMBAI_TESTNET
 
   const handleNetworkSwitch = (newNetwork: Network) => {
-    if (newNetwork.chainId !== chainId) {
-      onOpen()
+    if (newNetwork.chainId === chainId) {
+      setCurrentNetwork(newNetwork)
       return
     }
-    setCurrentNetwork(newNetwork)
-  }
-
-  const handleSwitchNetwork = async () => {
-    try {
-      await detectedProvider?.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId }],
-      })
-      onClose()
-    } catch (switchError: any) {
-      if (switchError.code === 4902) {
-        try {
-          await detectedProvider?.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId,
-                chainName,
-                rpcUrls,
-              },
-            ],
-          })
-          onClose()
-        } catch (addError) {
-          return null
-        }
-      }
-    }
-    return null
   }
 
   return (
@@ -142,11 +64,6 @@ const NetworkMenu = () => {
           </MenuGroup>
         </MenuList>
       </Menu>
-      <NetworkErrorNotification
-        switchNetwork={handleSwitchNetwork}
-        onClose={onClose}
-        isOpen={isOpen}
-      />
     </>
   )
 }
