@@ -15,7 +15,7 @@ const SubCategoryCard = ({ wiki }: { wiki: Content }) => {
         <Box
           w={390}
           minH={390}
-          boxShadow="2xl"
+          boxShadow="xl"
           rounded="md"
           p={6}
           overflow="hidden"
