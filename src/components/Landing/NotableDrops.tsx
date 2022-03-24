@@ -13,7 +13,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import isMobile from 'ismobilejs'
 import NextLink from 'next/link'
-import { useGetPromotedWikisQuery } from '@/services/wikis'
+import { IconType } from 'react-icons/lib'
 
 const arrowStyles: TextProps = {
   cursor: 'pointer',
@@ -34,10 +34,9 @@ const arrowStyles: TextProps = {
   },
 }
 
-export const NotableDrops = () => {
+export const NotableDrops = ({ drops }: NotableDropsProps) => {
   const [slideColumns, setSlideColumns] = useState(3)
-  const result = useGetPromotedWikisQuery()
-  const { data: slides } = result
+  const { data: slides } = drops
 
   useEffect(() => {
     const isOnMobile = isMobile(window?.navigator)
@@ -175,4 +174,8 @@ export const NotableDrops = () => {
       {carouselDots}
     </Flex>
   )
+}
+
+interface NotableDropsProps {
+  drops: IconType
 }

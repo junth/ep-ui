@@ -77,7 +77,11 @@ export const Hero = () => (
           <LinkButton href="/categories" w={{ base: 32, lg: 40 }}>
             Explore
           </LinkButton>
-          <LinkButton href="/create" w={{ base: 32, lg: 40 }} variant="outline">
+          <LinkButton
+            href="/create-wiki"
+            w={{ base: 32, lg: 40 }}
+            variant="outline"
+          >
             Create
           </LinkButton>
         </ButtonGroup>
