@@ -32,7 +32,7 @@ type GetWikisByTitleResponse = {
   wikisByTitle: WikiTitle[]
 }
 
-type GetCategoriessByTitleResponse = {
+type GetCategoriesByTitleResponse = {
   categoriesByTitle: Category[]
 }
 
@@ -61,7 +61,7 @@ export const navSearchApi = createApi({
         document: GET_CATEGORIES_BY_TITLE,
         variables: { title },
       }),
-      transformResponse: (response: GetCategoriessByTitleResponse) =>
+      transformResponse: (response: GetCategoriesByTitleResponse) =>
         response.categoriesByTitle,
     }),
   }),

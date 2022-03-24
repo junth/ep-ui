@@ -29,7 +29,7 @@ type GetUserWikiResponse = {
   }
 }
 
-type GetWikiCategoryResponse = {
+type GetWikisByCategoryResponse = {
   wikisByCategory: Wiki[]
 }
 
@@ -71,7 +71,7 @@ export const wikiApi = createApi({
         document: GET_WIKIS_BY_CATEGORY,
         variables: { category },
       }),
-      transformResponse: (response: GetWikiCategoryResponse) =>
+      transformResponse: (response: GetWikisByCategoryResponse) =>
         response.wikisByCategory,
     }),
   }),
