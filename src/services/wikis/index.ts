@@ -43,6 +43,7 @@ export const wikiApi = createApi({
   },
   baseQuery: graphqlRequestBaseQuery({ url: config.graphqlUrl }),
   refetchOnMountOrArgChange: 30,
+  refetchOnFocus: true,
   endpoints: builder => ({
     getWikis: builder.query<Wiki[], void>({
       query: () => ({ document: GET_WIKIS }),
