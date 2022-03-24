@@ -12,6 +12,7 @@ import {
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa'
 import NextLink from 'next/link'
 import { Image } from '../Elements/Image/Image'
+import shortenAccount from '@/utils/shortenAccount'
 
 interface ActivityCardProps {
   id: string
@@ -84,9 +85,9 @@ const ActivityCard = ({
     ),
     md: (
       <Text fontSize="14px" color="linkColor">
-        <NextLink href="#" passHref>
+        <NextLink href={`/account/${editor}`} passHref>
           <Link href="passRef" color="brand.500" fontWeight="bold">
-            {editor}
+            {shortenAccount(editor || '')}
           </Link>
         </NextLink>{' '}
         edited <b>{timeModified} ago</b> |{' '}
@@ -95,9 +96,9 @@ const ActivityCard = ({
     ),
     lg: (
       <Text fontSize="14px" color="linkColor">
-        <NextLink href="#" passHref>
+        <NextLink href={`/account/${editor}`} passHref>
           <Link href="passRef" color="brand.500" fontWeight="bold">
-            {editor}
+            {shortenAccount(editor || '')}
           </Link>
         </NextLink>{' '}
         edited <b>{timeModified} ago</b> |{' '}
@@ -135,18 +136,16 @@ const ActivityCard = ({
     >
       <HStack maxW="70%">
         <NextLink href={`/wiki/${id}`} passHref>
-          <Link href="passRef">
-            <Image
-              cursor="pointer"
-              flexShrink={0}
-              src={wikiImg}
-              alt="wikiImg"
-              h={{ base: 65, lg: 100 }}
-              w={{ base: 65, lg: 100 }}
-              borderRadius="lg"
-              overflow="hidden"
-            />
-          </Link>
+          <Image
+            cursor="pointer"
+            flexShrink={0}
+            src={wikiImg}
+            alt="wikiImg"
+            h={{ base: 65, lg: 100 }}
+            w={{ base: 65, lg: 100 }}
+            borderRadius="lg"
+            overflow="hidden"
+          />
         </NextLink>
         <VStack
           alignItems="start"
@@ -157,20 +156,18 @@ const ActivityCard = ({
           mx="auto"
         >
           <NextLink href={`/wiki/${id}`} passHref>
-            <Link href="passRef">
-              <Heading
-                cursor="pointer"
-                as="h2"
-                fontSize={{ base: '16px', md: '20px' }}
-                maxW="100%"
-                letterSpacing="wide"
-                overflow="hidden"
-                whiteSpace="nowrap"
-                textOverflow="ellipsis"
-              >
-                {title}
-              </Heading>
-            </Link>
+            <Heading
+              cursor="pointer"
+              as="h2"
+              fontSize={{ base: '16px', md: '20px' }}
+              maxW="100%"
+              letterSpacing="wide"
+              overflow="hidden"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+            >
+              {title}
+            </Heading>
           </NextLink>
           <Box maxH="50px" overflow="hidden">
             <Text display={{ base: 'none', lg: 'flex' }}>{brief}</Text>

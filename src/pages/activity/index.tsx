@@ -29,9 +29,9 @@ const Activity = () => {
       id={activity.id}
       key={activity.id}
       wikiImg={ActivityData[i].wikiImg}
-      title={activity.title || ActivityData[i].title}
-      brief={activity.content || ActivityData[i].brief}
-      editor={shortenAccount(activity.user.id) || ActivityData[i].editor}
+      title={activity.title}
+      brief={activity.content}
+      editor={activity?.user?.id}
       wordsChanged={ActivityData[i].wordsChanged}
       percentChanged={ActivityData[i].percentChanged}
       isFirstEdit={ActivityData[i].isFirstEdit}
