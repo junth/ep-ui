@@ -2,12 +2,13 @@ import type { RootState } from '@/store/store'
 
 const storageKey = 'serializedState'
 const currentDate = new Date()
+/*
 const expiryTimeline = 86400
 
 const getLocalStorage = () => {
   const setExpiry = JSON.parse(localStorage.getItem(storageKey) || '{}')
   return setExpiry.expiry
-}
+} */
 
 export const loadState = () => {
   try {
@@ -27,7 +28,9 @@ export const loadState = () => {
   }
 }
 
-export function saveState(state: RootState) {
+//export function saveState(state: RootState) {
+export function saveState() {
+  /*
   if (typeof window !== 'undefined') {
     let updatedState = state
     if (state.providerNetwork) {
@@ -41,6 +44,7 @@ export function saveState(state: RootState) {
       }
       updatedState = { ...state, wiki }
     }
+
     const preSerializedState = {
       updatedState,
       expiry:
@@ -48,9 +52,9 @@ export function saveState(state: RootState) {
           ? getLocalStorage()
           : currentDate.getTime() + expiryTimeline,
     }
-    const serializedState = JSON.stringify(preSerializedState)
-    localStorage.setItem(storageKey, serializedState)
+    localStorage.setItem(storageKey, preSerializedState)
   }
+   */
 }
 
 export function removeStateFromStorage() {

@@ -29,7 +29,7 @@ const App = (props: EpAppProps) => {
   store.subscribe(
     debounce(() => {
       saveState(store.getState())
-    }, 400),
+    }, 800),
   )
 
   return (
