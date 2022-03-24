@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import { FaThumbsDown, FaThumbsUp } from 'react-icons/fa'
 import NextLink from 'next/link'
-import { Image } from '../Elements/Image/Image'
 import shortenAccount from '@/utils/shortenAccount'
+import { Image } from '../Elements/Image/Image'
 
 interface ActivityCardProps {
   id: string

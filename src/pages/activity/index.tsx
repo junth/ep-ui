@@ -19,7 +19,6 @@ import {
 } from '@/services/activities'
 import { GetServerSideProps } from 'next'
 import { store } from '@/store/store'
-import shortenAccount from '@/utils/shortenAccount'
 
 const Activity = () => {
   const { data: LatestActivityData } = useGetLatestActivitiesQuery()
