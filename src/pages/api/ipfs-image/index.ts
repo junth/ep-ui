@@ -1,17 +1,11 @@
 import axios from 'axios'
-import formidable from 'formidable'
+import formidable, { Fields, Files } from 'formidable'
 import * as fs from 'fs'
 import FormData from 'form-data'
 
 type FormidableParse = {
-  fields: {
-    name: string
-  }
-  files: {
-    file: {
-      filepath: string
-    }
-  }
+  fields: any
+  files: any
 }
 
 const pinImageToPinata = async (req: any): Promise<string> => {
@@ -21,7 +15,7 @@ const pinImageToPinata = async (req: any): Promise<string> => {
   })
 
   const formFields: FormidableParse = await new Promise((resolve, reject) => {
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields: Fields, files: Files) => {
       if (err) {
         reject(err)
         return
