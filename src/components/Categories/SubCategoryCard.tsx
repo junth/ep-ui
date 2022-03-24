@@ -12,29 +12,29 @@ const SubCategoryCard = ({ wiki }: { wiki: Content }) => {
   return (
     <Center py={6} cursor="pointer">
       <NextLink href={`/wiki/${id}`} passHref>
-          <Box
-            w={390}
-            minH={390}
-            boxShadow="2xl"
-            rounded="md"
-            p={6}
-            overflow="hidden"
-          >
-            <Box h={200} mb={3} pos="relative">
-              <Image src={defaultWikiImage} layout="fill" />
-            </Box>
-            <Stack spacing={3}>
-              <Text fontSize="2xl" fontWeight="bold">
-                {title}
-              </Text>
-              <Text color="gray.600" fontSize="md">
-                {shortenText(content, 65)}
-              </Text>
-              <Text color="gray.400" fontSize="sm">
-                Last Edited {updated && getReadableDate(updated)}
-              </Text>
-            </Stack>
+        <Box
+          w={390}
+          minH={390}
+          boxShadow="2xl"
+          rounded="md"
+          p={6}
+          overflow="hidden"
+        >
+          <Box h={200} mb={3} pos="relative">
+            <Image src={defaultWikiImage} layout="fill" />
           </Box>
+          <Stack spacing={3}>
+            <Text fontSize="2xl" fontWeight="bold">
+              {title}
+            </Text>
+            <Text color="gray.600" fontSize="md">
+              {shortenText(content, 65)}
+            </Text>
+            <Text color="gray.400" fontSize="sm">
+              Last Edited {updated && getReadableDate(updated)}
+            </Text>
+          </Stack>
+        </Box>
       </NextLink>
     </Center>
   )
