@@ -10,7 +10,7 @@ type FormidableParse = {
 
 const pinImageToPinata = async (req: any): Promise<string> => {
   const form = new formidable.IncomingForm({
-    uploadDir: './',
+    uploadDir: '/tmp',
     keepExtensions: true,
   })
 
