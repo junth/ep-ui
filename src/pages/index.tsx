@@ -14,6 +14,7 @@ import { store } from '@/store/store'
 export const Home: NextPage = () => {
   const result = useGetPromotedWikisQuery()
   const { data } = result
+  const wiki = data && data.length > 0 ? data[0] : undefined // TODO: remove from array
 
   return (
     <main>
@@ -25,7 +26,7 @@ export const Home: NextPage = () => {
         py={{ lg: 20 }}
         gap={10}
       >
-        <Hero />
+        <Hero wiki={wiki} />
         <NotableDrops drops={data} />
         <CategoriesList />
       </Flex>
