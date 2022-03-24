@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Box, Center, Text, Stack, LinkOverlay } from '@chakra-ui/react'
+import { Box, Center, Text, Stack } from '@chakra-ui/react'
 import { Content } from '@/types/Wiki'
 import { shortenText } from '@/utils/shortenText'
 import { getReadableDate } from '@/utils/getFormattedDate'
@@ -12,7 +12,6 @@ const SubCategoryCard = ({ wiki }: { wiki: Content }) => {
   return (
     <Center py={6} cursor="pointer">
       <NextLink href={`/wiki/${id}`} passHref>
-        <LinkOverlay>
           <Box
             w={390}
             minH={390}
@@ -36,7 +35,6 @@ const SubCategoryCard = ({ wiki }: { wiki: Content }) => {
               </Text>
             </Stack>
           </Box>
-        </LinkOverlay>
       </NextLink>
     </Center>
   )
