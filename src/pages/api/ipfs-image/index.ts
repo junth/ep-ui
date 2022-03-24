@@ -1,12 +1,12 @@
 import axios from 'axios'
 import formidable from 'formidable'
 import * as fs from 'fs'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
 
 const pinImageToPinata = async (req: any): Promise<string> => {
   const form = new formidable.IncomingForm({
     uploadDir: './',
-    keepExtensions: true
+    keepExtensions: true,
   })
 
   const formFields = await new Promise((resolve, reject) => {
