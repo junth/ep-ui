@@ -5,11 +5,11 @@ import FormData from 'form-data'
 
 type FormidableParse = {
   fields: {
-    name: string;
-  },
+    name: string
+  }
   files: {
     file: {
-      filepath: string;
+      filepath: string
     }
   }
 }
@@ -20,7 +20,7 @@ const pinImageToPinata = async (req: any): Promise<string> => {
     keepExtensions: true,
   })
 
-  const formFields : FormidableParse = await new Promise((resolve, reject) => {
+  const formFields: FormidableParse = await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) {
         reject(err)
