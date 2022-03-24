@@ -3,13 +3,24 @@ import formidable from 'formidable'
 import * as fs from 'fs'
 import FormData from 'form-data'
 
+type FormidableParse = {
+  fields: {
+    name: string;
+  },
+  files: {
+    file: {
+      filepath: string;
+    }
+  }
+}
+
 const pinImageToPinata = async (req: any): Promise<string> => {
   const form = new formidable.IncomingForm({
     uploadDir: './',
     keepExtensions: true,
   })
 
-  const formFields = await new Promise((resolve, reject) => {
+  const formFields : FormidableParse = await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) {
         reject(err)
