@@ -21,7 +21,7 @@ export const loadState = () => {
       localStorage.removeItem(storageKey)
     }
     const { user } = serializedInitialState
-    return {user}
+    return { user }
   } catch (e) {
     return undefined
   }
