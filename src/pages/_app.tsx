@@ -18,6 +18,7 @@ import { getCategoriesLinks } from '@/services/categories'
 import { getRunningOperationPromises } from '@/services/wikis'
 import Fonts from '@/theme/Fonts'
 import chakraTheme from '../theme'
+import { saveState } from '@/utils/browserStorage'
 
 type EpAppProps = AppProps & {
   Component: AppProps['Component'] & { noFooter?: boolean }
@@ -27,7 +28,7 @@ const App = (props: EpAppProps) => {
 
   store.subscribe(
     debounce(() => {
-      // saveState(store.getState())
+      saveState(store.getState())
     }, 800),
   )
 

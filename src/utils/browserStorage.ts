@@ -1,12 +1,13 @@
+import type { RootState } from '@/store/store'
+
 const storageKey = 'serializedState'
 const currentDate = new Date()
-/*
 const expiryTimeline = 86400
 
 const getLocalStorage = () => {
   const setExpiry = JSON.parse(localStorage.getItem(storageKey) || '{}')
   return setExpiry.expiry
-} */
+}
 
 export const loadState = () => {
   try {
@@ -19,40 +20,27 @@ export const loadState = () => {
     if (currentDate.getTime() > serializedInitialState.expiry) {
       localStorage.removeItem(storageKey)
     }
-    const { updatedState } = serializedInitialState
-    return updatedState
+    const { user } = serializedInitialState
+    return {user}
   } catch (e) {
     return undefined
   }
 }
-/*
+
 export function saveState(state: RootState) {
-
-if (typeof window !== 'undefined') {
-  let updatedState = state
-  if (state.providerNetwork) {
-    const providerNetwork = { detectedProvider: null }
-    updatedState = { ...state, providerNetwork }
-  }
-  if (state.wiki.images?.length > 0) {
-    const wiki = {
-      ...state.wiki,
-      images: [],
+  if (typeof window !== 'undefined') {
+    const { user } = state
+    const preSerializedState = {
+      user,
+      expiry:
+        currentDate.getTime() < getLocalStorage()
+          ? getLocalStorage()
+          : currentDate.getTime() + expiryTimeline,
     }
-    updatedState = { ...state, wiki }
+    const serializedState = JSON.stringify(preSerializedState)
+    localStorage.setItem(storageKey, serializedState)
   }
-
-  const preSerializedState = {
-    updatedState,
-    expiry:
-      currentDate.getTime() < getLocalStorage()
-        ? getLocalStorage()
-        : currentDate.getTime() + expiryTimeline,
-  }
-  localStorage.setItem(storageKey, preSerializedState)
 }
-
-} */
 
 export function removeStateFromStorage() {
   localStorage.removeItem(storageKey)

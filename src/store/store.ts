@@ -25,7 +25,7 @@ export const store = configureStore({
     [navSearchApi.reducerPath]: navSearchApi.reducer,
   },
   middleware: gDM =>
-    gDM({ serializableCheck: true })
+    gDM({ serializableCheck: false })
       .concat(wikiApi.middleware)
       .concat(categoriesApi.middleware)
       .concat(activitiesApi.middleware)
