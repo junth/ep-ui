@@ -22,6 +22,7 @@ import chakraTheme from '../theme'
 type EpAppProps = AppProps & {
   Component: AppProps['Component'] & { noFooter?: boolean }
 }
+
 const App = (props: EpAppProps) => {
   const { Component, pageProps, router } = props
 
