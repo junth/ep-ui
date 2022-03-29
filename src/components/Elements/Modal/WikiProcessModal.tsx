@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 
 const steps = [
   { label: 'Signed Wiki' },
-  { label: 'Sent to Relayer'},
+  { label: 'Sent to Relayer' },
   { label: 'Wiki created' },
 ]
 
@@ -27,10 +27,10 @@ type WikiProcessType = {
   isOpen: boolean
   onClose: () => void
   activeStep: number
-  state: "loading"|"error"|undefined,
-  wikiHash: string|undefined,
-  txHash: string|undefined,
-  msg: string,
+  state: 'loading' | 'error' | undefined
+  wikiHash: string | undefined
+  txHash: string | undefined
+  msg: string
   wikiId: string
 }
 
@@ -42,7 +42,7 @@ const WikiProcessModal = ({
   wikiHash,
   txHash,
   msg,
-  wikiId
+  wikiId,
 }: WikiProcessType) => {
   const cancelRef = React.useRef<FocusableElement>(null)
   const router = useRouter()
@@ -98,24 +98,25 @@ const WikiProcessModal = ({
             </Center>
             <Center mt="16">
               <Stack direction="row" spacing={6}>
-                <Button 
+                <Button
                   onClick={() => {
                     router.push(`/wiki/${wikiId}`)
                   }}
                   fontSize="xs"
                   colorScheme="primary"
-                  disabled={(activeStep=== 3 && state === undefined) ? false: true}
+                  disabled={!(activeStep === 3 && state === undefined)}
                 >
                   View Wiki
                 </Button>
-                <Button 
+                <Button
                   as="a"
                   href={`${config.pinataBaseUrl}${wikiHash}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   fontSize="xs"
                   fontWeight="semibold"
-                  variant="outline">
+                  variant="outline"
+                >
                   See on IPFS
                 </Button>
                 <Text

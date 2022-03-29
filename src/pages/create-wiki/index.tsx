@@ -30,9 +30,10 @@ const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
 
 const initialEditorValue = `# Place name\n**Place_name** is a place ...\n## History\n**Place_name** is known for ...\n## Features\n**Place_name** offers ...
 `
-const initialMsg = "Your Wiki is being processed. It will be available on the blockchain soon."
-const errorMessage = "Oops, An Error Occurred. Wiki could not be created"
-const successMessage = "Wiki has been created successfully."
+const initialMsg =
+  'Your Wiki is being processed. It will be available on the blockchain soon.'
+const errorMessage = 'Oops, An Error Occurred. Wiki could not be created'
+const successMessage = 'Wiki has been created successfully.'
 
 const deadline = getDeadline()
 
@@ -45,8 +46,10 @@ const CreateWiki = () => {
   const [submittingWiki, setSubmittingWiki] = useState(false)
   const [wikiHash, setWikiHash] = useState<string>()
   const [activeStep, setActiveStep] = useState<number>(1)
-  const [loadingState, setIsLoading] = useState<"error"|"loading"|undefined>("loading")
-  const [wikiId, setWikiId] = useState<string>("")
+  const [loadingState, setIsLoading] = useState<
+    'error' | 'loading' | undefined
+  >('loading')
+  const [wikiId, setWikiId] = useState<string>('')
   const [msg, setMsg] = useState<string>(initialMsg)
   const [triggerUpdate, setTriggerUpdate] = useState('')
   const [txError, setTxError] = useState({
@@ -96,7 +99,7 @@ const CreateWiki = () => {
 
   const saveHashInTheBlockchain = async (ipfs: string) => {
     setWikiHash(ipfs)
-    setIsLoading("loading")
+    setIsLoading('loading')
     setActiveStep(2)
     await signTypedData({
       domain,
@@ -132,10 +135,10 @@ const CreateWiki = () => {
         data: { ipfs },
       } = await axios.post('/api/ipfs', tmp)
 
-      if (ipfs){
+      if (ipfs) {
         saveHashInTheBlockchain(ipfs)
       }
-      
+
       setSubmittingWiki(false)
     }
   }
@@ -164,38 +167,34 @@ const CreateWiki = () => {
   }, [])
 
   const verifyTrxHash = async (trxHash: string) => {
-      //const interval = setInterval(()=> {
-          try{
-            const checkTrx = async () => {
-              console.log("getting result now")
-              const result =  await wait({
-                hash: trxHash,
-              })
-              console.log("getting result now")
-              if(result.error){
-                console.log(result.error)
-                setIsLoading("error")
-                //clearInterval(interval);
-              }else{
-                if(result.data){
-                  console.log(result.data)
-                  setIsLoading(undefined)
-                  setMsg(successMessage)
-                  //clearInterval(interval);
-                }
-              }
-            }
-            checkTrx()
-          } 
-          catch(err){
-            setIsLoading("error")
-            setMsg(errorMessage)
-            console.log(err)
-            //clearInterval(interval);
-          }
-      //}, 4000)
-   
-}
+    // const interval = setInterval(()=> {
+    try {
+      const checkTrx = async () => {
+        console.log('getting result now')
+        const result = await wait({
+          hash: trxHash,
+        })
+        console.log('getting result now')
+        if (result.error) {
+          console.log(result.error)
+          setIsLoading('error')
+          // clearInterval(interval);
+        } else if (result.data) {
+          console.log(result.data)
+          setIsLoading(undefined)
+          setMsg(successMessage)
+          // clearInterval(interval);
+        }
+      }
+      checkTrx()
+    } catch (err) {
+      setIsLoading('error')
+      setMsg(errorMessage)
+      console.log(err)
+      // clearInterval(interval);
+    }
+    // }, 4000)
+  }
 
   useEffect(() => {
     async function signData(
@@ -205,7 +204,7 @@ const CreateWiki = () => {
       if (signingError) {
         console.error(signingError)
         setMsg(errorMessage)
-        setIsLoading("error")
+        setIsLoading('error')
         return
       }
 
@@ -215,35 +214,36 @@ const CreateWiki = () => {
         const s = `0x${signature.substring(64, 128)}`
         const v = parseInt(signature.substring(128, 130), 16)
 
-        try{
-          const relayerData = await axios.post(`${config.epApiBaseUrl}relayer`, {
-            ipfs: wikiHash,
-            userAddr: accountData?.address,
-            deadline,
-            v,
-            r,
-            s,
-          })
+        try {
+          const relayerData = await axios.post(
+            `${config.epApiBaseUrl}relayer`,
+            {
+              ipfs: wikiHash,
+              userAddr: accountData?.address,
+              deadline,
+              v,
+              r,
+              s,
+            },
+          )
           setTxHash(relayerData.data.hash)
-        }
-        catch(err){
+        } catch (err) {
           setActiveStep(3)
-          setIsLoading("error")
+          setIsLoading('error')
           setMsg(errorMessage)
-        } 
+        }
       }
     }
     signData(data, error)
   }, [data, error])
 
   useEffect(() => {
-      if(txHash){
-        console.log("entering here nw")
-        verifyTrxHash(txHash)
-      }
+    if (txHash) {
+      console.log('entering here nw')
+      verifyTrxHash(txHash)
+    }
   }, [txHash])
 
- 
   return (
     <Grid
       templateColumns="repeat(3, 1fr)"
@@ -299,13 +299,12 @@ const CreateWiki = () => {
         wikiId={wikiId}
         msg={msg}
         txHash={txHash}
-        wikiHash= {wikiHash}
+        wikiHash={wikiHash}
         activeStep={activeStep}
         state={loadingState}
         isOpen={openTxDetailsDialog}
-        onClose={() => setOpenTxDetailsDialog(false)} 
+        onClose={() => setOpenTxDetailsDialog(false)}
       />
-
     </Grid>
   )
 }
