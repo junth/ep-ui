@@ -47,7 +47,7 @@ const WikiProcessModal = ({
   const cancelRef = React.useRef<FocusableElement>(null)
   const router = useRouter()
   const handleBlockExplorer = () => {
-    if(activeStep === 3){
+    if (activeStep === 3) {
       window.open(`${config.blockExplorerUrl}tx/${txHash}`)
     }
   }

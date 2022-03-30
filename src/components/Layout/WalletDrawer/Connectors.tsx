@@ -88,8 +88,6 @@ const Connectors = () => {
   const tooltipText =
     'A crypto wallet is an application or hardware device that allows individuals to store and retrieve digital items.'
 
-  console.log(accountData)
-  console.log(walletDetails)
   return (
     <>
       {!accountData && (
