@@ -1,6 +1,5 @@
 import React from 'react'
 import { HStack, Image, Text, VStack } from '@chakra-ui/react'
-// import { tokenDetails } from '@/data/WalletData'
 import shortenBalance from '@/utils/shortenBallance'
 import { TokenDetailsType } from '@/types/WalletBalanceType'
 import { getTokenValue } from '@/utils/getTokenValue'

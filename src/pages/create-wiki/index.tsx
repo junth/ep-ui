@@ -157,7 +157,6 @@ const CreateWiki = () => {
     if (wiki) {
       const meta = getWikiMetadataById(wiki, 'page-type')
       const pageType = PageTemplate.find(p => p.type === meta?.value)
-
       setTriggerUpdate(String(pageType?.templateText))
     }
   }, [wiki])
@@ -167,33 +166,25 @@ const CreateWiki = () => {
   }, [])
 
   const verifyTrxHash = async (trxHash: string) => {
-    // const interval = setInterval(()=> {
     try {
       const checkTrx = async () => {
-        console.log('getting result now')
         const result = await wait({
           hash: trxHash,
         })
-        console.log('getting result now')
         if (result.error) {
-          console.log(result.error)
           setIsLoading('error')
-          // clearInterval(interval);
+          setMsg(errorMessage)
         } else if (result.data) {
-          console.log(result.data)
           setIsLoading(undefined)
+          setActiveStep(3)
           setMsg(successMessage)
-          // clearInterval(interval);
         }
       }
       checkTrx()
     } catch (err) {
       setIsLoading('error')
       setMsg(errorMessage)
-      console.log(err)
-      // clearInterval(interval);
     }
-    // }, 4000)
   }
 
   useEffect(() => {
@@ -202,7 +193,6 @@ const CreateWiki = () => {
       signingError: Error | undefined,
     ) {
       if (signingError) {
-        console.error(signingError)
         setMsg(errorMessage)
         setIsLoading('error')
         return
@@ -228,7 +218,6 @@ const CreateWiki = () => {
           )
           setTxHash(relayerData.data.hash)
         } catch (err) {
-          setActiveStep(3)
           setIsLoading('error')
           setMsg(errorMessage)
         }
@@ -239,7 +228,6 @@ const CreateWiki = () => {
 
   useEffect(() => {
     if (txHash) {
-      console.log('entering here nw')
       verifyTrxHash(txHash)
     }
   }, [txHash])

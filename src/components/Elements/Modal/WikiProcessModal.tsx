@@ -46,6 +46,11 @@ const WikiProcessModal = ({
 }: WikiProcessType) => {
   const cancelRef = React.useRef<FocusableElement>(null)
   const router = useRouter()
+  const handleBlockExplorer = () => {
+    if(activeStep === 3){
+      window.open(`${config.blockExplorerUrl}tx/${txHash}`)
+    }
+  }
   return (
     <AlertDialog
       motionPreset="slideInBottom"
@@ -116,6 +121,7 @@ const WikiProcessModal = ({
                   fontSize="xs"
                   fontWeight="semibold"
                   variant="outline"
+                  disabled={!(activeStep === 3)}
                 >
                   See on IPFS
                 </Button>
@@ -124,9 +130,7 @@ const WikiProcessModal = ({
                   fontSize="xs"
                   fontWeight="semibold"
                   pt={2}
-                  onClick={() => {
-                    window.open(`${config.blockExplorerUrl}tx/${txHash}`)
-                  }}
+                  onClick={handleBlockExplorer}
                 >
                   View on Block Explorer
                 </Text>
