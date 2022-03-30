@@ -230,7 +230,7 @@ const CreateWiki = () => {
     if (txHash) {
       verifyTrxHash(txHash)
     }
-  }, [txHash, verifyTrxHash])
+  }, [txHash])
 
   return (
     <Grid
