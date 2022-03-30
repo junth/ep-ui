@@ -46,7 +46,7 @@ const Connectors = () => {
     useState<boolean>(true)
 
   useEffect(() => {
-    if (address && !walletDetails && accountData?.address) {
+    if (address !== null && !walletDetails) {
       const payload = {
         address,
         connector: undefined,
@@ -88,6 +88,8 @@ const Connectors = () => {
   const tooltipText =
     'A crypto wallet is an application or hardware device that allows individuals to store and retrieve digital items.'
 
+  console.log(accountData)
+  console.log(walletDetails)
   return (
     <>
       {!accountData && (
