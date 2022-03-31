@@ -13,8 +13,8 @@ export const useENSData = (address: string | undefined | null) => {
     const getAvatar = async (addrs: string) => {
       const provider = new StaticJsonRpcProvider(config.ensRPC)
       const name = await provider.lookupAddress(addrs)
-      setUsername(name)
       if (name) {
+        setUsername(name)
         const avt = new AvatarResolver(provider, { cache: 300 })
         const avatarURI = await avt.getAvatar(name)
         setAvatar(avatarURI)

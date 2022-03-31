@@ -8,7 +8,7 @@ type DisplayAvatarProps = ChakraProps & {
   address?: string | null
 }
 const DisplayAvatar = ({ address, ...rest }: DisplayAvatarProps) => {
-  const [avatar,,] = useENSData(address)
+  const [avatar, ,] = useENSData(address)
 
   let content = null
   if (address && avatar) {
