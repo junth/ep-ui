@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { StaticJsonRpcProvider } from '@ethersproject/providers'
+import { BaseProvider, StaticJsonRpcProvider } from '@ethersproject/providers'
 import { AvatarResolver } from '@ensdomains/ens-avatar'
 import config from '@/config'
 
@@ -11,13 +11,15 @@ export const useENSData = (address: string | undefined | null) => {
 
   useEffect(() => {
     const getAvatar = async (addrs: string) => {
-      const provider = new StaticJsonRpcProvider(config.ensRPC)
+      const provider: BaseProvider = new StaticJsonRpcProvider(config.ensRPC)
       const name = await provider.lookupAddress(addrs)
       if (name) {
         setUsername(name)
         const avt = new AvatarResolver(provider, { cache: 300 })
-        const avatarURI = await avt.getAvatar(name)
-        setAvatar(avatarURI)
+        const avatarURI = await avt.getAvatar(name, { /* jsdomWindow: jsdom (on nodejs) */ })
+        if (avatarURI) {
+          setAvatar(avatarURI)
+        }
       }
       setLoading(false)
     }
