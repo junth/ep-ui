@@ -42,7 +42,7 @@ const WikiActionBar = ({ wiki }: WikiActionBarProps) => {
             color={item.label === 'Read' ? 'brand.600' : 'unset'}
             key={index}
             onClick={() => {
-              router.push('/create-wiki?slug=' + wiki?.id) // TODO: fix this for only edit button
+              router.push(`/create-wiki?slug=${wiki?.id}`) // TODO: fix this for only edit button
             }}
           >
             <Icon fontSize="20px" as={item.icon} />
