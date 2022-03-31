@@ -10,6 +10,8 @@ import type { AppProps } from 'next/app'
 import { Provider } from 'wagmi'
 import { Provider as ReduxProvider } from 'react-redux'
 import { debounce } from 'debounce'
+import { ethers } from 'ethers'
+
 import connectors from '@/config/connectors'
 import Layout from '@/components/Layout/Layout/Layout'
 import SEOHeader from '@/components/SEO/Headers'
@@ -18,11 +20,13 @@ import { getCategoriesLinks } from '@/services/categories'
 import { getRunningOperationPromises } from '@/services/wikis'
 import Fonts from '@/theme/Fonts'
 import { ImageProvider } from '@/context/image.context'
+import config from '@/config'
 import chakraTheme from '../theme'
 
 type EpAppProps = AppProps & {
   Component: AppProps['Component'] & { noFooter?: boolean }
 }
+
 const App = (props: EpAppProps) => {
   const { Component, pageProps, router } = props
 
@@ -31,6 +35,8 @@ const App = (props: EpAppProps) => {
       // saveState(store.getState())
     }, 800),
   )
+  const provider = () =>
+    new ethers.providers.AlchemyProvider('maticmum', config.alchemyApiKey)
 
   return (
     <>
@@ -38,7 +44,11 @@ const App = (props: EpAppProps) => {
       <ReduxProvider store={store}>
         <ChakraProvider resetCSS theme={chakraTheme}>
           <Fonts />
-          <Provider autoConnect connectors={connectors}>
+          <Provider
+            autoConnect
+            connectors={connectors}
+            provider={provider as any}
+          >
             <Layout noFooter={Component.noFooter}>
               <ImageProvider>
                 <Component {...pageProps} />

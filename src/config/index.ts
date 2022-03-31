@@ -11,6 +11,7 @@ const config = {
     process.env.NEXT_PUBLIC_PINATA_GATEWAY_BASE_URL ||
     'https://ipfs.everipedia.org/ipfs/',
   infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
+  alchemyApiKey: String(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY),
   graphqlUrl: 'https://api.dev.braindao.org/graphql',
   chainId: process.env.NEXT_PUBLIC_CHAIN_ID || '80001',
   chainName: process.env.NEXT_PUBLIC_CHAIN_NAME || 'Mumbai',

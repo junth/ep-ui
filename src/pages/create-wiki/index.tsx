@@ -11,17 +11,14 @@ import {
   GridItem,
   Flex,
   Button,
-  Text,
   Alert,
   AlertIcon,
   AlertTitle,
   AlertDescription,
   CloseButton,
   Center,
-  useToast,
   Skeleton,
 } from '@chakra-ui/react'
-import { useAccount, useSignTypedData } from 'wagmi'
 import {
   getRunningOperationPromises,
   getWiki,
@@ -31,12 +28,11 @@ import { useRouter } from 'next/router'
 import { RootState, store } from '@/store/store'
 import { GetServerSideProps } from 'next'
 import { skipToken } from '@reduxjs/toolkit/query'
+import { useAccount, useSignTypedData, useWaitForTransaction } from 'wagmi'
 import slugify from 'slugify'
 import axios from 'axios'
-
 import Highlights from '@/components/Layout/Editor/Highlights/Highlights'
 import config from '@/config'
-import { Modal } from '@/components/Elements'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { PageTemplate } from '@/constant/pageTemplate'
@@ -44,12 +40,19 @@ import { getDeadline } from '@/utils/getDeadline'
 import { submitVerifiableSignature } from '@/utils/postSignature'
 import { ImageContext, ImageKey, ImageStateType } from '@/context/image.context'
 import { useSelector } from 'react-redux'
+import { authenticatedRoute } from '@/components/AuthenticatedRoute'
+import WikiProcessModal from '@/components/Elements/Modal/WikiProcessModal'
 
 const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
 })
 
-const initialEditorValue = `# Place name\n**Place_name** is a place ...\n## History\n**Place_name** is known for ...\n## Features\n**Place_name** offers ...`
+const initialEditorValue = `# Place name\n**Place_name** is a place ...\n## History\n**Place_name** is known for ...\n## Features\n**Place_name** offers ...
+`
+const initialMsg =
+  'Your Wiki is being processed. It will be available on the blockchain soon.'
+const errorMessage = 'Oops, An Error Occurred. Wiki could not be created'
+const successMessage = 'Wiki has been created successfully.'
 
 const deadline = getDeadline()
 
@@ -89,6 +92,12 @@ const CreateWiki = () => {
       state.wiki.metadata.filter(m => m.id === 'page-type')[0],
   )
   const { isLoading: isLoadingWiki, data: wikiData } = result
+  const [activeStep, setActiveStep] = useState<number>(1)
+  const [loadingState, setIsLoading] = useState<
+    'error' | 'loading' | undefined
+  >('loading')
+  const [wikiId, setWikiId] = useState<string>('')
+  const [msg, setMsg] = useState<string>(initialMsg)
   const [txError, setTxError] = useState({
     title: '',
     description: '',
@@ -97,7 +106,7 @@ const CreateWiki = () => {
   const [{ data, error, loading: signing }, signTypedData] = useSignTypedData(
     {},
   )
-  const toast = useToast()
+  const [, wait] = useWaitForTransaction()
 
   const saveImage = async () => {
     const formData = new FormData()
@@ -119,7 +128,9 @@ const CreateWiki = () => {
 
   const saveHashInTheBlockchain = async (ipfs: string) => {
     setWikiHash(ipfs)
-    await signTypedData({
+    setIsLoading('loading')
+    setActiveStep(2)
+    signTypedData({
       domain,
       types,
       value: {
@@ -127,6 +138,11 @@ const CreateWiki = () => {
         user: accountData?.address || '',
         deadline,
       },
+    }).then(response => {
+      if (response.error) {
+        setIsLoading('error')
+        setMsg(errorMessage)
+      }
     })
   }
 
@@ -136,14 +152,13 @@ const CreateWiki = () => {
 
   const saveOnIpfs = async () => {
     if (accountData) {
+      setOpenTxDetailsDialog(true)
       setSubmittingWiki(true)
-
       const imageHash = await getImageHash()
 
       let tmp = { ...wiki }
-
-      // otherwise the wiki is being edited
       if (tmp.id === '') tmp.id = getWikiSlug()
+      setWikiId(tmp.id)
 
       tmp = {
         ...tmp,
@@ -158,7 +173,9 @@ const CreateWiki = () => {
         data: { ipfs },
       } = await axios.post('/api/ipfs', tmp)
 
-      if (ipfs) saveHashInTheBlockchain(ipfs)
+      if (ipfs) {
+        saveHashInTheBlockchain(ipfs)
+      }
 
       setSubmittingWiki(false)
     }
@@ -187,33 +204,54 @@ const CreateWiki = () => {
     setMd(initialEditorValue)
   }, [])
 
+  const verifyTrxHash = async (trxHash: string) => {
+    try {
+      const checkTrx = async () => {
+        const trx = await wait({
+          hash: trxHash,
+        })
+        if (trx.error) {
+          setIsLoading('error')
+          setMsg(errorMessage)
+        } else if (trx.data) {
+          setIsLoading(undefined)
+          setActiveStep(3)
+          setMsg(successMessage)
+        }
+      }
+      checkTrx()
+    } catch (err) {
+      setIsLoading('error')
+      setMsg(errorMessage)
+    }
+  }
+
   useEffect(() => {
     const getSignedTxHash = async () => {
       if (data && wikiHash && accountData) {
         if (error) {
-          toast({
-            title: 'Error signing data',
-            status: 'error',
-            duration: 2000,
-          })
-          console.error(error)
+          setMsg(errorMessage)
+          setIsLoading('error')
           return
         }
 
-        const { data: relayerData }: any = await submitVerifiableSignature(
-          data,
-          wikiHash,
-          accountData?.address,
-          deadline,
-        )
+        try {
+          const { data: relayerData }: any = await submitVerifiableSignature(
+            data,
+            wikiHash,
+            accountData?.address,
+            deadline,
+          )
 
-        if (relayerData && relayerData.hash) {
-          setTxHash(relayerData.hash)
-          setOpenTxDetailsDialog(true)
+          if (relayerData && relayerData.hash) {
+            setTxHash(relayerData.hash)
+          }
+        } catch (err) {
+          setIsLoading('error')
+          setMsg(errorMessage)
         }
       }
     }
-
     getSignedTxHash()
   }, [data, error])
 
@@ -234,6 +272,12 @@ const CreateWiki = () => {
       })
     }
   }, [wikiData])
+
+  useEffect(() => {
+    if (txHash) {
+      verifyTrxHash(txHash)
+    }
+  }, [txHash])
 
   return (
     <Grid
@@ -291,47 +335,17 @@ const CreateWiki = () => {
           </Flex>
         </Skeleton>
       </GridItem>
-      <Modal
-        title="Transaction details"
-        enableBottomCloseButton
+
+      <WikiProcessModal
+        wikiId={wikiId}
+        msg={msg}
+        txHash={txHash}
+        wikiHash={wikiHash}
+        activeStep={activeStep}
+        state={loadingState}
         isOpen={openTxDetailsDialog}
         onClose={() => setOpenTxDetailsDialog(false)}
-        isCentered
-        SecondaryButton={
-          <Button
-            onClick={() =>
-              window.open(`${config.blockExplorerUrl}tx/${txHash}`)
-            }
-            variant="outline"
-          >
-            View in Block Explorer
-          </Button>
-        }
-      >
-        <Text align="center">
-          The wiki was successfully posted on the Polygon blockchain!
-        </Text>
-        <Center mt="4">
-          <Button
-            as="a"
-            href={`${config.pinataBaseUrl}${wikiHash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            size="sm"
-            variant="outline"
-          >
-            View in IPFS
-          </Button>
-          <Button
-            size="sm"
-            ml="3"
-            variant="link"
-            onClick={() => router.push({ pathname: `/wiki/${getWikiSlug()}` })}
-          >
-            View
-          </Button>
-        </Center>
-      </Modal>
+      />
     </Grid>
   )
 }
@@ -347,4 +361,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-export default memo(CreateWiki)
+export default authenticatedRoute(memo(CreateWiki))

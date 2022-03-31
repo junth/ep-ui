@@ -46,7 +46,7 @@ const Connectors = () => {
     useState<boolean>(true)
 
   useEffect(() => {
-    if (address && !walletDetails && accountData?.address) {
+    if (address !== null && !walletDetails) {
       const payload = {
         address,
         connector: undefined,
