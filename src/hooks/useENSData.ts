@@ -27,5 +27,5 @@ export const useENSData = (address: string | undefined | null) => {
     }
   }, [address])
 
-  return [avatar, username, loading]
+  return [avatar, username, loading] as const
 }
