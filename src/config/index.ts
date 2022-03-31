@@ -12,11 +12,13 @@ const config = {
     'https://ipfs.everipedia.org/ipfs/',
   infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
   alchemyApiKey: String(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY),
+  alchemyChain: process.env.NEXT_PUBLIC_ALCHEMY_CHAIN || 'maticmum',
   graphqlUrl: 'https://api.dev.braindao.org/graphql',
   chainId: process.env.NEXT_PUBLIC_CHAIN_ID || '80001',
   chainName: process.env.NEXT_PUBLIC_CHAIN_NAME || 'Mumbai',
   epApiBaseUrl:
     process.env.NEXT_PUBLIC_EP_API || 'https://api.dev.braindao.org/',
+  ensRPC: String(process.env.NEXT_PUBLIC_ENS_RPC),
 }
 
 export default config

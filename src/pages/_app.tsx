@@ -36,7 +36,10 @@ const App = (props: EpAppProps) => {
     }, 800),
   )
   const provider = () =>
-    new ethers.providers.AlchemyProvider('maticmum', config.alchemyApiKey)
+    new ethers.providers.AlchemyProvider(
+      config.alchemyChain,
+      config.alchemyApiKey,
+    )
 
   return (
     <>

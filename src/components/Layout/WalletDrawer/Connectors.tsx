@@ -31,9 +31,7 @@ import { RootState } from '@/store/store'
 
 const Connectors = () => {
   const [{ data }, connect] = useConnect()
-  const [{ data: accountData }] = useAccount({
-    fetchEns: true,
-  })
+  const [{ data: accountData }] = useAccount()
   const address = accountData ? accountData.address : null
   const [, getBalance] = useBalance()
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
