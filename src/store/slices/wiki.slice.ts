@@ -9,7 +9,6 @@ const initialState: Wiki = {
   content: '',
   categories: [],
   tags: [{ id: 'hello' }, { id: 'world' }],
-  images: [],
   metadata: [
     {
       id: 'page-type',
@@ -30,7 +29,6 @@ const wikiSlice = createSlice({
       return newState
     },
     updateCategories(state, action) {
-      console.log(action.payload)
       return {
         ...state,
         categories: [action.payload],
