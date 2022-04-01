@@ -16,9 +16,6 @@ export const fetchWalletBalance = async (
     results.push(getBalance(addr))
   })
   const response = await Promise.all(results)
-  console.log(response)
-  console.log(response)
-  console.log(response)
   const convertedResult: ConvertedBalanceType[] = response.map(res => ({
     data: {
       formatted: res.data?.formatted,
@@ -43,11 +40,6 @@ export const fetchRateAndCalculateTotalBalance = async (
     try {
       const tokenName: string | undefined =
         wallet.data?.symbol && tokenDetails[wallet.data?.symbol].name
-        console.log(tokenName)
-        console.log(tokenName)
-        console.log(tokenName)
-        console.log(tokenName)
-        console.log(tokenName)
       if (tokenName) {
         const rate = await fetchRate(tokenName)
         return {

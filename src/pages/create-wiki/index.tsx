@@ -92,7 +92,7 @@ const CreateWiki = () => {
       state.wiki.metadata.filter(m => m.id === 'page-type')[0],
   )
   const { isLoading: isLoadingWiki, data: wikiData } = result
-  const [activeStep, setActiveStep] = useState<number>(1)
+  const [activeStep, setActiveStep] = useState<number>(0)
   const [loadingState, setIsLoading] = useState<
     'error' | 'loading' | undefined
   >('loading')
@@ -128,8 +128,6 @@ const CreateWiki = () => {
 
   const saveHashInTheBlockchain = async (ipfs: string) => {
     setWikiHash(ipfs)
-    setIsLoading('loading')
-    setActiveStep(2)
     signTypedData({
       domain,
       types,
@@ -139,6 +137,9 @@ const CreateWiki = () => {
         deadline,
       },
     }).then(response => {
+      if(response.data){
+        setActiveStep(1)
+      }
       if (response.error) {
         setIsLoading('error')
         setMsg(errorMessage)
@@ -205,25 +206,30 @@ const CreateWiki = () => {
   }, [])
 
   const verifyTrxHash = async (trxHash: string) => {
-    try {
-      const checkTrx = async () => {
-        const trx = await wait({
-          hash: trxHash,
-        })
-        if (trx.error) {
-          setIsLoading('error')
-          setMsg(errorMessage)
-        } else if (trx.data) {
-          setIsLoading(undefined)
-          setActiveStep(3)
-          setMsg(successMessage)
+    let timer = setInterval(()=> {
+      try {
+        const checkTrx = async () => {
+          const trx = await wait({
+            hash: trxHash,
+          })
+          if (trx.error) {
+            setIsLoading('error')
+            setMsg(errorMessage)
+            clearInterval(timer)
+          } else if (trx.data.confirmations > 1) {
+            setIsLoading(undefined)
+            setActiveStep(3)
+            setMsg(successMessage)
+            clearInterval(timer)
+          }
         }
+        checkTrx()
+      } catch (err) {
+        setIsLoading('error')
+        setMsg(errorMessage)
+        clearInterval(timer)
       }
-      checkTrx()
-    } catch (err) {
-      setIsLoading('error')
-      setMsg(errorMessage)
-    }
+    }, 3000)
   }
 
   useEffect(() => {
@@ -245,6 +251,7 @@ const CreateWiki = () => {
 
           if (relayerData && relayerData.hash) {
             setTxHash(relayerData.hash)
+            setActiveStep(2)
           }
         } catch (err) {
           setIsLoading('error')
