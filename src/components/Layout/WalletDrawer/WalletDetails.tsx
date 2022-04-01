@@ -5,6 +5,7 @@ import { TokenDetailsType } from '@/types/WalletBalanceType'
 import { getTokenValue } from '@/utils/getTokenValue'
 import WalletDetailsWrapper from './WalletDetailsWrapper'
 import TokenDetailsMenu from '../Token/TokenDetailsMenu'
+import { tokenDetails } from '@/data/WalletData'
 
 const WalletDetails = ({
   symbol,
@@ -21,7 +22,7 @@ const WalletDetails = ({
         <Image
           boxSize="23px"
           mr={3}
-          // src={`/images/${symbol && tokenDetails[symbol].logo}`}
+          src={`/images/${symbol && tokenDetails[symbol].logo}`}
         />
         <Text as="strong" fontWeight="extrabold">
           {symbol}
