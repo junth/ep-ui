@@ -137,7 +137,7 @@ const CreateWiki = () => {
         deadline,
       },
     }).then(response => {
-      if(response.data){
+      if (response.data) {
         setActiveStep(1)
       }
       if (response.error) {
@@ -206,7 +206,7 @@ const CreateWiki = () => {
   }, [])
 
   const verifyTrxHash = async (trxHash: string) => {
-    let timer = setInterval(()=> {
+    const timer = setInterval(() => {
       try {
         const checkTrx = async () => {
           const trx = await wait({
