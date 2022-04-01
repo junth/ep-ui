@@ -16,7 +16,9 @@ export const useENSData = (address: string | undefined | null) => {
       if (name) {
         setUsername(name)
         const avt = new AvatarResolver(provider, { cache: 300 })
-        const avatarURI = await avt.getAvatar(name, { /* jsdomWindow: jsdom (on nodejs) */ })
+        const avatarURI = await avt.getAvatar(name, {
+          /* jsdomWindow: jsdom (on nodejs) */
+        })
         if (avatarURI) {
           setAvatar(avatarURI)
         }

@@ -32,7 +32,8 @@ import { RootState } from '@/store/store'
 const Connectors = () => {
   const [{ data }, connect] = useConnect()
   const [{ data: accountData }] = useAccount()
-  const address = accountData ? accountData.address : null
+  //const address = accountData ? accountData.address : null
+  const address = "0x9feab70f3c4a944b97b7565bac4991df5b7a69ff"
   const [, getBalance] = useBalance()
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
     (state: RootState) => state.user,
@@ -54,7 +55,8 @@ const Connectors = () => {
       fetchWalletBalance(getBalance, [
         {
           addressOrName: address,
-          token: config.iqAddress,
+          //change the token to iqAddress on launch
+          token: config.iqTestNetAddress,
         },
         {
           addressOrName: address,

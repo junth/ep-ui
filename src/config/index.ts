@@ -1,5 +1,6 @@
 const config = {
   iqAddress: '0x579cea1889991f68acc35ff5c3dd0621ff29b0c9',
+  iqTestNetAddress: "0x5E959c60f86D17fb7D764AB69B654227d464E820",
   thegraph: 'https://api.thegraph.com/subgraphs/name/kesar/wiki-mumbai-v1', // mumbai
   wikiContractAddress:
     process.env.NEXT_PUBLIC_WIKI_CONTRACT_ADDRESS ||
