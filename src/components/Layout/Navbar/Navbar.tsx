@@ -45,9 +45,7 @@ const Navbar = () => {
 
   const [isHamburgerOpen, setHamburger] = useState<boolean>(false)
 
-  const [{ data: accountData }] = useAccount({
-    fetchEns: true,
-  })
+  const [{ data: accountData }] = useAccount()
   const dispatch = useDispatch()
 
   const { chainId, chainName, rpcUrls } = networkMap.MUMBAI_TESTNET
@@ -189,7 +187,7 @@ const Navbar = () => {
                     visibleMenu={visibleMenu}
                     label={
                       accountData ? (
-                        <DisplayAvatar avatar={accountData.ens?.avatar} />
+                        <DisplayAvatar address={accountData.address} />
                       ) : (
                         <Icon
                           cursor="pointer"
