@@ -42,7 +42,7 @@ const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
   const category = router.query.category as string
   const [hasMore, setHasMore] = useState<boolean>(true)
 
-  const fetchMoreWikis = async () => {
+  const fetchMoreWikis = () => {
     offset += limit
     setTimeout(() => {
       const fetchNewWikis = async () => {
