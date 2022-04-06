@@ -29,6 +29,7 @@ const Profile: PageWithoutFooter = () => {
     </ProfileProvider>
   )
 }
+
 Profile.noFooter = true
 
 export default Profile

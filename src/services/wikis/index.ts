@@ -33,6 +33,12 @@ type GetWikisByCategoryResponse = {
   wikisByCategory: Wiki[]
 }
 
+interface WikisByCategoryArg {
+    category: string,
+    limit: number,
+    offset: number
+}
+
 export const wikiApi = createApi({
   reducerPath: 'wikiApi',
   extractRehydrationInfo(action, { reducerPath }) {
@@ -66,10 +72,18 @@ export const wikiApi = createApi({
       transformResponse: (response: GetUserWikiResponse) =>
         response.userById.wikis,
     }),
-    getWikisByCategory: builder.query<Wiki[], string>({
-      query: (category: string) => ({
+    getWikisByCategory: builder.query<Wiki[], WikisByCategoryArg>({
+      query: ({
+        category,
+        limit,
+        offset,
+      }: {
+        category: string
+        limit?: number
+        offset?: number
+      }) => ({
         document: GET_WIKIS_BY_CATEGORY,
-        variables: { category },
+        variables: { category, limit, offset },
       }),
       transformResponse: (response: GetWikisByCategoryResponse) =>
         response.wikisByCategory,
