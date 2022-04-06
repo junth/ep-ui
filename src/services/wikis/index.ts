@@ -33,7 +33,7 @@ type GetWikisByCategoryResponse = {
   wikisByCategory: Wiki[]
 }
 
-interface WikisByCategoryArg {
+type WikisByCategoryArg =  {
   category: string
   limit?: number
   offset?: number
