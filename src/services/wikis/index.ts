@@ -71,11 +71,19 @@ export const wikiApi = createApi({
       transformResponse: (response: GetWikiResponse) => response.wiki,
     }),
     getUserWikis: builder.query<Wiki[], UserWikiArg>({
-      query: ({id, limit, offset}: {id: string, limit: number, offset: number}) => {
-        return ({
+      query: ({
+        id,
+        limit,
+        offset,
+      }: {
+        id: string
+        limit: number
+        offset: number
+      }) => {
+        return {
           document: GET_USER_WIKIS_BY_ID,
           variables: { id, limit, offset },
-        })
+        }
       },
       transformResponse: (response: GetUserWikiResponse) =>
         response.userById.wikis,
