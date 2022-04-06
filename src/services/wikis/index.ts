@@ -35,8 +35,8 @@ type GetWikisByCategoryResponse = {
 
 interface WikisByCategoryArg {
   category: string
-  limit: number
-  offset: number
+  limit?: number
+  offset?: number
 }
 
 export const wikiApi = createApi({
