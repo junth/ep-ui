@@ -5,10 +5,10 @@ import { Center, SimpleGrid, Text, Spinner } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { EmptyState } from '@/components/Profile/EmptyState'
-import WikiPreviewCard from '../Wiki/WikiPreviewCard/WikiPreviewCard'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Wiki } from '@/types/Wiki'
 import { store } from '@/store/store'
+import WikiPreviewCard from '../Wiki/WikiPreviewCard/WikiPreviewCard'
 
 const limit = 3
 let offset = 0
@@ -53,9 +53,11 @@ export const Collected = () => {
         endMessage={
           <Center my="10">
             <Text fontWeight="semibold">
-              {wikis.length < 1
-                ? <EmptyState />
-                : 'Yay! You have seen it all 🥳 '}
+              {wikis.length < 1 ? (
+                <EmptyState />
+              ) : (
+                'Yay! You have seen it all 🥳 '
+              )}
             </Text>
           </Center>
         }
