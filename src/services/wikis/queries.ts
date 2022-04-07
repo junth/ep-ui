@@ -91,9 +91,9 @@ export const GET_PROMOTED_WIKIS = gql`
 `
 
 export const GET_USER_WIKIS_BY_ID = gql`
-  query GetUserWikis($id: String!) {
+  query GetUserWikis($id: String!, $limit: Int, $offset: Int) {
     userById(id: $id) {
-      wikis {
+      wikis(offset: $offset, limit: $limit) {
         id
         ipfs
         title
@@ -124,8 +124,8 @@ export const GET_USER_WIKIS_BY_ID = gql`
 `
 
 export const GET_WIKIS_BY_CATEGORY = gql`
-  query GetUserWikisByCategory($category: String!) {
-    wikisByCategory(category: $category) {
+  query GetUserWikisByCategory($category: String!, $offset: Int, $limit: Int) {
+    wikisByCategory(category: $category, offset: $offset, limit: $limit) {
       id
       ipfs
       content
