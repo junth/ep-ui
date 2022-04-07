@@ -170,8 +170,8 @@ const CreateWiki = () => {
       })
       return false
     }
-    
-    const words = md ? md.split(' ').length : 0;
+
+    const words = md ? md.split(' ').length : 0
     if (words < 150) {
       toast({
         title: `Add a minimum of 150 words to continue, you have written ${words}`,
