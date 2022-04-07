@@ -8,8 +8,8 @@ import { EmptyState } from '@/components/Profile/EmptyState'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Wiki } from '@/types/Wiki'
 import { store } from '@/store/store'
-import WikiPreviewCard from '../Wiki/WikiPreviewCard/WikiPreviewCard'
 import { FETCH_DELAY_TIME, WIKIS_PER_PAGE } from '@/data/WikiConstant'
+import WikiPreviewCard from '../Wiki/WikiPreviewCard/WikiPreviewCard'
 
 export const Collected = () => {
   const { displaySize } = useProfileContext()
@@ -24,7 +24,11 @@ export const Collected = () => {
     setTimeout(() => {
       const fetchNewWikis = async () => {
         const result = await store.dispatch(
-          getUserWikis.initiate({ id: address, limit: WIKIS_PER_PAGE, offset: updatedOffset }),
+          getUserWikis.initiate({
+            id: address,
+            limit: WIKIS_PER_PAGE,
+            offset: updatedOffset,
+          }),
         )
         if (result.data && result.data?.length > 0) {
           const data = result.data || []

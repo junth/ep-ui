@@ -28,8 +28,6 @@ import { useRouter } from 'next/router'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { FETCH_DELAY_TIME, WIKIS_PER_PAGE } from '@/data/WikiConstant'
 
-
-
 type CategoryPageProps = NextPage & {
   categoryData: Category
   wikis: Wiki[]
@@ -44,9 +42,9 @@ const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
   const [offset, setOffset] = useState<number>(0)
 
   useEffect(() => {
-      setHasMore(true)
-      setOffset(0)
-      setWikisInCategory(wikis)
+    setHasMore(true)
+    setOffset(0)
+    setWikisInCategory(wikis)
   }, [category])
 
   const fetchMoreWikis = () => {
@@ -54,7 +52,11 @@ const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
     setTimeout(() => {
       const fetchNewWikis = async () => {
         const result = await store.dispatch(
-          getWikisByCategory.initiate({ category, limit: WIKIS_PER_PAGE, offset: updatedOffset }),
+          getWikisByCategory.initiate({
+            category,
+            limit: WIKIS_PER_PAGE,
+            offset: updatedOffset,
+          }),
         )
         if (result.data && result.data?.length > 0) {
           const data = result.data || []
@@ -155,7 +157,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const categoryId: string = context.params?.category as string
   const result = await store.dispatch(getCategoriesById.initiate(categoryId))
   const wikisByCategory = await store.dispatch(
-    getWikisByCategory.initiate({ category: categoryId, limit: WIKIS_PER_PAGE, offset: 0 }),
+    getWikisByCategory.initiate({
+      category: categoryId,
+      limit: WIKIS_PER_PAGE,
+      offset: 0,
+    }),
   )
   await Promise.all(getRunningOperationPromises())
   return {

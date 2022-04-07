@@ -30,8 +30,8 @@ export const WikiImage = (props: WikiImageProps) => {
   const { imageURL, ...rest } = props
   const [src, setSrc] = useState(PLACEHOLDER_IMAGE)
 
-  useEffect(()=> {
-      setSrc(imageURL || PLACEHOLDER_IMAGE)
+  useEffect(() => {
+    setSrc(imageURL || PLACEHOLDER_IMAGE)
   }, [imageURL])
 
   return (
