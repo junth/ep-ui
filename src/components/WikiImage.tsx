@@ -1,5 +1,5 @@
 import { Image, NextChakraImageProps } from '@/components/Elements/Image/Image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const PLACEHOLDER_IMAGE = `/broken-image.png`
 
@@ -28,9 +28,11 @@ export type WikiImageProps = Partial<NextChakraImageProps> & {
 
 export const WikiImage = (props: WikiImageProps) => {
   const { imageURL, ...rest } = props
-  const imgSrc = imageURL || PLACEHOLDER_IMAGE
+  const [src, setSrc] = useState(PLACEHOLDER_IMAGE)
 
-  const [src, setSrc] = useState(imgSrc)
+  useEffect(()=> {
+      setSrc(imageURL || PLACEHOLDER_IMAGE)
+  }, [imageURL])
 
   return (
     <Image

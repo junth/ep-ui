@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NextPage, GetServerSideProps } from 'next'
 import {
   Divider,
@@ -26,9 +26,9 @@ import { getWikisByCategory } from '@/services/wikis'
 import { Wiki } from '@/types/Wiki'
 import { useRouter } from 'next/router'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { FETCH_DELAY_TIME, WIKIS_PER_PAGE } from '@/data/WikiConstant'
 
-const limit = 3
-let offset = 0
+
 
 type CategoryPageProps = NextPage & {
   categoryData: Category
@@ -37,28 +37,36 @@ type CategoryPageProps = NextPage & {
 
 const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
   const categoryIcon = getBootStrapIcon(categoryData.icon)
-  const [wikisInCategory, setWikisInCategory] = useState(wikis)
+  const [wikisInCategory, setWikisInCategory] = useState<Wiki[] | []>([])
   const router = useRouter()
   const category = router.query.category as string
   const [hasMore, setHasMore] = useState<boolean>(true)
+  const [offset, setOffset] = useState<number>(0)
+
+  useEffect(() => {
+      setHasMore(true)
+      setOffset(0)
+      setWikisInCategory(wikis)
+  }, [category])
 
   const fetchMoreWikis = () => {
-    offset += limit
+    const updatedOffset = offset + WIKIS_PER_PAGE
     setTimeout(() => {
       const fetchNewWikis = async () => {
         const result = await store.dispatch(
-          getWikisByCategory.initiate({ category, limit, offset }),
+          getWikisByCategory.initiate({ category, limit: WIKIS_PER_PAGE, offset: updatedOffset }),
         )
         if (result.data && result.data?.length > 0) {
           const data = result.data || []
           const updatedWiki = [...wikisInCategory, ...data]
           setWikisInCategory(updatedWiki)
+          setOffset(updatedOffset)
         } else {
           setHasMore(false)
         }
       }
       fetchNewWikis()
-    }, 3000)
+    }, FETCH_DELAY_TIME)
   }
   return (
     <Box mt="-3" bgColor="pageBg" pb={12}>
@@ -147,7 +155,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const categoryId: string = context.params?.category as string
   const result = await store.dispatch(getCategoriesById.initiate(categoryId))
   const wikisByCategory = await store.dispatch(
-    getWikisByCategory.initiate({ category: categoryId, limit, offset }),
+    getWikisByCategory.initiate({ category: categoryId, limit: WIKIS_PER_PAGE, offset: 0 }),
   )
   await Promise.all(getRunningOperationPromises())
   return {

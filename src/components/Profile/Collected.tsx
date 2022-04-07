@@ -9,9 +9,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Wiki } from '@/types/Wiki'
 import { store } from '@/store/store'
 import WikiPreviewCard from '../Wiki/WikiPreviewCard/WikiPreviewCard'
-
-const limit = 3
-let offset = 0
+import { FETCH_DELAY_TIME, WIKIS_PER_PAGE } from '@/data/WikiConstant'
 
 export const Collected = () => {
   const { displaySize } = useProfileContext()
@@ -19,24 +17,26 @@ export const Collected = () => {
   const address = router.query.profile as string
   const [hasMore, setHasMore] = useState<boolean>(true)
   const [wikis, setWikis] = useState<Wiki[] | []>([])
+  const [offset, setOffset] = useState<number>(0)
 
   const fetchMoreWikis = () => {
-    offset += limit
+    const updatedOffset = offset + WIKIS_PER_PAGE
     setTimeout(() => {
       const fetchNewWikis = async () => {
         const result = await store.dispatch(
-          getUserWikis.initiate({ id: address, limit, offset }),
+          getUserWikis.initiate({ id: address, limit: WIKIS_PER_PAGE, offset: updatedOffset }),
         )
         if (result.data && result.data?.length > 0) {
           const data = result.data || []
           const updatedWiki = [...wikis, ...data]
           setWikis(updatedWiki)
+          setOffset(updatedOffset)
         } else {
           setHasMore(false)
         }
       }
       fetchNewWikis()
-    }, 3000)
+    }, FETCH_DELAY_TIME)
   }
 
   return (
