@@ -157,3 +157,19 @@ export const GET_WIKIS_BY_CATEGORY = gql`
     }
   }
 `
+
+export const POST_WIKI = gql`
+  mutation postWiki($data: String!) {
+    pinJSON(data: $data) {
+      IpfsHash
+    }
+  }
+`
+
+export const POST_IMG = gql`
+  mutation postImage($file: Upload!) {
+    pinImage(fileUpload: $file) {
+      IpfsHash
+    }
+  }
+`
