@@ -196,6 +196,7 @@ export const NavSearch = (props: NavSearchProps) => {
       }}
     >
       <InputGroup
+        mx={{ base: 4, md: 0 }}
         size="lg"
         maxW="800px"
         display={{ base: 'none', sm: 'none', md: 'block' }}
@@ -206,6 +207,10 @@ export const NavSearch = (props: NavSearchProps) => {
         </InputLeftElement>
         <AutoCompleteInput
           value={query}
+          _placeholderShown={{
+            textOverflow: 'ellipsis',
+            width: '90%',
+          }}
           onChange={e => setQuery(e.target.value)}
           placeholder="Search items, collections and accounts"
           {...inputProps}
