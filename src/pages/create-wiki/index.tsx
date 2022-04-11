@@ -173,10 +173,11 @@ const CreateWiki = () => {
 
   const isValidWiki = () => {
     if (
-      !image ||
-      image.type === null ||
-      image.type === undefined ||
-      getImageArrayBufferLength()
+      isWikiBeingEdited === false &&
+      (!image ||
+        image.type === null ||
+        image.type === undefined ||
+        getImageArrayBufferLength())
     ) {
       toast({
         title: 'Add a main image to continue',
@@ -291,8 +292,8 @@ const CreateWiki = () => {
   }
 
   useEffect(() => {
-    if (!wikiData) setMd(initialEditorValue)
-  }, [])
+    if (isLoadingWiki === false && !wikiData) setMd(initialEditorValue)
+  }, [isLoadingWiki])
 
   useEffect(() => {
     if (wiki && wikiData) {
