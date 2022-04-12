@@ -45,7 +45,7 @@
     "debounce": "^1.2.1",
     "ethers": "^5.6.2",
     "framer-motion": "^6.2.8",
-    "graphql": "^16.3.0",
+    "graphql": "^15.8.0",
     "graphql-request": "^3.7.0",
     "ismobilejs": "^1.1.1",
     "match-sorter": "^6.3.1",
