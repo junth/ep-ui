@@ -67,6 +67,9 @@ const wikiSlice = createSlice({
         ),
       }
     },
+    reset() {
+      return initialState
+    },
   },
 })
 
