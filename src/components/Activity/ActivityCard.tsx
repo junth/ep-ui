@@ -103,7 +103,7 @@ const ActivityCard = ({
                   variant="solid"
                   bg={`hsl(${Math.floor(Math.random() * 360)}, 20%, 80%)`}
                 >
-                  <Text px={4} color="textColor">
+                  <Text px={4} color="black">
                     {tag.id}
                   </Text>
                 </Tag>

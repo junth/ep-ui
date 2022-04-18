@@ -78,3 +78,15 @@ export interface Wiki {
   updated?: string
   created?: string
 }
+
+export type WikiPreview = Pick<
+  Wiki,
+  | 'id'
+  | 'title'
+  | 'summary'
+  | 'content'
+  | 'tags'
+  | 'images'
+  | 'categories'
+  | 'user'
+>

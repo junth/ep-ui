@@ -6,10 +6,11 @@ import {
   fetchWikisList,
 } from '@/services/nav-search/utils'
 import { SearchSkeleton } from '@/components/Search/SearchSkeleton'
-import { Category, WikiTitle } from '@/services/nav-search'
+import { Category } from '@/services/nav-search'
 import ActivityCard from '@/components/Activity/ActivityCard'
 import { getWikiSummary } from '@/utils/getWikiSummary'
 import NextLink from 'next/link'
+import { WikiPreview } from '@/types/Wiki'
 
 const SearchQuery = () => {
   const { query: queryParam } = useRouter()
@@ -17,7 +18,7 @@ const SearchQuery = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState<{
-    articles: WikiTitle[]
+    articles: WikiPreview[]
     categories: Category[]
   }>({
     articles: [],
