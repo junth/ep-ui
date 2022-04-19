@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Box, Button, Flex } from '@chakra-ui/react'
+import { Box, Button, Flex, Text } from '@chakra-ui/react'
 import { useDropzone } from 'react-dropzone'
 import { RiCloseLine } from 'react-icons/ri'
 import { useAccount } from 'wagmi'
@@ -13,6 +13,7 @@ type DropzoneType = {
     setHideImageInput: (hide: boolean) => void
     setImage: (name: string, f: ArrayBuffer) => void
     deleteImage: () => void
+    isToResetImage: boolean
     initialImage: string | undefined
   }
 }
@@ -20,8 +21,13 @@ type DropzoneType = {
 const Dropzone = ({ dropZoneActions }: DropzoneType) => {
   const [paths, setPaths] = useState<Array<string>>([])
   const [{ data: accountData }] = useAccount()
-  const { setHideImageInput, setImage, deleteImage, initialImage } =
-    dropZoneActions
+  const {
+    setHideImageInput,
+    isToResetImage,
+    setImage,
+    deleteImage,
+    initialImage,
+  } = dropZoneActions
 
   const onDrop = useCallback(
     acceptedFiles => {
@@ -51,10 +57,19 @@ const Dropzone = ({ dropZoneActions }: DropzoneType) => {
   useEffect(() => {
     if (initialImage) {
       const path = `${config.pinataBaseUrl}${initialImage}`
-
+      setHideImageInput(true)
       setPaths([path])
     }
-  }, [initialImage])
+  }, [initialImage, setHideImageInput])
+
+  useEffect(() => {
+    if (isToResetImage) {
+      deleteImage()
+      setHideImageInput(false)
+      setPaths([])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isToResetImage, setHideImageInput])
 
   return (
     <Box>
@@ -63,6 +78,7 @@ const Dropzone = ({ dropZoneActions }: DropzoneType) => {
           display="flex"
           padding="10px"
           border="1px"
+          borderColor="borderColor"
           borderStyle="dashed"
           borderRadius="5px"
           justifyContent="center"
@@ -71,15 +87,17 @@ const Dropzone = ({ dropZoneActions }: DropzoneType) => {
           minH="300px"
           _hover={{
             boxShadow: 'md',
-            borderColor: 'orange',
+            borderColor: 'brand.400',
           }}
           {...getRootProps()}
         >
           <input disabled={!accountData?.address} {...getInputProps()} />
           {isDragActive ? (
-            <p>Drop the files here ...</p>
+            <Text textAlign="center">Drop the files here ...</Text>
           ) : (
-            <p>Drag and drop an image, or click to select</p>
+            <Text textAlign="center" opacity="0.5" maxW="xs">
+              Drag and drop an image, or click to select
+            </Text>
           )}
         </Box>
       ) : (
@@ -88,8 +106,10 @@ const Dropzone = ({ dropZoneActions }: DropzoneType) => {
             <Image
               mx="auto"
               priority
-              w="350px"
-              h="300px"
+              h="255px"
+              w="full"
+              borderRadius={4}
+              overflow="hidden"
               key={path}
               src={path}
               alt="highlight"

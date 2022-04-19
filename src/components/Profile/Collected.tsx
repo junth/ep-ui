@@ -1,16 +1,15 @@
 import { FilterLayout } from '@/components/Profile/FilterLayout'
 import { useProfileContext } from '@/components/Profile/utils'
 import { getUserWikis } from '@/services/wikis'
-import { Center, SimpleGrid, Text, Spinner } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Center, SimpleGrid, Text, Spinner, Box } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { CollectionItem } from '@/components/Profile/CollectionItem'
-import InfiniteScroll from 'react-infinite-scroll-component'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { Wiki } from '@/types/Wiki'
 import { store } from '@/store/store'
-
-const limit = 3
-let offset = 0
+import { EmptyState } from '@/components/Profile/EmptyState'
+import WikiPreviewCard from '../Wiki/WikiPreviewCard/WikiPreviewCard'
+import { ITEM_PER_PAGE } from '@/data/Constants'
 
 export const Collected = () => {
   const { displaySize } = useProfileContext()
@@ -18,54 +17,65 @@ export const Collected = () => {
   const address = router.query.profile as string
   const [hasMore, setHasMore] = useState<boolean>(true)
   const [wikis, setWikis] = useState<Wiki[] | []>([])
+  const [offset, setOffset] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const fetchMoreWikis = () => {
-    offset += limit
+    const updatedOffset = offset + ITEM_PER_PAGE
     setTimeout(() => {
       const fetchNewWikis = async () => {
         const result = await store.dispatch(
-          getUserWikis.initiate({ id: address, limit, offset }),
+          getUserWikis.initiate({ id: address, limit: ITEM_PER_PAGE, offset: updatedOffset }),
         )
         if (result.data && result.data?.length > 0) {
           const data = result.data || []
           const updatedWiki = [...wikis, ...data]
           setWikis(updatedWiki)
+          setOffset(updatedOffset)
+          setLoading(false)
         } else {
           setHasMore(false)
+          setLoading(false)
         }
       }
       fetchNewWikis()
-    }, 3000)
+   }, 3000)
   }
+
+  useEffect(()=> {
+    if(address){
+      fetchMoreWikis()
+    }
+  }, [address])
+
+  const [sentryRef] = useInfiniteScroll({
+    loading,
+    hasNextPage: hasMore,
+    onLoadMore: fetchMoreWikis,
+  })
 
   return (
     <FilterLayout>
-      {wikis.length < 1 && !hasMore && <Center>No Wikis found!</Center>}
-      <InfiniteScroll
-        dataLength={wikis.length}
-        next={fetchMoreWikis}
-        hasMore={hasMore}
-        loader={
-          <Center my="10">
+      {(wikis.length < 1 && !hasMore) && (
+        <Center>
+          <EmptyState />
+        </Center>
+      )}
+      <SimpleGrid ref={sentryRef}  minChildWidth={displaySize} w="full" spacing="4">
+        {wikis.map((item, i) => (
+          <WikiPreviewCard wiki={item} key={i} />
+        ))}
+      </SimpleGrid>
+      { (loading||hasMore) ? (
+          <Center ref={sentryRef}  w="full" h="16">
             <Spinner size="xl" />
           </Center>
-        }
-        endMessage={
-          <Center my="10">
-            <Text fontWeight="semibold">
-              {wikis.length < 1
-                ? 'No Wikis found!'
-                : 'Yay! You have seen it all 🥳 '}
-            </Text>
+        ) : (
+          <Center mt="10">
+            <Text fontWeight="semibold">Yay! You have seen it all 🥳 </Text>
           </Center>
-        }
-      >
-        <SimpleGrid minChildWidth={displaySize} w="full" spacing="4">
-          {wikis.map((item, i) => (
-            <CollectionItem key={i} item={item} />
-          ))}
-        </SimpleGrid>
-      </InfiniteScroll>
+        )}
     </FilterLayout>
   )
 }
+

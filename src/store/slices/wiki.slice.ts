@@ -4,9 +4,11 @@ import { LanguagesISOEnum, Wiki, MData } from '@/types/Wiki'
 const initialState: Wiki = {
   id: '',
   version: 1,
+  commitMessage: '',
   language: LanguagesISOEnum.EN,
   title: 'Wiki title',
   content: '',
+  summary: '',
   categories: [],
   tags: [],
   metadata: [
@@ -14,7 +16,14 @@ const initialState: Wiki = {
       id: 'page-type',
       value: 'Place / Location',
     },
+    {
+      id: 'twitter-profile',
+      value: '',
+    },
   ],
+  user: {
+    id: '',
+  },
 }
 
 const wikiSlice = createSlice({
@@ -60,6 +69,9 @@ const wikiSlice = createSlice({
           m.id === ob.id ? { ...m, value: ob.value } : m,
         ),
       }
+    },
+    reset() {
+      return initialState
     },
   },
 })

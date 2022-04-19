@@ -9,13 +9,14 @@ export interface Tag {
 
 export interface Image {
   id: string
-  type: ArrayBuffer | string
+  type: ArrayBuffer | string | File | Blob
 }
 
 export interface MData {
   id: string
   value: string
 }
+export type UpdatedMetaDataInterface = Array<MData>
 
 export interface User {
   id: string
@@ -62,14 +63,16 @@ export const Languages: LanguagesType = {
 
 export interface Wiki {
   id: string
+  commitMessage?: string
   ipfs?: string
+  summary?: string
   title: string
   content: string
   categories: BaseCategory[]
   tags: Tag[]
   images?: Image[]
-  metadata: MData[]
-  user?: User
+  user: User
+  metadata: UpdatedMetaDataInterface
   version: number
   language: LanguagesISOEnum
   updated?: string

@@ -7,8 +7,17 @@ import { useENSData } from '@/hooks/useENSData'
 
 type DisplayAvatarProps = ChakraProps & {
   address?: string | null
+  svgProps?: any
+  size?: number | string
+  mt?: number | string
 }
-const DisplayAvatar = ({ address, ...rest }: DisplayAvatarProps) => {
+const DisplayAvatar = ({
+  address,
+  svgProps,
+  size = 25,
+  mt = 2,
+  ...rest
+}: DisplayAvatarProps) => {
   const [avatar, ,] = useENSData(address)
   let content = null
   if (avatar) {
@@ -16,7 +25,7 @@ const DisplayAvatar = ({ address, ...rest }: DisplayAvatarProps) => {
   } else if (address && !avatar) {
     content = (
       <CustomAvatar
-        size={25}
+        size={size}
         variant="pixel"
         name="Unnamed"
         colors={AvatarColorArray}
@@ -26,12 +35,12 @@ const DisplayAvatar = ({ address, ...rest }: DisplayAvatarProps) => {
     content = (
       <Icon
         cursor="pointer"
-        fontSize="3xl"
+        fontSize={size}
         color="gray.600"
         _dark={{ color: 'gray.200' }}
         fontWeight={600}
         as={RiAccountCircleLine}
-        mt={2}
+        mt={mt}
       />
     )
   }
@@ -41,7 +50,7 @@ const DisplayAvatar = ({ address, ...rest }: DisplayAvatarProps) => {
       zIndex="banner"
       sx={{
         svg: {
-          ...rest,
+          ...svgProps,
         },
       }}
     >
