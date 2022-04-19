@@ -35,14 +35,14 @@ type CategoryPageProps = NextPage & {
 
 const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
   const categoryIcon = getBootStrapIcon(categoryData.icon)
-  const [wikisInCategory, setWikisInCategory] = useState<Wiki[]|[]>([])
+  const [wikisInCategory, setWikisInCategory] = useState<Wiki[] | []>([])
   const router = useRouter()
   const category = router.query.category as string
   const [hasMore, setHasMore] = useState<boolean>(true)
   const [offset, setOffset] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
 
-  useEffect(()=> {
+  useEffect(() => {
     setHasMore(true)
     setOffset(0)
     setWikisInCategory(wikis)
@@ -60,8 +60,7 @@ const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
           }),
         )
         if (result.data && result.data?.length > 0) {
-
-          const data = result.data
+          const { data } = result
           const updatedWiki = [...wikisInCategory, ...data]
           console.log(updatedWiki)
           console.log(updatedWiki)
