@@ -10,6 +10,7 @@ import { Hero } from '@/components/Landing/Hero'
 import { NotableDrops } from '@/components/Landing/NotableDrops'
 import CategoriesList from '@/components/Landing/CategoriesList'
 import { store } from '@/store/store'
+import config from '@/config'
 
 export const Home: NextPage = () => {
   const result = useGetPromotedWikisQuery()
@@ -34,12 +35,14 @@ export const Home: NextPage = () => {
   )
 }
 
-export async function getServerSideProps() {
-  store.dispatch(getPromotedWikis.initiate())
-  await Promise.all(getRunningOperationPromises())
-  return {
-    props: {},
-  }
-}
+export const getServerSideProps = config.isDeployingOnVercel
+  ? async () => {
+      store.dispatch(getPromotedWikis.initiate())
+      await Promise.all(getRunningOperationPromises())
+      return {
+        props: {},
+      }
+    }
+  : null
 
 export default Home

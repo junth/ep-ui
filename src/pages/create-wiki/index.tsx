@@ -43,7 +43,6 @@ import {
 } from '@/services/wikis'
 import { useRouter } from 'next/router'
 import { store } from '@/store/store'
-import { GetServerSideProps } from 'next'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useAccount, useSignTypedData, useWaitForTransaction } from 'wagmi'
 import { MdTitle } from 'react-icons/md'
@@ -402,6 +401,11 @@ const CreateWiki = () => {
     if (txHash) verifyTrxHash(txHash)
   }, [txHash, verifyTrxHash])
 
+  useEffect(() => {
+    if (!config.isDeployingOnVercel && typeof slug === 'string')
+      store.dispatch(getWiki.initiate(slug))
+  }, [slug])
+
   const handlePopupClose = () => {
     setMsg(initialMsg)
     setIsLoading('loading')
@@ -568,15 +572,17 @@ const CreateWiki = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const slug = context.params?.slug
-  if (typeof slug === 'string') {
-    store.dispatch(getWiki.initiate(slug))
-  }
-  await Promise.all(getRunningOperationPromises())
-  return {
-    props: {},
-  }
-}
+export const getServerSideProps: any = config.isDeployingOnVercel
+  ? async (context: any) => {
+      const slug = context.params?.slug
+      if (typeof slug === 'string') {
+        store.dispatch(getWiki.initiate(slug))
+      }
+      await Promise.all(getRunningOperationPromises())
+      return {
+        props: {},
+      }
+    }
+  : null
 
 export default authenticatedRoute(memo(CreateWiki))

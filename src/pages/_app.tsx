@@ -57,12 +57,14 @@ const App = (props: EpAppProps) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  store.dispatch(getCategoriesLinks.initiate())
-  await Promise.all(getRunningOperationPromises())
-  return {
-    props: {},
-  }
-}
+export const getServerSideProps = config.isDeployingOnVercel
+  ? async () => {
+      store.dispatch(getCategoriesLinks.initiate())
+      await Promise.all(getRunningOperationPromises())
+      return {
+        props: {},
+      }
+    }
+  : null
 
 export default App

@@ -1,5 +1,5 @@
 import React from 'react'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { Divider, Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import { Image } from '@/components/Elements/Image/Image'
 import ToggleText from '@/components/Elements/ToggleText/ToggleText'
@@ -12,6 +12,7 @@ import {
 } from '@/services/categories'
 import { store } from '@/store/store'
 import { useRouter } from 'next/router'
+import config from '@/config'
 
 const Categories: NextPage = () => {
   const router = useRouter()
@@ -57,12 +58,14 @@ const Categories: NextPage = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  store.dispatch(getCategories.initiate())
-  await Promise.all(getRunningOperationPromises())
-  return {
-    props: {},
-  }
-}
+export const getServerSideProps = config.isDeployingOnVercel
+  ? async () => {
+      store.dispatch(getCategories.initiate())
+      await Promise.all(getRunningOperationPromises())
+      return {
+        props: {},
+      }
+    }
+  : null
 
 export default Categories

@@ -9,8 +9,11 @@ import {
   useGetWikiQuery,
 } from '@/services/wikis'
 import { store } from '@/store/store'
-import { GetServerSideProps } from 'next'
-import { HeadingProps } from 'react-markdown/lib/ast-to-react'
+import {
+  ComponentPropsWithoutRef,
+  HeadingProps,
+  ReactMarkdownProps,
+} from 'react-markdown/lib/ast-to-react'
 import { HStack, Flex, Spinner } from '@chakra-ui/react'
 import WikiActionBar from '@/components/Wiki/WikiPage/WikiActionBar'
 import WikiMainContent from '@/components/Wiki/WikiPage/WikiMainContent'
@@ -19,6 +22,7 @@ import WikiTableOfContents from '@/components/Wiki/WikiPage/WikiTableOfContents'
 import { getWikiImageUrl } from '@/utils/getWikiImageUrl'
 import { getWikiSummary } from '@/utils/getWikiSummary'
 import WikiNotFound from '@/components/Wiki/WIkiNotFound/WikiNotFound'
+import config from '@/config'
 
 const Wiki = () => {
   const router = useRouter()
@@ -117,19 +121,21 @@ const Wiki = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const slug = context.params?.slug
-  if (typeof slug === 'string') {
-    store.dispatch(getWiki.initiate(slug)).then(res => {
-      res?.data?.categories.map(category =>
-        getWikisByCategory.initiate(category.id),
-      )
-    })
-  }
-  await Promise.all(getRunningOperationPromises())
-  return {
-    props: {},
-  }
-}
+export const getServerSideProps = config.isDeployingOnVercel
+  ? async (context: any) => {
+      const slug = context.params?.slug
+      if (typeof slug === 'string') {
+        store.dispatch(getWiki.initiate(slug)).then(res => {
+          res?.data?.categories.map(category =>
+            getWikisByCategory.initiate({ category: category.id }),
+          )
+        })
+      }
+      await Promise.all(getRunningOperationPromises())
+      return {
+        props: {},
+      }
+    }
+  : null
 
 export default Wiki

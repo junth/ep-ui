@@ -11,12 +11,14 @@ module.exports = {
   },
   styledComponents: true,
   images: {
+    loader: 'imgix',
+    path: 'https://ep-test.imgix.net/',
     domains: [
       'picsum.photos',
       'everipedia.org',
       'ipfs.everipedia.org',
       'lh3.googleusercontent.com',
-      'gateway.pinata.cloud'
+      'gateway.pinata.cloud',
     ], // for demo data
   },
 }
