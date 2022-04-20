@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { NextSeo } from 'next-seo'
@@ -21,6 +21,7 @@ import WikiInsights from '@/components/Wiki/WikiPage/WikiInsights'
 import WikiTableOfContents from '@/components/Wiki/WikiPage/WikiTableOfContents'
 import { getWikiImageUrl } from '@/utils/getWikiImageUrl'
 import { getWikiSummary } from '@/utils/getWikiSummary'
+import WikiPreviewHover from '@/components/Wiki/WikiPage/WikiPreviewHover'
 import WikiNotFound from '@/components/Wiki/WIkiNotFound/WikiNotFound'
 import config from '@/config'
 
@@ -33,6 +34,17 @@ const Wiki = () => {
   })
   const { isLoading, error, data: wiki } = result
   const [isTocEmpty, setIsTocEmpty] = React.useState<boolean>(true)
+
+  // get the link id if available to scroll to the correct position
+  useEffect(() => {
+    if (!isTocEmpty) {
+      const linkId = window.location.hash.replace('#', '')
+      if (linkId) {
+        router.push(`/wiki/${slug}#${linkId}`)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTocEmpty])
 
   // here toc is not state variable since there seems to be some issue
   // with in react-markdown that is causing infinite loop if toc is state variable
@@ -55,11 +67,14 @@ const Wiki = () => {
   }: React.PropsWithChildren<HeadingProps>) => {
     const level = Number(props.node.tagName.match(/h(\d)/)?.slice(1))
     if (level && children && typeof children[0] === 'string') {
-      const id = `${children[0]
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')}-${Math.random()
-        .toString(36)
-        .substring(2, 5)}`
+      // id for each heading to be used in table of contents
+      const id = `${children[0].toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${
+        toc.length
+      }`
+
+      // TODO: Find out why this is happening
+      // if the last item in toc is same as current item, remove the last item
+      // to avoid duplicate items
       if (toc[toc.length - 1]?.title === children[0]) {
         toc.pop()
       }
@@ -69,6 +84,34 @@ const Wiki = () => {
         title: children[0],
       })
       return React.createElement(props.node.tagName, { id }, children)
+    }
+    return React.createElement(props.node.tagName, props, children)
+  }
+
+  const addWikiPreview = ({
+    children,
+    ...props
+  }: React.PropsWithChildren<
+    ComponentPropsWithoutRef<'a'> & ReactMarkdownProps
+  >) => {
+    // TODO: Make more specific regex
+    const wikiLinkRecognizer = /.*\/wiki\/(.*)/
+    const wikiSlug = props?.href?.match(wikiLinkRecognizer)?.[1]
+
+    // Checks if the link is a wiki link
+    const isChildrenPresent =
+      children && typeof children[0] === 'string' && children[0].length > 0
+    const isWikiSlugPresent = wikiSlug && wikiSlug.length > 0
+
+    // render special hover component if the link is a wiki link
+    if (isChildrenPresent && isWikiSlugPresent && props.href) {
+      return (
+        <WikiPreviewHover
+          text={children[0] as string}
+          href={props.href}
+          slug={wikiSlug}
+        />
+      )
     }
     return React.createElement(props.node.tagName, props, children)
   }
@@ -106,7 +149,11 @@ const Wiki = () => {
               <WikiActionBar wiki={wiki} />
               {wiki ? (
                 <>
-                  <WikiMainContent wiki={wiki} addToTOC={addToTOC} />
+                  <WikiMainContent
+                    wiki={wiki}
+                    addToTOC={addToTOC}
+                    addWikiPreview={addWikiPreview}
+                  />
                   <WikiInsights wiki={wiki} />
                 </>
               ) : (

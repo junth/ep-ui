@@ -1,5 +1,21 @@
 import { gql } from 'graphql-request'
 
+export const GET_PREVIEW_WIKI_BY_ID = gql`
+  query GetPreviewWikiById($id: String!) {
+    wiki(id: $id) {
+      id
+      title
+      content
+      summary
+      tags {
+        id
+      }
+      images {
+        id
+      }
+    }
+  }
+`
 export const GET_WIKI_BY_ID = gql`
   query GetWiki($id: String!) {
     wiki(id: $id) {
@@ -94,9 +110,9 @@ export const GET_PROMOTED_WIKIS = gql`
 `
 
 export const GET_USER_WIKIS_BY_ID = gql`
-  query GetUserWikis($id: String!) {
+  query GetUserWikis($id: String!, $limit: Int, $offset: Int) {
     userById(id: $id) {
-      wikis {
+      wikis(offset: $offset, limit: $limit) {
         id
         ipfs
         title
@@ -128,8 +144,8 @@ export const GET_USER_WIKIS_BY_ID = gql`
 `
 
 export const GET_WIKIS_BY_CATEGORY = gql`
-  query GetUserWikisByCategory($category: String!) {
-    wikisByCategory(category: $category) {
+  query GetUserWikisByCategory($category: String!, $offset: Int, $limit: Int) {
+    wikisByCategory(category: $category, offset: $offset, limit: $limit) {
       id
       ipfs
       content
@@ -153,6 +169,40 @@ export const GET_WIKIS_BY_CATEGORY = gql`
       }
       user {
         id
+      }
+    }
+  }
+`
+
+export const GET_TAG_WIKIS_BY_ID = gql`
+  query GetTagWikis($id: String!, $limit: Int, $offset: Int) {
+    tagById(id: $id) {
+      wikis(offset: $offset, limit: $limit) {
+        id
+        ipfs
+        content
+        created
+        updated
+        title
+        summary
+        content
+        categories {
+          id
+          title
+        }
+        tags {
+          id
+        }
+        images {
+          id
+          type
+        }
+        metadata {
+          id
+        }
+        user {
+          id
+        }
       }
     }
   }

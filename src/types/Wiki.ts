@@ -23,14 +23,12 @@ export interface User {
 }
 
 export enum PageTypeName {
+  GENERIC = 'generic',
   PERSON = 'Person',
-  PLACE_LOCATION = 'Place / Location',
-  ORGANIZATION_COMPANY_INSTITUTION = 'Organization / Company / Institution',
   EVENT = 'Event',
-  LIST_RANKING = 'List / Ranking',
-  PRODUCT_MERCHANDISE = 'Product / Merchandise',
-  CREATIVE_WORK_ART = 'Create Work / Art',
-  OTHER = 'Other',
+  DAPP = 'Dapp',
+  NFT = 'NFT',
+  TOKEN = 'Token',
 }
 
 export type PageType = {
@@ -63,7 +61,6 @@ export const Languages: LanguagesType = {
 
 export interface Wiki {
   id: string
-  commitMessage?: string
   ipfs?: string
   summary?: string
   title: string
@@ -71,10 +68,22 @@ export interface Wiki {
   categories: BaseCategory[]
   tags: Tag[]
   images?: Image[]
+  user: User
   metadata: UpdatedMetaDataInterface
-  user?: User
   version: number
   language: LanguagesISOEnum
   updated?: string
   created?: string
 }
+
+export type WikiPreview = Pick<
+  Wiki,
+  | 'id'
+  | 'title'
+  | 'summary'
+  | 'content'
+  | 'tags'
+  | 'images'
+  | 'categories'
+  | 'user'
+>
