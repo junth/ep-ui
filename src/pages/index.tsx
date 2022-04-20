@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NextPage } from 'next'
 import { Flex } from '@chakra-ui/react'
 import {
@@ -16,6 +16,10 @@ export const Home: NextPage = () => {
   const result = useGetPromotedWikisQuery()
   const { data } = result
   const wiki = data && data.length > 0 ? data[0] : undefined // TODO: remove from array
+
+  useEffect(() => {
+    if (!config.isDeployingOnVercel) store.dispatch(getPromotedWikis.initiate())
+  }, [])
 
   return (
     <main>

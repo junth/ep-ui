@@ -38,6 +38,18 @@ const TagPage: NextPage<TagPageProps> = ({ tagId, wikis }: TagPageProps) => {
     setWikisByTag(wikis)
   }, [tag])
 
+  useEffect(() => {
+    if (!config.isDeployingOnVercel) {
+      const getTagWikisAsync = async () => {
+        await store.dispatch(
+          getTagWikis.initiate({ id: tagId, offset: 0, limit: ITEM_PER_PAGE }),
+        )
+      }
+
+      getTagWikisAsync()
+    }
+  }, [tag])
+
   const fetchMoreWikis = () => {
     const updatedOffset = offset + ITEM_PER_PAGE
     setTimeout(() => {

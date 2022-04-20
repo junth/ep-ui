@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './static/assets/global.css'
@@ -34,6 +34,11 @@ const App = (props: EpAppProps) => {
       config.alchemyChain,
       config.alchemyApiKey,
     )
+
+  useEffect(() => {
+    if (!config.isDeployingOnVercel)
+      store.dispatch(getCategoriesLinks.initiate())
+  }, [])
 
   return (
     <>

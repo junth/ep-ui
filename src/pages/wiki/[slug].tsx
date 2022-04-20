@@ -117,6 +117,15 @@ const Wiki = () => {
   }
   /* eslint-enable react/prop-types */
 
+  useEffect(() => {
+    if (!config.isDeployingOnVercel && typeof slug === 'string')
+      store.dispatch(getWiki.initiate(slug)).then(res => {
+        res?.data?.categories.map(category =>
+          getWikisByCategory.initiate({ category: category.id }),
+        )
+      })
+  }, [slug])
+
   return (
     <>
       {wiki && (

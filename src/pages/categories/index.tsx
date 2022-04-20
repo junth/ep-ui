@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NextPage } from 'next'
 import { Divider, Box, Heading, SimpleGrid } from '@chakra-ui/react'
 import { Image } from '@/components/Elements/Image/Image'
@@ -17,6 +17,11 @@ import config from '@/config'
 const Categories: NextPage = () => {
   const router = useRouter()
   const { data } = useGetCategoriesQuery(undefined, { skip: router.isFallback })
+
+  useEffect(() => {
+    if (!config.isDeployingOnVercel) store.dispatch(getCategories.initiate())
+  }, [])
+
   return (
     <Box mt="-12" bgColor="pageBg" pb={12}>
       <Image src="/images/categories-backdrop.png" height="250px" />
