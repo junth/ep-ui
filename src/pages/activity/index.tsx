@@ -64,10 +64,11 @@ const Activity = ({ activities }: { activities: ActivityType[] }) => {
 
   useEffect(() => {
     if (!config.isDeployingOnVercel) {
-      const getLatestActivitiesAsync = async () =>
+      const getLatestActivitiesAsync = async () => {
         await store.dispatch(
           getLatestActivities.initiate({ offset: 0, limit: ITEM_PER_PAGE }),
         )
+      }
 
       getLatestActivitiesAsync()
     }
