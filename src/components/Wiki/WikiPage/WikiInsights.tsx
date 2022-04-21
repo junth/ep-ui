@@ -2,6 +2,7 @@ import React from 'react'
 import { VStack } from '@chakra-ui/react'
 import { Wiki } from '@/types/Wiki'
 import { getWikiImageUrl } from '@/utils/getWikiImageUrl'
+import { Uniswap } from '@/components/Wiki/WikiPage/InsightComponents/Uniswap'
 import { TitleAndImage } from './InsightComponents/TitleAndImage'
 import { RelatedWikis } from './InsightComponents/RelatedWikis'
 import ProfileStatistics from './InsightComponents/ProfileStatistics'
@@ -32,6 +33,7 @@ const WikiInsights = ({ wiki }: WikiInsightsProps) => (
       lastEditor={wiki.user?.id}
       imgSrc={getWikiImageUrl(wiki)}
     />
+    <Uniswap />
     <ProfileSummary />
     <ProfileStatistics />
     <CurrencyConverter token="everipedia" tokenSymbol="IQ" />

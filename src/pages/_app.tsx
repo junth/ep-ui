@@ -9,7 +9,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import { Provider } from 'wagmi'
 import { Provider as ReduxProvider } from 'react-redux'
-import { ethers } from 'ethers'
+import { ethers, getDefaultProvider } from 'ethers'
 import connectors from '@/config/connectors'
 import Layout from '@/components/Layout/Layout/Layout'
 import SEOHeader from '@/components/SEO/Headers'
@@ -26,14 +26,14 @@ type EpAppProps = AppProps & {
   Component: AppProps['Component'] & { noFooter?: boolean }
 }
 
+export const provider = () =>
+  new ethers.providers.AlchemyProvider(
+    config.alchemyChain,
+    config.alchemyApiKey,
+  )
+
 const App = (props: EpAppProps) => {
   const { Component, pageProps, router } = props
-
-  const provider = () =>
-    new ethers.providers.AlchemyProvider(
-      config.alchemyChain,
-      config.alchemyApiKey,
-    )
 
   return (
     <>
@@ -45,7 +45,9 @@ const App = (props: EpAppProps) => {
           <Provider
             autoConnect
             connectors={connectors}
-            provider={provider as any}
+            provider={
+              provider as unknown as ReturnType<typeof getDefaultProvider>
+            }
           >
             <Layout noFooter={Component.noFooter}>
               <ImageProvider>
