@@ -20,7 +20,6 @@ export const Uniswap = () => {
   useEffect(() => {
     const setProv = async () => {
       const ethProvider = await detectEthereumProvider()
-      console.log('ethProvider :>> ', ethProvider);
       if (ethProvider) setProvider(ethProvider)
     }
     setProv()
