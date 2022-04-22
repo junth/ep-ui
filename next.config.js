@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  exportTrailingSlash: true,
   webpack5: true,
   webpack(config) {
     config.module.rules.push({
