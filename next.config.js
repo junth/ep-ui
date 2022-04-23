@@ -13,6 +13,8 @@ module.exports = {
   },
   styledComponents: true,
   images: {
+    loader: 'imgix',
+    path: '',
     domains: [
       'picsum.photos',
       'everipedia.org',
