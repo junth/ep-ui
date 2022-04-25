@@ -1,16 +1,43 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { ButtonGroup, chakra, Flex } from '@chakra-ui/react'
+import { resolve } from 'url'
+import Link from 'next/link'
+
 import { LinkButton } from '@/components/Elements'
 import { Wiki } from '@/types/Wiki'
 import shortenAccount from '@/utils/shortenAccount'
-import NextLink from 'next/link'
+// import NextLink from 'next/link'
 import { getWikiImageUrl } from '@/utils/getWikiImageUrl'
 import DisplayAvatar from '@/components/Elements/Avatar/Avatar'
 import { WikiImage } from '../WikiImage'
 
+const BaseLink = ({ href, as, ...rest }: any) => {
+  const newAs = useMemo(() => {
+    let baseURIAs = as || href
+
+    // make absolute url relative
+    // when displayed in url bar
+    if (baseURIAs.startsWith('/')) {
+      //  for static html compilation
+      baseURIAs = `.${href}`
+      // <IPFSLink href="/about"> => <a class="jsx-2055897931" href="./about">About</a>
+
+      // on the client
+      //   document is unavailable when compiling on the server
+      if (typeof document !== 'undefined') {
+        baseURIAs = resolve(document.baseURI, baseURIAs)
+        // => <a href="https://gateway.ipfs.io/ipfs/Qm<hash>/about">About</a>
+      }
+    }
+    return baseURIAs
+  }, [as, href])
+
+  return <Link {...rest} href={href} as={newAs} />
+}
+
 const HeroCard = ({ wiki }: HeroProps) => {
   return (
-    <NextLink href={`/wiki/${wiki?.id}`} passHref>
+    <BaseLink href={`/wiki/${wiki?.id}`} passHref>
       <Flex
         alignSelf="center"
         direction="column"
@@ -34,9 +61,9 @@ const HeroCard = ({ wiki }: HeroProps) => {
           roundedTop="lg"
         />
         <Flex p="3" align="center" gap={4}>
-          <NextLink href={`/account/${wiki?.user?.id}`} passHref>
+          <Link href={`/account/${wiki?.user?.id}`} passHref>
             <DisplayAvatar address={wiki?.user?.id} />
-          </NextLink>
+          </Link>
           <Flex
             direction="column"
             justify="space-between"
@@ -49,7 +76,7 @@ const HeroCard = ({ wiki }: HeroProps) => {
           </Flex>
         </Flex>
       </Flex>
-    </NextLink>
+    </BaseLink>
   )
 }
 
