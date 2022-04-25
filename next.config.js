@@ -14,7 +14,7 @@ module.exports = {
   styledComponents: true,
   images: {
     loader: 'imgix',
-    path: 'https://noop/',
+    path: 'images',
     domains: [
       'picsum.photos',
       'everipedia.org',
