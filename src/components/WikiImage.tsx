@@ -27,20 +27,20 @@ export type WikiImageProps = Partial<NextChakraImageProps> & {
 }
 
 export const WikiImage = ({ imageURL, ...rest }: WikiImageProps) => {
-  const [src, setSrc] = useState(PLACEHOLDER_IMAGE)
+  const [source, setSrc] = useState(PLACEHOLDER_IMAGE)
   useEffect(() => {
     setSrc(imageURL || PLACEHOLDER_IMAGE)
   }, [imageURL])
 
   return (
     <Image
-      src={src}
+      src={source}
       placeholder="blur"
       onError={() => setSrc(PLACEHOLDER_IMAGE)}
       blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
       sx={{
         img:
-          src === PLACEHOLDER_IMAGE
+          source === PLACEHOLDER_IMAGE
             ? {
                 minH: '50% !important',
                 minW: '50% !important',

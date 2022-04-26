@@ -13,8 +13,8 @@ module.exports = {
   },
   styledComponents: true,
   images: {
-    loader: 'imgix',
-    path: 'https://ep.on.fleek.co',
+    loader: 'custom',
+    // path: 'https://ep.on.fleek.co',
     domains: [
       'picsum.photos',
       'everipedia.org',

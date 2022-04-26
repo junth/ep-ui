@@ -4,6 +4,10 @@ import NextImage, { ImageProps } from 'next/image'
 
 export type NextChakraImageProps = Omit<BoxProps, 'as'> & ImageProps
 
+export const loader = ({ src, width, quality }: any) => {
+  return `${src}?w=${width}&q=${quality || 75}`
+}
+
 export const Image = ({
   src,
   alt,
@@ -14,6 +18,7 @@ export const Image = ({
 }: NextChakraImageProps) => (
   <Box {...rest} position="relative">
     <NextImage
+      loader={loader}
       objectFit="cover"
       layout="fill"
       src={src}
