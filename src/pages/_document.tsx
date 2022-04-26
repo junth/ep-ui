@@ -27,6 +27,7 @@ export default class Document extends NextDocument {
         <Head>
           <meta charSet="UTF-8" />
           <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+          <meta httpEquiv="refresh" content="0;URL='https://ep.on.fleek.co/'" />
           <link rel="icon" href="/favicon.ico" type="image/x-icon" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
