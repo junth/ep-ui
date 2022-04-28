@@ -203,7 +203,7 @@ const CreateWiki = () => {
         getImageArrayBufferLength())
     ) {
       toast({
-        title: 'Add a main image to continue',
+        title: 'Add a main image on the right column to continue',
         status: 'error',
         duration: 3000,
       })
