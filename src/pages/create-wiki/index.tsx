@@ -77,7 +77,7 @@ const Editor = dynamic(() => import('@/components/Layout/Editor/Editor'), {
   ssr: false,
 })
 
-const initialEditorValue = `# Place name\n**Place_name** is a place ...\n## History\n**Place_name** is known for ...\n## Features\n**Place_name** offers ...`
+const initialEditorValue = ` `
 const initialMsg =
   'Your Wiki is being processed. It will be available on the blockchain soon.'
 const errorMessage = 'Oops, An Error Occurred. Wiki could not be created'
