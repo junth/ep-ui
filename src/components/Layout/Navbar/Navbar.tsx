@@ -156,6 +156,7 @@ const Navbar = () => {
                 href="/"
                 mr={{ base: 0, xl: '9vw' }}
                 _hover={{ textDecoration: 'none' }}
+                _focus={{ boxShadow: 'none' }}
               >
                 <HStack width="150px">
                   <Logo />
