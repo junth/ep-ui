@@ -31,13 +31,12 @@ import { RootState } from '@/store/store'
 import { saveUserToLocalStorage } from '@/utils/browserStorage'
 
 const Connectors = () => {
-
   const { isConnecting, connectors, connect } = useConnect()
 
   const { data: accountData } = useAccount()
   const address = accountData ? accountData.address : null
   const [, getBalance] = useBalance()
-  
+
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
     (state: RootState) => state.user,
   )
