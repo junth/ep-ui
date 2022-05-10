@@ -31,11 +31,13 @@ import { RootState } from '@/store/store'
 import { saveUserToLocalStorage } from '@/utils/browserStorage'
 
 const Connectors = () => {
-  const [{ data, loading }, connect] = useConnect()
+
+  const { isConnecting, connectors, connect } = useConnect()
 
   const { data: accountData } = useAccount()
   const address = accountData ? accountData.address : null
   const [, getBalance] = useBalance()
+  
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
     (state: RootState) => state.user,
   )
@@ -177,13 +179,13 @@ const Connectors = () => {
             borderRadius="lg"
             overflow="hidden"
           >
-            {data.connectors.map((w, index) => (
+            {connectors.map((w, index) => (
               <Box key={w.name} w="full">
                 <ConnectorDetails
                   connect={connect}
                   w={w}
                   imageLink={`/images/${walletsLogos[index]}`}
-                  loading={loading}
+                  loading={isConnecting}
                 />
                 {index < walletsLogos.length - 1 && <Divider />}
               </Box>

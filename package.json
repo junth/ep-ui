@@ -72,6 +72,7 @@
     "slick-carousel": "^1.8.1",
     "slugify": "^1.6.5",
     "wagmi": "^0.3.*",
+    "wagmi-core": "^0.1.22",
     "walletlink": "^2.5.0"
   },
   "devDependencies": {

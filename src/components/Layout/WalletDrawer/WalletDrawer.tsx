@@ -68,7 +68,7 @@ const WalletDrawer = ({
   setHamburger,
 }: WalletDrawerType) => {
   const { data: accountData } = useAccount()
-  const {disconnect} = useDisconnect()
+  const { disconnect } = useDisconnect()
   const [, username] = useENSData(accountData?.address)
   const [accountRefreshLoading, setAccountRefreshLoader] =
     useState<boolean>(false)
