@@ -50,17 +50,23 @@ const Editor = ({ onChange, markdown }: EditorType) => {
   }, [editorRef, markdown, onChange])
 
   return (
-    <Box ref={containerRef} m={0} w="100%" h="100%">
+    <Box ref={containerRef} m={0} w='100%' h='100%'>
       {markdown && (
         <ToastUIEditor
           plugins={[wikiLink]}
-          height="100%"
+          height='100%'
           autofocus={false}
           theme={colorMode === 'dark' ? 'dark' : 'light'}
           ref={editorRef}
           initialValue={markdown}
-          initialEditType="wysiwyg"
+          initialEditType='wysiwyg'
           onChange={handleOnEditorChange}
+          toolbarItems={[
+            ['heading', 'bold', 'italic', 'strike'],
+            ['hr', 'quote'],
+            ['ul', 'ol', 'indent', 'outdent'],
+            ['table', 'image', 'code']
+          ]}
         />
       )}
     </Box>
