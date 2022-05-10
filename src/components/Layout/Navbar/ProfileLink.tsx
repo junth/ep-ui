@@ -4,7 +4,7 @@ import { RiAccountCircleFill } from 'react-icons/ri'
 import { useAccount } from 'wagmi'
 
 export const ProfileLink = () => {
-  const [{ data }] = useAccount()
+  const { data } = useAccount()
   return (
     <Link
       order={-1}

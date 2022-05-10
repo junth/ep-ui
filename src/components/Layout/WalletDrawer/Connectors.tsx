@@ -33,7 +33,7 @@ import { saveUserToLocalStorage } from '@/utils/browserStorage'
 const Connectors = () => {
   const [{ data, loading }, connect] = useConnect()
 
-  const [{ data: accountData }] = useAccount()
+  const { data: accountData } = useAccount()
   const address = accountData ? accountData.address : null
   const [, getBalance] = useBalance()
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(

@@ -19,7 +19,7 @@ import {
   Spinner,
   createStandaloneToast,
 } from '@chakra-ui/react'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance, useDisconnect } from 'wagmi'
 import { FocusableElement } from '@chakra-ui/utils'
 import {
   RiArrowLeftSLine,
@@ -67,7 +67,8 @@ const WalletDrawer = ({
   finalFocusRef,
   setHamburger,
 }: WalletDrawerType) => {
-  const [{ data: accountData }, disconnect] = useAccount()
+  const { data: accountData } = useAccount()
+  const {disconnect} = useDisconnect()
   const [, username] = useENSData(accountData?.address)
   const [accountRefreshLoading, setAccountRefreshLoader] =
     useState<boolean>(false)

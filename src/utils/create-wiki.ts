@@ -151,7 +151,7 @@ export const useGetSignedHash = (deadline: number) => {
     setTxHash,
     setActiveStep,
   } = useCreateWikiContext()
-  const [{ data: accountData }] = useAccount()
+  const { data: accountData } = useAccount()
   const [{ data, error, loading: signing }, signTypedData] = useSignTypedData(
     {},
   )

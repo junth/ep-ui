@@ -7,7 +7,7 @@ import './static/assets/markdown.css'
 import '@/editor-plugins/wikiLink/styles.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
-import { Provider } from 'wagmi'
+import { Provider, createClient } from 'wagmi'
 import { Provider as ReduxProvider } from 'react-redux'
 import { ethers } from 'ethers'
 import connectors from '@/config/connectors'
@@ -22,7 +22,6 @@ import config from '@/config'
 import NextNProgress from 'nextjs-progressbar'
 import { pageView } from '@/utils/googleAnalytics'
 import Script from 'next/script'
-import { BaseProvider } from '@ethersproject/providers'
 import chakraTheme from '../theme'
 
 type EpAppProps = AppProps & {
@@ -50,6 +49,12 @@ const App = (props: EpAppProps) => {
       config.alchemyApiKey,
     )
 
+  const client = createClient({
+    autoConnect: true,
+    connectors,
+    provider,
+  })
+
   return (
     <>
       <Script
@@ -73,11 +78,7 @@ const App = (props: EpAppProps) => {
       <ReduxProvider store={store}>
         <ChakraProvider resetCSS theme={chakraTheme}>
           <Fonts />
-          <Provider
-            autoConnect
-            connectors={connectors as any}
-            provider={provider as unknown as BaseProvider}
-          >
+          <Provider client={client}>
             <Layout noFooter={Component.noFooter}>
               <ImageProvider>
                 <Component {...pageProps} />

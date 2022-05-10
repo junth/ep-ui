@@ -1,7 +1,8 @@
 import { MagicConnector } from '@everipedia/wagmi-magic-connector'
-import { chain, defaultChains, InjectedConnector } from 'wagmi'
+import { chain, defaultChains } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 
 import config from './index'
 
@@ -10,7 +11,7 @@ const chains = defaultChains
 type Connector =
   | InjectedConnector
   | WalletConnectConnector
-  | WalletLinkConnector
+  | CoinbaseWalletConnector
   | MagicConnector
 
 const connectors = ({ chainId = 1 }: { chainId?: number }): Connector[] => {
@@ -32,7 +33,7 @@ const connectors = ({ chainId = 1 }: { chainId?: number }): Connector[] => {
         qrcode: true,
       },
     }),
-    new WalletLinkConnector({
+    new CoinbaseWalletConnector({
       options: {
         appName: 'Everipedia',
         jsonRpcUrl: `${rpcUrl}`,
