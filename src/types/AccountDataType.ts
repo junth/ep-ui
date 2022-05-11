@@ -1,4 +1,8 @@
 import { Connector } from 'wagmi'
+import {
+  FetchEnsAvatarResult,
+  FetchEnsNameResult,
+} from 'wagmi/node_modules/@wagmi/core'
 
 export type AccountDataType =
   | {
@@ -7,8 +11,8 @@ export type AccountDataType =
       connector: Connector<any, any> | undefined
       ens:
         | {
-            avatar: string | null | undefined
-            name: string
+            avatar: FetchEnsAvatarResult | undefined
+            name: FetchEnsNameResult | undefined
           }
         | undefined
     }

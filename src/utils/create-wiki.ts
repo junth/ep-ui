@@ -150,16 +150,24 @@ export const useGetSignedHash = (deadline: number) => {
     setIsLoading,
     setTxHash,
     setActiveStep,
+    txHash,
   } = useCreateWikiContext()
+
   const { data: accountData } = useAccount()
-  const [{ data, error, loading: signing }, signTypedData] = useSignTypedData(
-    {},
-  )
-  const [, wait] = useWaitForTransaction()
+
+  const {
+    data,
+    error,
+    isLoading: signing,
+    signTypedDataAsync,
+  } = useSignTypedData({})
+
+  const { refetch } = useWaitForTransaction({ hash: txHash })
 
   const saveHashInTheBlockchain = async (ipfs: string) => {
     setWikiHash(ipfs)
-    signTypedData({
+
+    signTypedDataAsync({
       domain,
       types,
       value: {
@@ -167,30 +175,41 @@ export const useGetSignedHash = (deadline: number) => {
         user: accountData?.address || '',
         deadline,
       },
-    }).then(response => {
-      if (response.data) {
-        setActiveStep(1)
-      }
-      if (response.error) {
-        setIsLoading('error')
-        setMsg(errorMessage)
-      }
     })
+      .then(response => {
+        console.log(response)
+        console.log(response)
+        console.log(response)
+        if (response) {
+          setActiveStep(1)
+        } else {
+          setIsLoading('error')
+          setMsg(errorMessage)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        console.log(err)
+        console.log('getting herherhererjerjrje')
+        console.log('getting herherhererjerjrje')
+      })
   }
 
   const verifyTrxHash = useCallback(
     async (trxHash: string) => {
+      console.log(trxHash)
       const timer = setInterval(() => {
         try {
           const checkTrx = async () => {
-            const trx = await wait({
-              hash: trxHash,
-            })
+            const trx = await refetch()
+            console.log(trx)
+            console.log(trx)
+            console.log(trx)
             if (trx.error) {
               setIsLoading('error')
               setMsg(errorMessage)
               clearInterval(timer)
-            } else if (trx.data.confirmations > 1) {
+            } else if (trx && trx.data && trx.data.confirmations > 1) {
               setIsLoading(undefined)
               setActiveStep(3)
               setMsg(successMessage)
@@ -205,12 +224,12 @@ export const useGetSignedHash = (deadline: number) => {
         }
       }, 3000)
     },
-    [wait],
+    [refetch],
   )
 
   useEffect(() => {
     const getSignedTxHash = async () => {
-      if (data && wikiHash && accountData) {
+      if (data && wikiHash && accountData && accountData.address) {
         if (error) {
           setMsg(errorMessage)
           setIsLoading('error')

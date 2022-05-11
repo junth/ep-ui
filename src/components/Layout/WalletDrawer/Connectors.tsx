@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useConnect, useAccount, useBalance } from 'wagmi'
+import { useConnect, useAccount, useEnsName, useEnsAvatar } from 'wagmi'
 import {
   Box,
   Divider,
@@ -14,11 +14,9 @@ import ConnectorDetails from '@/components/Layout/WalletDrawer/ConnectorDetails'
 import { walletsLogos } from '@/data/WalletData'
 import shortenBalance from '@/utils/shortenBallance'
 import {
-  fetchWalletBalance,
   fetchRateAndCalculateTotalBalance,
   calculateTotalBalance,
 } from '@/utils/fetchWalletBalance'
-import config from '@/config'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   updateBalanceBreakdown,
@@ -28,14 +26,20 @@ import {
 } from '@/store/slices/user-slice'
 import WalletDetails from '@/components/Layout/WalletDrawer/WalletDetails'
 import { RootState } from '@/store/store'
+import { useFetchWalletBalance } from '@/hooks/UseFetchWallet'
 import { saveUserToLocalStorage } from '@/utils/browserStorage'
 
 const Connectors = () => {
   const { isConnecting, connectors, connect } = useConnect()
-
   const { data: accountData } = useAccount()
-  const address = accountData ? accountData.address : null
-  const [, getBalance] = useBalance()
+  const { data: ensName } = useEnsName()
+  const { data: ensAvatar } = useEnsAvatar()
+
+  const address = accountData ? accountData.address : ''
+
+  const { userBalance } = useFetchWalletBalance(
+    '0x9fEAB70f3c4a944B97b7565BAc4991dF5B7A69ff',
+  )
 
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
     (state: RootState) => state.user,
@@ -47,33 +51,32 @@ const Connectors = () => {
     useState<boolean>(true)
 
   useEffect(() => {
-    if (address !== null && !walletDetails) {
+    if (
+      address !== null &&
+      typeof address !== 'undefined' &&
+      userBalance &&
+      !walletDetails
+    ) {
       const payload = {
         address,
         connector: undefined,
-        ens: accountData?.ens,
+        ens: {
+          name: ensName,
+          avatar: ensAvatar,
+        },
       }
       dispatch(updateUserDetails(payload))
       saveUserToLocalStorage(payload)
-      fetchWalletBalance(getBalance, [
-        {
-          addressOrName: address,
-          token: config.iqTestNetAddress,
-        },
-        {
-          addressOrName: address,
-        },
-      ]).then(response => {
-        dispatch(updateWalletDetails(response))
-      })
+      dispatch(updateWalletDetails(userBalance))
     }
   }, [
     address,
-    getBalance,
     dispatch,
     walletDetails,
     accountData?.address,
-    accountData?.ens,
+    ensName,
+    userBalance,
+    ensAvatar,
   ])
 
   useEffect(() => {

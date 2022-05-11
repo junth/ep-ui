@@ -219,13 +219,15 @@ const CreateWikiContent = () => {
       if (interWiki.id === '') interWiki.id = getWikiSlug()
       setWikiId(interWiki.id)
 
-      interWiki = {
-        ...interWiki,
-        user: {
-          id: accountData.address,
-        },
-        content: String(md).replace(/\n/gm, '  \n'),
-        images: [{ id: imageHash, type: 'image/jpeg, image/png' }],
+      if (accountData.address) {
+        interWiki = {
+          ...interWiki,
+          user: {
+            id: accountData.address,
+          },
+          content: String(md).replace(/\n/gm, '  \n'),
+          images: [{ id: imageHash, type: 'image/jpeg, image/png' }],
+        }
       }
 
       if (!isNewCreateWiki) {
