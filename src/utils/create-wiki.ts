@@ -37,7 +37,7 @@ export const domain = {
 
 export const types = {
   SignedPost: [
-    { name: 'ipfs', type: 'string' },
+    // { name: 'ipfs', type: 'string' },
     { name: 'user', type: 'address' },
     { name: 'deadline', type: 'uint256' },
   ],
@@ -154,45 +154,98 @@ export const useGetSignedHash = (deadline: number) => {
   } = useCreateWikiContext()
 
   const { data: accountData } = useAccount()
+  // const [updatedIpfs, setIpfs] = useState<string>()
 
   const {
     data,
     error,
     isLoading: signing,
-    signTypedDataAsync,
-  } = useSignTypedData({})
+    // signTypedDataAsync,
+    // signTypedData
+  } = useSignTypedData({
+    domain,
+    types,
+    value: {
+      user: accountData?.address || '',
+      deadline,
+    },
+  })
+
+  const { signTypedData } = useSignTypedData({
+    domain: {
+      name: 'Ether Mail',
+      version: '1',
+      chainId: 1,
+      verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+    },
+    types: {
+      Person: [
+        { name: 'name', type: 'string' },
+        { name: 'wallet', type: 'address' },
+      ],
+      Mail: [
+        { name: 'from', type: 'Person' },
+        { name: 'to', type: 'Person' },
+        { name: 'contents', type: 'string' },
+      ],
+    },
+    value: {
+      from: {
+        name: 'Cow',
+        wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+      },
+      to: {
+        name: 'Bob',
+        wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+      },
+      contents: 'Hello, Bob!',
+    },
+  })
 
   const { refetch } = useWaitForTransaction({ hash: txHash })
 
   const saveHashInTheBlockchain = async (ipfs: string) => {
     setWikiHash(ipfs)
+    signTypedData()
+    // setIpfs(ipfs)
 
-    signTypedDataAsync({
-      domain,
-      types,
-      value: {
-        ipfs,
-        user: accountData?.address || '',
-        deadline,
-      },
-    })
-      .then(response => {
-        console.log(response)
-        console.log(response)
-        console.log(response)
-        if (response) {
-          setActiveStep(1)
-        } else {
-          setIsLoading('error')
-          setMsg(errorMessage)
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        console.log(err)
-        console.log('getting herherhererjerjrje')
-        console.log('getting herherhererjerjrje')
-      })
+    // signTypedData(
+    //   {
+    //     domain,
+    //     types,
+    //     value: {
+    //       user: accountData?.address || '',
+    //       deadline,
+    //     },
+    //   }
+    // )
+
+    // signTypedDataAsync({
+    //   domain,
+    //   types,
+    //   value: {
+    //     ipfs,
+    //     user: accountData?.address || '',
+    //     deadline,
+    //   },
+    // })
+    //   .then(response => {
+    //     console.log(response)
+    //     console.log(response)
+    //     console.log(response)
+    //     if (response) {
+    //       setActiveStep(1)
+    //     } else {
+    //       setIsLoading('error')
+    //       setMsg(errorMessage)
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //     console.log(err)
+    //     console.log('getting herherhererjerjrje')
+    //     console.log('getting herherhererjerjrje')
+    //   })
   }
 
   const verifyTrxHash = useCallback(
@@ -226,6 +279,10 @@ export const useGetSignedHash = (deadline: number) => {
     },
     [refetch],
   )
+
+  // useEffect(()=> {
+
+  // }, [updatedIpfs])
 
   useEffect(() => {
     const getSignedTxHash = async () => {
