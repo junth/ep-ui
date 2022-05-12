@@ -16,7 +16,12 @@ import { getWikiMetadataById } from '@/utils/getWikiFields'
 import { useAppDispatch } from '@/store/hook'
 import { createContext } from '@chakra-ui/react-utils'
 import { submitVerifiableSignature } from '@/utils/postSignature'
-import { useAccount, useSignTypedData, useWaitForTransaction } from 'wagmi'
+import {
+  useAccount,
+  useConnect,
+  useSignTypedData,
+  useWaitForTransaction,
+} from 'wagmi'
 import { NextRouter } from 'next/router'
 import { skipToken } from '@reduxjs/toolkit/dist/query'
 import { useGetWikiQuery } from '@/services/wikis'
@@ -155,12 +160,17 @@ export const useGetSignedHash = (deadline: number) => {
 
   const { data: accountData } = useAccount()
 
+  const { activeConnector, connectors } = useConnect()
+
+  console.log(activeConnector)
+  console.log(connectors)
+
   const {
     data,
     error,
     isLoading: signing,
     signTypedDataAsync,
-  } = useSignTypedData({})
+  } = useSignTypedData()
 
   const { refetch } = useWaitForTransaction({ hash: txHash })
 
@@ -172,7 +182,7 @@ export const useGetSignedHash = (deadline: number) => {
       types,
       value: {
         ipfs,
-        user: accountData?.address || '',
+        user: accountData!.address,
         deadline,
       },
     })
