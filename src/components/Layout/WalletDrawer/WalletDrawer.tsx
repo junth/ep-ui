@@ -42,6 +42,7 @@ import { removeStateFromStorage } from '@/utils/browserStorage'
 import NetworkMenu from '@/components/Layout/Network/NetworkMenu'
 import { useENSData } from '@/hooks/useENSData'
 import { useFetchWalletBalance } from '@/hooks/UseFetchWallet'
+import shortenAccount from '@/utils/shortenAccount'
 
 const toastProperties: ToastDataType = {
   description: 'Account successfully refreshed',
@@ -176,8 +177,7 @@ const WalletDrawer = ({
                 </Menu>
                 {accountData && (
                   <Text color="gray.500" pl={1} fontSize="sm">
-                    {/* {username || shortenAccount(accountData?.address)} */}
-                    {username}
+                    {username || (accountData?.address && shortenAccount(accountData?.address))}
                   </Text>
                 )}
               </Box>
