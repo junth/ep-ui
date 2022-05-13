@@ -177,7 +177,9 @@ const WalletDrawer = ({
                 </Menu>
                 {accountData && (
                   <Text color="gray.500" pl={1} fontSize="sm">
-                    {username || (accountData?.address && shortenAccount(accountData?.address))}
+                    {username ||
+                      (accountData?.address &&
+                        shortenAccount(accountData?.address))}
                   </Text>
                 )}
               </Box>
