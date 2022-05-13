@@ -34,9 +34,13 @@ const provider = () =>
     config.alchemyApiKey,
   )
 
+type CreateClientArgs = NonNullable<Parameters<typeof createClient>[number]>
+type CreateClientConnectors = CreateClientArgs['connectors']
+const createClientConnectors = connectors as CreateClientConnectors
+
 const client = createClient({
   autoConnect: true,
-  connectors,
+  connectors: createClientConnectors,
   provider,
 })
 
