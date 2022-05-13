@@ -338,7 +338,7 @@ const CreateWikiContent = () => {
   }, [dispatch, updateImageState, wikiData])
 
   useEffect(() => {
-    if (txHash) verifyTrxHash(txHash)
+    if (txHash) verifyTrxHash()
   }, [txHash, verifyTrxHash])
 
   const handlePopupClose = () => {

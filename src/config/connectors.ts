@@ -7,6 +7,7 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import config from './index'
 
 const chains = defaultChains
+const defaultChain = chain.mainnet
 
 type Connector =
   | InjectedConnector
@@ -14,11 +15,15 @@ type Connector =
   | CoinbaseWalletConnector
   | any
 
-const connectors = ({ chainId = 1 }: { chainId?: number }): Connector[] => {
+const connectors = ({
+  chainId = Number(config.chainId),
+}: {
+  chainId?: number
+}): Connector[] => {
   const { infuraId } = config
 
   const rpcUrl =
-    chains.find(x => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0]
+    chains.find(x => x.id === chainId)?.rpcUrls?.[0] ?? defaultChain.rpcUrls[0]
 
   return [
     new InjectedConnector({

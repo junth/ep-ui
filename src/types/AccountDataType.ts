@@ -1,8 +1,5 @@
 import { Connector } from 'wagmi'
-import {
-  FetchEnsAvatarResult,
-  FetchEnsNameResult,
-} from 'wagmi/node_modules/@wagmi/core'
+import { FetchEnsAvatarResult, FetchEnsNameResult } from '@wagmi/core'
 
 export type AccountDataType =
   | {

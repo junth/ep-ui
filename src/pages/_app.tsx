@@ -9,7 +9,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import { Provider, createClient } from 'wagmi'
 import { Provider as ReduxProvider } from 'react-redux'
-import { ethers } from 'ethers'
+import { providers } from 'ethers'
 import connectors from '@/config/connectors'
 import Layout from '@/components/Layout/Layout/Layout'
 import SEOHeader from '@/components/SEO/Headers'
@@ -28,6 +28,17 @@ type EpAppProps = AppProps & {
   Component: AppProps['Component'] & { noFooter?: boolean }
 }
 
+const client = createClient({
+  autoConnect: true,
+  connectors,
+  provider() {
+    return new providers.AlchemyProvider(
+      config.alchemyChain,
+      config.alchemyApiKey,
+    )
+  },
+})
+
 const App = (props: EpAppProps) => {
   const { Component, pageProps, router } = props
 
@@ -43,17 +54,11 @@ const App = (props: EpAppProps) => {
     }
   }, [router.events])
 
-  const provider = () =>
-    new ethers.providers.AlchemyProvider(
-      config.alchemyChain,
-      config.alchemyApiKey,
-    )
-
-  const client = createClient({
-    autoConnect: true,
-    connectors,
-    provider,
-  })
+  // const provider = () =>
+  //   new ethers.providers.AlchemyProvider(
+  //     config.alchemyChain,
+  //     config.alchemyApiKey,
+  //   )
 
   return (
     <>

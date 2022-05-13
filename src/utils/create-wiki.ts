@@ -37,7 +37,7 @@ export const domain = {
 
 export const types = {
   SignedPost: [
-    // { name: 'ipfs', type: 'string' },
+    { name: 'ipfs', type: 'string' },
     { name: 'user', type: 'address' },
     { name: 'deadline', type: 'uint256' },
   ],
@@ -154,135 +154,66 @@ export const useGetSignedHash = (deadline: number) => {
   } = useCreateWikiContext()
 
   const { data: accountData } = useAccount()
-  // const [updatedIpfs, setIpfs] = useState<string>()
 
   const {
     data,
     error,
     isLoading: signing,
-    // signTypedDataAsync,
-    // signTypedData
-  } = useSignTypedData({
-    domain,
-    types,
-    value: {
-      user: accountData?.address || '',
-      deadline,
-    },
-  })
-
-  const { signTypedData } = useSignTypedData({
-    domain: {
-      name: 'Ether Mail',
-      version: '1',
-      chainId: 1,
-      verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
-    },
-    types: {
-      Person: [
-        { name: 'name', type: 'string' },
-        { name: 'wallet', type: 'address' },
-      ],
-      Mail: [
-        { name: 'from', type: 'Person' },
-        { name: 'to', type: 'Person' },
-        { name: 'contents', type: 'string' },
-      ],
-    },
-    value: {
-      from: {
-        name: 'Cow',
-        wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
-      },
-      to: {
-        name: 'Bob',
-        wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
-      },
-      contents: 'Hello, Bob!',
-    },
-  })
+    signTypedDataAsync,
+  } = useSignTypedData()
 
   const { refetch } = useWaitForTransaction({ hash: txHash })
 
   const saveHashInTheBlockchain = async (ipfs: string) => {
     setWikiHash(ipfs)
-    signTypedData()
-    // setIpfs(ipfs)
 
-    // signTypedData(
-    //   {
-    //     domain,
-    //     types,
-    //     value: {
-    //       user: accountData?.address || '',
-    //       deadline,
-    //     },
-    //   }
-    // )
-
-    // signTypedDataAsync({
-    //   domain,
-    //   types,
-    //   value: {
-    //     ipfs,
-    //     user: accountData?.address || '',
-    //     deadline,
-    //   },
-    // })
-    //   .then(response => {
-    //     console.log(response)
-    //     console.log(response)
-    //     console.log(response)
-    //     if (response) {
-    //       setActiveStep(1)
-    //     } else {
-    //       setIsLoading('error')
-    //       setMsg(errorMessage)
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //     console.log(err)
-    //     console.log('getting herherhererjerjrje')
-    //     console.log('getting herherhererjerjrje')
-    //   })
-  }
-
-  const verifyTrxHash = useCallback(
-    async (trxHash: string) => {
-      console.log(trxHash)
-      const timer = setInterval(() => {
-        try {
-          const checkTrx = async () => {
-            const trx = await refetch()
-            console.log(trx)
-            console.log(trx)
-            console.log(trx)
-            if (trx.error) {
-              setIsLoading('error')
-              setMsg(errorMessage)
-              clearInterval(timer)
-            } else if (trx && trx.data && trx.data.confirmations > 1) {
-              setIsLoading(undefined)
-              setActiveStep(3)
-              setMsg(successMessage)
-              clearInterval(timer)
-            }
-          }
-          checkTrx()
-        } catch (err) {
+    signTypedDataAsync({
+      domain,
+      types,
+      value: {
+        ipfs,
+        user: accountData!.address,
+        deadline,
+      },
+    })
+      .then(response => {
+        if (response) {
+          setActiveStep(1)
+        } else {
           setIsLoading('error')
           setMsg(errorMessage)
-          clearInterval(timer)
         }
-      }, 3000)
-    },
-    [refetch],
-  )
+      })
+      .catch(() => {
+        setIsLoading('error')
+        setMsg(errorMessage)
+      })
+  }
 
-  // useEffect(()=> {
-
-  // }, [updatedIpfs])
+  const verifyTrxHash = useCallback(async () => {
+    const timer = setInterval(() => {
+      try {
+        const checkTrx = async () => {
+          const trx = await refetch()
+          if (trx.error) {
+            setIsLoading('error')
+            setMsg(errorMessage)
+            clearInterval(timer)
+          } else if (trx && trx.data && trx.data.confirmations > 1) {
+            setIsLoading(undefined)
+            setActiveStep(3)
+            setMsg(successMessage)
+            clearInterval(timer)
+          }
+        }
+        checkTrx()
+      } catch (err) {
+        setIsLoading('error')
+        setMsg(errorMessage)
+        clearInterval(timer)
+      }
+    }, 3000)
+  }, [refetch])
 
   useEffect(() => {
     const getSignedTxHash = async () => {

@@ -72,11 +72,9 @@ const WalletDrawer = ({
     useState<boolean>(false)
   const toast = createStandaloneToast({ theme: chakraTheme })
 
-  const { refreshBalance } = useFetchWalletBalance(
-    '0x9fEAB70f3c4a944B97b7565BAc4991dF5B7A69ff',
-  )
+  const address = accountData?.address ? accountData.address : ''
 
-  const address = accountData ? accountData.address : null
+  const { refreshBalance } = useFetchWalletBalance(address)
 
   const dispatch = useDispatch()
 
