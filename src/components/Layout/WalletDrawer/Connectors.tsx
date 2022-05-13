@@ -30,7 +30,7 @@ import { useFetchWalletBalance } from '@/hooks/UseFetchWallet'
 import { saveUserToLocalStorage } from '@/utils/browserStorage'
 
 const Connectors = () => {
-  const { isConnecting, connectors, connect} = useConnect()
+  const { isConnecting, connectors, connect } = useConnect()
   const { data: accountData } = useAccount()
   const { data: ensName } = useEnsName()
   const { data: ensAvatar } = useEnsAvatar()
