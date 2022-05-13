@@ -22,7 +22,7 @@ const connectors = ({
   const { infuraId } = config
 
   const rpcUrl =
-  chains.find(x => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0]
+    chains.find(x => x.id === chainId)?.rpcUrls?.[0] ?? chain.mainnet.rpcUrls[0]
 
   return [
     new InjectedConnector({
