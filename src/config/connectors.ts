@@ -13,7 +13,7 @@ type Connector =
   | InjectedConnector
   | WalletConnectConnector
   | CoinbaseWalletConnector
-  | any
+  | MagicConnector
 
 const connectors = ({
   chainId = Number(config.chainId),

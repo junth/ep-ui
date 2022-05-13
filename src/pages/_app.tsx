@@ -7,7 +7,7 @@ import './static/assets/markdown.css'
 import '@/editor-plugins/wikiLink/styles.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
-import { Provider, createClient, useAccount } from 'wagmi'
+import { Provider, createClient } from 'wagmi'
 import { Provider as ReduxProvider } from 'react-redux'
 import { ethers } from 'ethers'
 import connectors from '@/config/connectors'
@@ -29,10 +29,10 @@ type EpAppProps = AppProps & {
 }
 
 const provider = () =>
-    new ethers.providers.AlchemyProvider(
-      config.alchemyChain,
-      config.alchemyApiKey,
-    )
+  new ethers.providers.AlchemyProvider(
+    config.alchemyChain,
+    config.alchemyApiKey,
+  )
 
 const client = createClient({
   autoConnect: true,
@@ -40,10 +40,9 @@ const client = createClient({
   provider,
 })
 
-
 const App = (props: EpAppProps) => {
   const { Component, pageProps, router } = props
- 
+
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
       pageView(url)
@@ -54,7 +53,6 @@ const App = (props: EpAppProps) => {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-    
   }, [router.events])
 
   return (
