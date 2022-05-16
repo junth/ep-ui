@@ -9,13 +9,6 @@ export type BalanceType = {
   error: Error | undefined
 }
 
-// export type ConvertedBalanceType = {
-//   data?: {
-//     formatted: string
-//     symbol: string
-//   }
-// }
-
 export type WalletBalanceType = {
   data?: {
     formatted: string | undefined
