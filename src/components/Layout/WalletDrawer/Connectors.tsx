@@ -21,19 +21,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   updateBalanceBreakdown,
   updateTotalBalance,
-  updateUserDetails,
   updateWalletDetails,
 } from '@/store/slices/user-slice'
 import WalletDetails from '@/components/Layout/WalletDrawer/WalletDetails'
 import { RootState } from '@/store/store'
 import { useFetchWalletBalance } from '@/hooks/UseFetchWallet'
-import { saveUserToLocalStorage } from '@/utils/browserStorage'
-import { useENSData } from '@/hooks/useENSData'
+
 
 const Connectors = () => {
   const { isConnecting, connectors, connect } = useConnect()
   const { data: accountData } = useAccount()
-  const [avatar, username] = useENSData(accountData?.address)
   const { userBalance } = useFetchWalletBalance(accountData?.address)
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
     (state: RootState) => state.user,
@@ -46,29 +43,15 @@ const Connectors = () => {
 
   useEffect(() => {
     if (
-      typeof accountData?.address !== 'undefined' &&
       userBalance &&
       !walletDetails
     ) {
-      const payload = {
-        address: accountData?.address,
-        connector: undefined,
-        ens: {
-          name: username,
-          avatar,
-        },
-      }
-      dispatch(updateUserDetails(payload))
-      saveUserToLocalStorage(payload)
       dispatch(updateWalletDetails(userBalance))
     }
   }, [
     dispatch,
     walletDetails,
-    accountData?.address,
-    username,
     userBalance,
-    avatar,
   ])
 
   useEffect(() => {

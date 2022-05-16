@@ -38,7 +38,6 @@ import {
 } from '@/store/slices/user-slice'
 import { ToastDataType } from '@/types/ToastDataType'
 import chakraTheme from '@/theme'
-import { removeStateFromStorage } from '@/utils/browserStorage'
 import NetworkMenu from '@/components/Layout/Network/NetworkMenu'
 import { useENSData } from '@/hooks/useENSData'
 import { useFetchWalletBalance } from '@/hooks/UseFetchWallet'
@@ -73,9 +72,8 @@ const WalletDrawer = ({
     useState<boolean>(false)
   const toast = createStandaloneToast({ theme: chakraTheme })
   const { refreshBalance } = useFetchWalletBalance(accountData?.address)
-
   const dispatch = useDispatch()
-
+  
   const handleNavigation = () => {
     onClose()
     setHamburger(true)
@@ -95,7 +93,6 @@ const WalletDrawer = ({
   const handleLogOut = () => {
     disconnect()
     dispatch(setStateToDefault())
-    removeStateFromStorage()
   }
 
   return (
