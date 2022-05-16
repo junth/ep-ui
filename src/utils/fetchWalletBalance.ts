@@ -4,7 +4,7 @@ import {
   ParamsType,
   ErrorType,
   TokenDetailsType,
-  NewConvertedBalanceType,
+  ConvertedBalanceType,
   WalletBalanceType,
 } from '@/types/WalletBalanceType'
 import { fetchTokenRate } from './fetchTokenRate'
@@ -18,7 +18,7 @@ export const fetchWalletBalance = async (
     results.push(getBalance(addr))
   })
   const response = await Promise.all(results)
-  const convertedResult: NewConvertedBalanceType[] = response.map(res => ({
+  const convertedResult: ConvertedBalanceType[] = response.map(res => ({
     data: {
       formatted: res.data?.formatted,
       symbol: res.data?.symbol,

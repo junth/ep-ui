@@ -9,12 +9,12 @@ export type BalanceType = {
   error: Error | undefined
 }
 
-export type ConvertedBalanceType = {
-  data?: {
-    formatted: string
-    symbol: string
-  }
-}
+// export type ConvertedBalanceType = {
+//   data?: {
+//     formatted: string
+//     symbol: string
+//   }
+// }
 
 export type WalletBalanceType = {
   data?: {
@@ -23,7 +23,7 @@ export type WalletBalanceType = {
   }
 }
 
-export type NewConvertedBalanceType = {
+export type ConvertedBalanceType = {
   data?: {
     formatted: string | undefined
     symbol: string | undefined
