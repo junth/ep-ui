@@ -72,10 +72,7 @@ const WalletDrawer = ({
   const [accountRefreshLoading, setAccountRefreshLoader] =
     useState<boolean>(false)
   const toast = createStandaloneToast({ theme: chakraTheme })
-
-  const address = accountData?.address ? accountData.address : ''
-
-  const { refreshBalance } = useFetchWalletBalance(address)
+  const { refreshBalance } = useFetchWalletBalance(accountData?.address)
 
   const dispatch = useDispatch()
 
@@ -85,7 +82,7 @@ const WalletDrawer = ({
   }
 
   const handleAccountRefresh = () => {
-    if (address) {
+    if (typeof accountData?.address !== 'undefined') {
       setAccountRefreshLoader(true)
       refreshBalance().then(response => {
         dispatch(updateWalletDetails(response))

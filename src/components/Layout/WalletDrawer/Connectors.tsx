@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useConnect, useAccount  } from 'wagmi'
+import { useConnect, useAccount } from 'wagmi'
 import {
   Box,
   Divider,
@@ -33,12 +33,8 @@ import { useENSData } from '@/hooks/useENSData'
 const Connectors = () => {
   const { isConnecting, connectors, connect } = useConnect()
   const { data: accountData } = useAccount()
-  const address = accountData?.address ? accountData.address : ''
-
-  const [avatar, username] = useENSData(address)
-
-  const { userBalance } = useFetchWalletBalance(address)
-
+  const [avatar, username] = useENSData(accountData?.address)
+  const { userBalance } = useFetchWalletBalance(accountData?.address)
   const { walletDetails, totalBalance, balanceBreakdown } = useSelector(
     (state: RootState) => state.user,
   )
@@ -50,17 +46,16 @@ const Connectors = () => {
 
   useEffect(() => {
     if (
-      address !== null &&
-      typeof address !== 'undefined' &&
+      typeof accountData?.address !== 'undefined' &&
       userBalance &&
       !walletDetails
     ) {
       const payload = {
-        address,
+        address: accountData?.address,
         connector: undefined,
         ens: {
           name: username,
-          avatar
+          avatar,
         },
       }
       dispatch(updateUserDetails(payload))
@@ -68,7 +63,6 @@ const Connectors = () => {
       dispatch(updateWalletDetails(userBalance))
     }
   }, [
-    address,
     dispatch,
     walletDetails,
     accountData?.address,
