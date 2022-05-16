@@ -73,7 +73,7 @@ const WalletDrawer = ({
   const toast = createStandaloneToast({ theme: chakraTheme })
   const { refreshBalance } = useFetchWalletBalance(accountData?.address)
   const dispatch = useDispatch()
-  
+
   const handleNavigation = () => {
     onClose()
     setHamburger(true)

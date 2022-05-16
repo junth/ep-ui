@@ -27,7 +27,6 @@ import WalletDetails from '@/components/Layout/WalletDrawer/WalletDetails'
 import { RootState } from '@/store/store'
 import { useFetchWalletBalance } from '@/hooks/UseFetchWallet'
 
-
 const Connectors = () => {
   const { isConnecting, connectors, connect } = useConnect()
   const { data: accountData } = useAccount()
@@ -42,17 +41,10 @@ const Connectors = () => {
     useState<boolean>(true)
 
   useEffect(() => {
-    if (
-      userBalance &&
-      !walletDetails
-    ) {
+    if (userBalance && !walletDetails) {
       dispatch(updateWalletDetails(userBalance))
     }
-  }, [
-    dispatch,
-    walletDetails,
-    userBalance,
-  ])
+  }, [dispatch, walletDetails, userBalance])
 
   useEffect(() => {
     if (walletDetails) {

@@ -1,4 +1,3 @@
-
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useAccount } from 'wagmi'
@@ -8,7 +7,7 @@ export const authenticatedRoute = <P extends object>(
 ) => {
   const AuthenticatedRoute = (props: P) => {
     const router = useRouter()
-    const {data} = useAccount()
+    const { data } = useAccount()
 
     useEffect(() => {
       if (!data?.address) {

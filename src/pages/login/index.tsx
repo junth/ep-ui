@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useAccount } from 'wagmi'
 
 const Login = () => {
-  const {data}  = useAccount()
+  const { data } = useAccount()
   const router = useRouter()
   useEffect(() => {
     if (data?.address) {
