@@ -25,6 +25,7 @@ import { pageView } from '@/utils/googleAnalytics'
 import Script from 'next/script'
 import { Dict } from '@chakra-ui/utils'
 import chakraTheme from '../theme'
+import '../utils/i18n'
 
 const { ToastContainer } = createStandaloneToast()
 const ReduxProvider = ReduxProviderClass as unknown as (
