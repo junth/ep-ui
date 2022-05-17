@@ -25,7 +25,6 @@ const DesktopNav = () => {
   return (
     <HStack spacing={4} onMouseLeave={() => setVisibleMenu(null)}>
       {NAV_ITEMS(categoriesLinks || []).map((navItem: NavItem) => {
-        console.log(navItem)
         return (
           <NavMenu
             key={navItem.id}
