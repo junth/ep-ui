@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { StrictMode, useEffect } from 'react'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './static/assets/global.css'
@@ -68,7 +68,7 @@ const App = (props: EpAppProps) => {
   }, [router.events])
 
   return (
-    <>
+    <StrictMode>
       <Script
         id="google-analytics"
         strategy="lazyOnload"
@@ -100,7 +100,7 @@ const App = (props: EpAppProps) => {
         </ChakraProvider>
       </ReduxProvider>
       <ToastContainer />
-    </>
+    </StrictMode>
   )
 }
 
