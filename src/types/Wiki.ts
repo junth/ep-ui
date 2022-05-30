@@ -124,4 +124,5 @@ export type WikiPreview = Pick<
   | 'images'
   | 'categories'
   | 'user'
+  | 'updated'
 >
