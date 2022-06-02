@@ -84,13 +84,13 @@ export const WikiDetails = ({
               <Td py={1}>
                 <HStack marginLeft={-2} flexWrap="wrap" justify="start">
                   {tags?.map((tag, i) => (
-                    <NextLink key={i} href={`/tags/${tag.id}`} passHref>
-                      <Box py={1}>
-                        <Tag key={i} whiteSpace="nowrap" as="a">
+                    <Link key={i}  m="3px !important" href={`/tags/${tag.id}`} >
+                     
+                        <Tag key={i} whiteSpace="nowrap" >
                           {tag.id}
                         </Tag>
-                      </Box>
-                    </NextLink>
+                     
+                    </Link>
                   ))}
                 </HStack>
               </Td>
