@@ -33,7 +33,6 @@ import {
 } from 'react-icons/ai'
 import { CommonMetaIds, MData, PageTypeName } from '@/types/Wiki'
 import Tags from '@/components/Layout/Editor/Highlights/HighlightsModal/Tags'
-import { slugifyText } from '@/utils/slugify'
 
 export const SOCIAL_MEDIA_OPTIONS = [
   {
@@ -181,7 +180,7 @@ const HighlightsModal = ({
                     dispatch({
                       type: 'wiki/updateCategories',
                       payload: {
-                        id: slugifyText(event.target.value),
+                        id: currentWiki.categories[0]?.id ,
                         title: event.target.value,
                       },
                     })
@@ -199,7 +198,7 @@ const HighlightsModal = ({
                 }
               >
                 {categoryOptions?.map(o => (
-                  <option key={o.title}>{o.title}</option>
+                  <option key={o.id}>{o.id}</option>
                 ))}
               </Select>
             </Flex>

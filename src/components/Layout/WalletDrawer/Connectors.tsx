@@ -96,7 +96,7 @@ const Connectors = () => {
               justifyContent="center"
               w="full"
             >
-              <Flex direction="column" align="center" py={4}>
+              <Flex direction="column" align="center" py={8}>
                 <Text fontWeight="bold" color="gray.500" fontSize="small">
                   Total balance
                 </Text>
@@ -116,7 +116,7 @@ const Connectors = () => {
               <Center
                 borderBottomRadius="lg"
                 color="white"
-                height="50"
+                height="20"
                 bg={bg}
                 mt={2}
                 cursor="pointer"
