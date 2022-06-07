@@ -180,7 +180,7 @@ const HighlightsModal = ({
                     dispatch({
                       type: 'wiki/updateCategories',
                       payload: {
-                        id: currentWiki.categories[0]?.id ,
+                        id: currentWiki.categories[0]?.id,
                         title: event.target.value,
                       },
                     })

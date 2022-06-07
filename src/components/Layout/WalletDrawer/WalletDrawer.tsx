@@ -106,7 +106,7 @@ const WalletDrawer = ({
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader mt={10}>
+        <DrawerHeader mt={9}>
           <Flex
             w="full"
             cursor="pointer"

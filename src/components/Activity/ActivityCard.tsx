@@ -182,7 +182,7 @@ const ActivityCard = ({
           {wiki.categories.length && (
             <NextLink href={`/categories/${wiki.categories[0].id}`} passHref>
               <Text
-                as='a'
+                as="a"
                 display={{ base: 'none', md: 'block' }}
                 color="brand.500"
                 fontWeight="bold"
