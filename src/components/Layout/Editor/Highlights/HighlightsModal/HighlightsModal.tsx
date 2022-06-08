@@ -33,6 +33,7 @@ import {
 } from 'react-icons/ai'
 import { CommonMetaIds, MData, PageTypeName } from '@/types/Wiki'
 import Tags from '@/components/Layout/Editor/Highlights/HighlightsModal/Tags'
+import { slugifyText } from '@/utils/slugify'
 
 export const SOCIAL_MEDIA_OPTIONS = [
   {
@@ -180,10 +181,11 @@ const HighlightsModal = ({
                     dispatch({
                       type: 'wiki/updateCategories',
                       payload: {
-                        id: currentWiki.categories[0]?.id,
+                        id: slugifyText(event.target.value),
                         title: event.target.value,
                       },
                     })
+                  console.log(categoryOptions?.findIndex(x => x.title === event.target.value))
                   } else {
                     dispatch({
                       type: 'wiki/deleteCategories',
