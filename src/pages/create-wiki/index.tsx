@@ -275,9 +275,9 @@ const CreateWikiContent = () => {
         postWiki.initiate({ data: finalWiki }),
       )
 
-      if (wikiResult && 'data' in wikiResult)
-        saveHashInTheBlockchain(String(wikiResult.data))
-      else {
+      if (wikiResult && 'data' in wikiResult) {
+        saveHashInTheBlockchain(String(wikiResult.data), getWikiSlug())
+      } else {
         setIsLoading('error')
         setMsg(errorMessage)
         logEvent({
@@ -423,7 +423,7 @@ const CreateWikiContent = () => {
   }, [dispatch, toast, wikiData])
 
   useEffect(() => {
-    if (txHash) verifyTrxHash()
+    if (txHash) verifyTrxHash(getWikiSlug())
   }, [txHash, verifyTrxHash])
 
   const handlePopupClose = () => {

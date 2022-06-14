@@ -23,6 +23,8 @@ import { getWiki, useGetWikiQuery } from '@/services/wikis'
 import { getDraftFromLocalStorage } from '@/store/slices/wiki.slice'
 import { useToast } from '@chakra-ui/toast'
 import { store } from '@/store/store'
+import { Dict } from '@chakra-ui/utils'
+import { logEvent } from './googleAnalytics'
 
 export const initialEditorValue = ` `
 export const initialMsg =
@@ -145,7 +147,7 @@ export const useGetSignedHash = (deadline: number) => {
 
   const { refetch } = useWaitForTransaction({ hash: txHash })
 
-  const saveHashInTheBlockchain = async (ipfs: string) => {
+  const saveHashInTheBlockchain = async (ipfs: string, wikiSlug: string) => {
     setWikiHash(ipfs)
 
     signTypedDataAsync({
@@ -165,44 +167,71 @@ export const useGetSignedHash = (deadline: number) => {
           setMsg(errorMessage)
         }
       })
-      .catch(() => {
+      .catch(err => {
         setIsLoading('error')
         setMsg(errorMessage)
+        logEvent({
+          action: 'SUBMIT_WIKI_ERROR',
+          params: {
+            reason: err.message,
+            address: accountData?.address,
+            slug: wikiSlug,
+          },
+        })
       })
   }
 
-  const verifyTrxHash = useCallback(async () => {
-    const timer = setInterval(() => {
-      try {
-        const checkTrx = async () => {
-          const trx = await refetch()
-          if (trx.error || trx.data?.status === 0) {
-            setIsLoading('error')
-            setMsg(errorMessage)
-            clearInterval(timer)
+  const verifyTrxHash = useCallback(
+    async (wikiSlug: string) => {
+      const timer = setInterval(() => {
+        try {
+          const checkTrx = async () => {
+            const trx = await refetch()
+            if (trx.error || trx.data?.status === 0) {
+              setIsLoading('error')
+              setMsg(errorMessage)
+              logEvent({
+                action: 'SUBMIT_WIKI_ERROR',
+                params: {
+                  reason: 'TRANSACTION_VERIFICATION_ERROR',
+                  address: accountData?.address,
+                  slug: wikiSlug,
+                },
+              })
+              clearInterval(timer)
+            }
+            if (
+              trx &&
+              trx.data &&
+              trx.data.status === 1 &&
+              trx.data.confirmations > 1
+            ) {
+              setIsLoading(undefined)
+              setActiveStep(3)
+              setMsg(successMessage)
+              clearInterval(timer)
+            }
           }
-
-          if (
-            trx &&
-            trx.data &&
-            trx.data.status === 1 &&
-            trx.data.confirmations > 1
-          ) {
-            setIsLoading(undefined)
-            setActiveStep(3)
-            setMsg(successMessage)
-            clearInterval(timer)
-          }
+          checkTrx()
+        } catch (err) {
+          const errorObject = err as Dict
+          setIsLoading('error')
+          setMsg(errorMessage)
+          logEvent({
+            action: 'SUBMIT_WIKI_ERROR',
+            params: {
+              reason: errorObject.message,
+              address: accountData?.address,
+              slug: wikiSlug,
+            },
+          })
+          clearInterval(timer)
         }
-        checkTrx()
-      } catch (err) {
-        setIsLoading('error')
-        setMsg(errorMessage)
-        clearInterval(timer)
-      }
-    }, 3000)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refetch])
+      }, 3000)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [refetch],
+  )
 
   useEffect(() => {
     const getSignedTxHash = async () => {
@@ -224,8 +253,18 @@ export const useGetSignedHash = (deadline: number) => {
             setActiveStep(2)
           }
         } catch (err) {
+          const errorObject = err as Dict
           setIsLoading('error')
-          setMsg(errorMessage)
+          setMsg(errorObject.response.errors[0].extensions.exception.reason)
+          logEvent({
+            action: 'SUBMIT_WIKI_ERROR',
+            params: {
+              reason:
+                errorObject.response.errors[0].extensions.exception.reason,
+              address: accountData?.address,
+              data,
+            },
+          })
         }
       }
     }
