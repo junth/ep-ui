@@ -682,11 +682,11 @@ const CreateWiki = () => {
   )
 }
 
-const Page : PageWithoutFooter = authenticatedRoute(
+const Page: PageWithoutFooter = authenticatedRoute(
   memo(CreateWiki) as unknown as () => JSX.Element,
 )
 
-Page.noFooter = true;
+Page.noFooter = true
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const slug = context.params?.slug
