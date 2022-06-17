@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { Image } from '@/components/Elements/Image/Image'
-import ToggleText from '@/components/Elements/ToggleText/ToggleText'
 import {
   getCategoriesById,
   getRunningOperationPromises,
@@ -88,7 +87,16 @@ const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
           src={`/images/categories/${categoryData.id}.jpg`}
           height="250px"
         />
-        <Flex mx="auto" justifyContent="center" mt={12}>
+        <Heading
+          fontSize={{ base: 25, lg: 36 }}
+          maxW="80%"
+          mx="auto"
+          textAlign="center"
+          mt={8}
+        >
+          {categoryData?.title}
+        </Heading>
+        <Flex mx="auto" justifyContent="center" mt={5}>
           <Icon
             as={categoryIcon}
             borderRadius="100px"
@@ -96,16 +104,22 @@ const CategoryPage = ({ categoryData, wikis }: CategoryPageProps) => {
             borderWidth="5px"
             bgColor={`hsl(${Math.floor(Math.random() * 360)}, 70%, 80%)`}
             color="#0000002f"
-            width="60px"
-            height="60px"
-            padding={2}
+            width={{ base: 14, lg: 15 }}
+            height={{ base: 14, lg: 15 }}
+            padding={1}
           />
         </Flex>
-        <Heading fontSize={40} maxW="80%" mx="auto" textAlign="center" mt={4}>
-          {categoryData?.title}
-        </Heading>
-
-        <ToggleText my={8} text={categoryData?.description || ''} />
+        <Flex
+          textAlign="center"
+          justifyContent="center"
+          fontWeight="400"
+          mx="auto"
+          px={5}
+        >
+          <Text mt={3} mb={3}>
+            {categoryData?.description || ''}
+          </Text>
+        </Flex>
         <Divider />
         <Box mt={16}>
           <Heading fontSize={25} textAlign="center">
