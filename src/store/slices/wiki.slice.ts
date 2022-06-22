@@ -30,7 +30,9 @@ export const getDraftFromLocalStorage = () => {
   // fetch draft data from local storage
   const draftData = localStorage.getItem(`draftData-${slug}`)
   if (!draftData) return undefined
-  const [wikiData, timestamp] = draftData.split('|')
+  const separatorIndex = draftData.lastIndexOf('|')
+  const wikiData = draftData.slice(0, separatorIndex)
+  const timestamp = draftData.slice(separatorIndex + 1, draftData.length)
   const wiki = JSON.parse(wikiData)
   const draftTimestamp = parseInt(timestamp, 10)
   const currentTimestamp = new Date().getTime()
@@ -66,6 +68,9 @@ const initialState: Wiki = {
     ...Object.values(EditSpecificMetaIds).map(mID => ({ id: mID, value: '' })),
   ],
   user: {
+    id: '',
+  },
+  author: {
     id: '',
   },
   media: [],
