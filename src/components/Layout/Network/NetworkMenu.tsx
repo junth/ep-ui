@@ -18,7 +18,10 @@ import config from '@/config'
 const NetworkMenu = () => {
   const [currentNetwork, setCurrentNetwork] = useState<Network>(Networks[0])
 
-  const { chainId } = (config.alchemyChain === 'maticmum') ? networkMap.MUMBAI_TESTNET: networkMap.POLYGON_MAINNET;
+  const { chainId } =
+    config.alchemyChain === 'maticmum'
+      ? networkMap.MUMBAI_TESTNET
+      : networkMap.POLYGON_MAINNET
 
   const handleNetworkSwitch = (newNetwork: Network) => {
     if (newNetwork.chainId === chainId) {

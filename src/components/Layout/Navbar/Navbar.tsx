@@ -57,7 +57,10 @@ const Navbar = () => {
 
   const dispatch = useDispatch()
 
-  const { chainId, chainName, rpcUrls } = (config.alchemyChain === 'maticmum') ? networkMap.MUMBAI_TESTNET: networkMap.POLYGON_MAINNET;
+  const { chainId, chainName, rpcUrls } =
+    config.alchemyChain === 'maticmum'
+      ? networkMap.MUMBAI_TESTNET
+      : networkMap.POLYGON_MAINNET
 
   const handleWalletIconAction = () => {
     logEvent({
