@@ -76,7 +76,7 @@ export const GET_ACTIVITIES_BY_WIKI = gql`
 `
 export const GET_ACTIVITIES_BY_ID = gql`
   query GetActivitiesById($id: String!) {
-    activityById(id: $id) {
+    activityById(wikiId: $id) {
       id
       wikiId
       type
