@@ -27,8 +27,9 @@ const ImageInput = ({
       setHideDropzone(true)
     }
     try {
+      const imageUrl = event.target.value;
       const response = await fetch(
-        `https://images.weserv.nl/?url=${event.target.value}`,
+        imageUrl,
         {
           method: 'GET',
           headers: {},
