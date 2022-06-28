@@ -27,14 +27,11 @@ const ImageInput = ({
       setHideDropzone(true)
     }
     try {
-      const imageUrl = event.target.value;
-      const response = await fetch(
-        imageUrl,
-        {
-          method: 'GET',
-          headers: {},
-        },
-      )
+      const imageUrl = event.target.value
+      const response = await fetch(imageUrl, {
+        method: 'GET',
+        headers: {},
+      })
       if (response.status !== 200) {
         toast({
           title: 'Image could not be fetched. Ensure you have the right link',
