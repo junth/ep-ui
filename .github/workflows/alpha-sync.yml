@@ -1,4 +1,4 @@
-name: Merge Main Into Alpha Branch
+name: Merge Main Into Alpha
 
 on:
   push:
