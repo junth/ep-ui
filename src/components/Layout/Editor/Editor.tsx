@@ -103,7 +103,7 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
       .getMarkdown()
       .toString()
       .replace(/<[^>]+>/gm, '')
-      .replace(/\\/g,'')
+      .replace(/\\/g, '')
 
     if (markdown !== currentMd) {
       if (
