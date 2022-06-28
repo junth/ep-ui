@@ -101,7 +101,10 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
     const currentMd = editorRef.current
       ?.getInstance()
       .getMarkdown()
-      .toString() as string
+      .toString()
+      .replace(/<[^>]+>/gm, '')
+      .replace(/\\/g,'')
+
     if (markdown !== currentMd) {
       if (
         markdown.substring(0, EditorContentOverride.KEYWORD.length) ===
@@ -113,7 +116,7 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
         currentMd !== 'Write\nPreview\n\nMarkdown\nWYSIWYG'
       ) {
         onChange(currentMd)
-      } else if (currentMd.trim() === '') {
+      } else if (currentMd?.trim() === '') {
         onChange(' ')
       }
     }
