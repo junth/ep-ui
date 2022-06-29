@@ -28,7 +28,8 @@ const ImageInput = ({
     }
     try {
       const imageUrl = event.target.value
-      const response = await fetch(imageUrl, {
+      const FullUrl = `https://images.weserv.nl/?url=${imageUrl}`
+      const response = await fetch(FullUrl, {
         method: 'GET',
         headers: {},
       })
