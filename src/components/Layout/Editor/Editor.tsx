@@ -98,12 +98,7 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
 
   // when there is a change in the editor, update the markdown
   const handleOnEditorChange = useCallback(() => {
-    const currentMd = editorRef.current
-      ?.getInstance()
-      .getMarkdown()
-      .toString()
-      .replace(/<[^>]+>/gm, '')
-      .replace(/\\/g, '')
+    const currentMd = editorRef.current?.getInstance().getMarkdown().toString()
 
     if (markdown !== currentMd) {
       if (
