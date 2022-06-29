@@ -338,6 +338,7 @@ const CreateWikiContent = () => {
   ) => {
     const newVal = val
       ?.replace(/[<]br[^>]*[>]/, '\n')
+      ?.replace(/[<][/]br[^>]*[>]/, '\n')
       .replace(/<[^>]+>/gm, '')
       .replace(/\\/g, '')
 
