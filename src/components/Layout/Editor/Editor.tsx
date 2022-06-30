@@ -127,10 +127,10 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
       .replace(/[<][/]br[^>]*[>]/, '\n')
       .replace(/<[^>]+>/gm, '')
       .replace(/\\/g, '')
-      .replace(/!*\[([^\]]*)\]\(([^\\)]+)\)/g, (_, p1, p2) => {
-        if (p2.startsWith('#') || validURLRecognizer.test(p2))
-          return `[${p1}](${p2})`
-        return p1
+      .replace(/(!*)\[([^\]]*)\]\(([^\\)]+)\)/g, (_, p1, p2, p3) => {
+        if (p2.startsWith('#') || validURLRecognizer.test(p3))
+          return `[${p2}](${p3})`
+        return p1 === '!' ? '' : p2
       })
     onChange(sanitizedMd)
   }, [onChange])
