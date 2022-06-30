@@ -28,7 +28,7 @@ const ImageInput = ({
     }
     try {
       const imageUrl = event.target.value
-      const FullUrl = `https://images.weserv.nl/?url=${imageUrl}`
+      const FullUrl = `https://thingproxy.freeboard.io/fetch/${imageUrl}`
       const response = await fetch(FullUrl, {
         method: 'GET',
         headers: {},
