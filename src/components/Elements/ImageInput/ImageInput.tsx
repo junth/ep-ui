@@ -28,7 +28,7 @@ const ImageInput = ({
     }
     try {
       const imageUrl = event.target.value
-      const FullUrl = `https://cors-tube.vercel.app/?url=${imageUrl}`
+      const FullUrl = `https://everipedia-cors.vercel.app/?url=${imageUrl}`
       const response = await fetch(FullUrl, {
         method: 'GET',
         headers: {},
