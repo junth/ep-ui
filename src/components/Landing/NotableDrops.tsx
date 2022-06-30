@@ -84,6 +84,8 @@ export const NotableDrops = ({ drops = [] }: NotableDropsProps) => {
                   slidesToShow: 2,
                   slidesToScroll: 2,
                   initialSlide: 2,
+                  infinite: true,
+                  dots: true,
                 },
               },
               {
