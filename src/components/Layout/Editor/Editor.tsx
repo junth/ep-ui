@@ -6,7 +6,7 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor'
 import wikiLink from '@/editor-plugins/wikiLink'
 import cite from '@/editor-plugins/cite'
-import { EditorContentOverride } from '@/types/Wiki'
+import { EditorContentOverride, whiteListedDomains } from '@/types/Wiki'
 import { Dict } from '@chakra-ui/utils'
 import { useGetWikiQuery } from '@/services/wikis'
 import { store } from '@/store/store'
@@ -116,6 +116,60 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
       }
     }
   }, [editorRef, markdown, onChange])
+
+  // const pasteListener = useCallback(
+  //   (e: ClipboardEvent) => {
+  //     const pastedData = e.clipboardData?.getData('Text')
+
+  //     if (pastedData) {
+  //       const currentMd = editorRef.current
+  //         ?.getInstance()
+  //         .getMarkdown()
+  //         .toString()
+  //       const parsedPasteData = pastedData
+  //         .replaceAll('\n\n', '\n')
+  //         .replaceAll('<', '\\<')
+  //       const sanitizedPasteData = parsedPasteData
+  //         ?.replace(/[<]br[^>]*[>]/, '\n')
+  //         ?.replace(/[<][/]br[^>]*[>]/, '\n')
+  //         .replace(/<[^>]+>/gm, '')
+  //         .replace(/\\/g, '')
+
+  //       const newMd = currentMd?.replace(parsedPasteData, sanitizedPasteData)
+  //       console.log(parsedPasteData === currentMd)
+  //       onChange(newMd)
+
+  //       console.log('CURRENT MD', JSON.stringify(currentMd))
+  //       console.log('PASTE DATA', JSON.stringify(parsedPasteData))
+  //       console.log('ISEQUAL', parsedPasteData === currentMd)
+  //     }
+  //   },
+  //   [onChange],
+  // )
+
+  const pasteListener = useCallback(() => {
+    const currentMd = editorRef.current?.getInstance().getMarkdown().toString()
+    const validURLRecognizer = new RegExp(
+      `^https?://(www\\.)?(${whiteListedDomains.join('|')})`,
+    )
+    const sanitizedMd = currentMd
+      ?.replace(/[<]br[^>]*[>]/, '\n')
+      .replace(/[<][/]br[^>]*[>]/, '\n')
+      .replace(/<[^>]+>/gm, '')
+      .replace(/\\/g, '')
+      .replace(/!*\[([^\]]*)\]\(([^\\)]+)\)/g, (_, p1, p2) => {
+        if (p2.startsWith('#') || validURLRecognizer.test(p2))
+          return `[${p1}](${p2})`
+        return p1
+      })
+    onChange(sanitizedMd)
+  }, [onChange])
+
+  useEffect(() => {
+    const editorWrapper = containerRef.current
+    editorWrapper?.addEventListener('paste', pasteListener)
+    return () => editorWrapper?.removeEventListener('paste', pasteListener)
+  }, [pasteListener])
 
   return (
     <Box ref={containerRef} m={0} w="full" h="full">
