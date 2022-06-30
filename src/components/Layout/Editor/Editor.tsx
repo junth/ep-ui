@@ -71,8 +71,8 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
   // when markdown changes, update the editor
   const updateEditorText = useCallback((text: string) => {
     const editorInstance = editorRef.current?.getInstance()
-    if (editorInstance?.getMarkdown() !== text)
-      editorInstance?.setMarkdown(text, false)
+    if (editorInstance && editorInstance.getMarkdown() !== text)
+      editorInstance.setMarkdown(text, false)
   }, [])
 
   useEffect(() => {
@@ -116,36 +116,6 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
       }
     }
   }, [editorRef, markdown, onChange])
-
-  // const pasteListener = useCallback(
-  //   (e: ClipboardEvent) => {
-  //     const pastedData = e.clipboardData?.getData('Text')
-
-  //     if (pastedData) {
-  //       const currentMd = editorRef.current
-  //         ?.getInstance()
-  //         .getMarkdown()
-  //         .toString()
-  //       const parsedPasteData = pastedData
-  //         .replaceAll('\n\n', '\n')
-  //         .replaceAll('<', '\\<')
-  //       const sanitizedPasteData = parsedPasteData
-  //         ?.replace(/[<]br[^>]*[>]/, '\n')
-  //         ?.replace(/[<][/]br[^>]*[>]/, '\n')
-  //         .replace(/<[^>]+>/gm, '')
-  //         .replace(/\\/g, '')
-
-  //       const newMd = currentMd?.replace(parsedPasteData, sanitizedPasteData)
-  //       console.log(parsedPasteData === currentMd)
-  //       onChange(newMd)
-
-  //       console.log('CURRENT MD', JSON.stringify(currentMd))
-  //       console.log('PASTE DATA', JSON.stringify(parsedPasteData))
-  //       console.log('ISEQUAL', parsedPasteData === currentMd)
-  //     }
-  //   },
-  //   [onChange],
-  // )
 
   const pasteListener = useCallback(() => {
     const currentMd = editorRef.current?.getInstance().getMarkdown().toString()
