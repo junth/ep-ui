@@ -42,6 +42,10 @@ const MobileNav = ({ toggleWalletDrawer, setHamburger }: MobileNavType) => {
       setCurrentMenu(currentNav)
       setShowSubNav(true)
     }
+    else{
+      setHamburger(false)
+    }
+
   }
   const handleWalletButtonClick = () => {
     setHamburger(false)
