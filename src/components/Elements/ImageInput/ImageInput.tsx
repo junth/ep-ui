@@ -28,7 +28,7 @@ const ImageInput = ({
     }
     try {
       const imageUrl = event.target.value
-      const FullUrl = `https://thingproxy.freeboard.io/fetch/${imageUrl}`
+      const FullUrl = `https://cors-tube.vercel.app/?url=${imageUrl}`
       const response = await fetch(FullUrl, {
         method: 'GET',
         headers: {},
