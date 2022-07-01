@@ -76,13 +76,13 @@ const Activity = ({ activities }: { activities: ActivityType[] }) => {
   if (!mounted) return null
 
   return (
-    <Box bgColor="pageBg" my={-8} py={8}>
-      <Box w="min(90%, 1100px)" mx="auto" my={{ base: '10', lg: '16' }}>
-        <Heading mt={8} mb={4} as="h1" size="2xl" letterSpacing="wide">
-          Recent Activity
+    <Box bgColor="pageBg" my={-8} py={4}>
+      <Box w="min(90%, 1100px)" mx="auto" >
+        <Heading my={{base: 8, md: 16}} as="h1" size="2xl" letterSpacing="wide">
+          Recent Activities
         </Heading>
         <Box>
-          <Box mt="10">
+          <Box >
             <VStack overflow="hidden" spacing={4}>
               {LatestActivityData?.map(activity =>
                 renderActivityCard(activity),
