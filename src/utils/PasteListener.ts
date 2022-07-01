@@ -42,10 +42,10 @@ export const PasteListener = (e: Event) => {
       toRemoveLinks[i].remove()
     }
 
-    const transformedPasteHTML = sanitizedPaste.body.innerHTML.replace(
-      /<br *\/?>/g,
-      '<p/>',
-    )
+    const transformedPasteHTML = sanitizedPaste.body.innerHTML
+      .replace(/<br *\/?>/g, '<p/>') // fixes <br>s not being inserted to editor
+      .replace(/\[[0-9]+\](?!( *<\/a>))/g, '') // removes cite marks which are not wrapped in <a>
+
     document.execCommand('insertHTML', false, transformedPasteHTML)
   }
 }
