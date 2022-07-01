@@ -77,12 +77,17 @@ const Activity = ({ activities }: { activities: ActivityType[] }) => {
 
   return (
     <Box bgColor="pageBg" my={-8} py={4}>
-      <Box w="min(90%, 1100px)" mx="auto" >
-        <Heading my={{base: 8, md: 16}} as="h1" size="2xl" letterSpacing="wide">
+      <Box w="min(90%, 1100px)" mx="auto">
+        <Heading
+          my={{ base: 8, md: 16 }}
+          as="h1"
+          size="2xl"
+          letterSpacing="wide"
+        >
           Recent Activities
         </Heading>
         <Box>
-          <Box >
+          <Box>
             <VStack overflow="hidden" spacing={4}>
               {LatestActivityData?.map(activity =>
                 renderActivityCard(activity),
