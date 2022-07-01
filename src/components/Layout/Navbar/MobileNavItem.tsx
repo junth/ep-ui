@@ -22,8 +22,8 @@ const MobileNavItem = ({ navItem, handleClick }: MobileNavItemProps) => {
     <StaticContent>
       <LinkBox
         onClick={() => {
-           onToggle()
-           handleClick(navItem)
+          onToggle()
+          handleClick(navItem)
         }}
         display="flex"
         alignItems="center"
@@ -42,9 +42,9 @@ const MobileNavItem = ({ navItem, handleClick }: MobileNavItemProps) => {
           pr={3}
         />
         {navItem.href === '#' ? (
-           <Text fontWeight="semibold" color="linkColor" cursor="pointer">
-             {navItem.label}
-           </Text>
+          <Text fontWeight="semibold" color="linkColor" cursor="pointer">
+            {navItem.label}
+          </Text>
         ) : (
           <Link href={navItem.href} passHref>
             <LinkOverlay fontWeight={600} color="linkColor" mr="auto">
