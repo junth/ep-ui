@@ -95,11 +95,11 @@ const Activity = ({ activities }: { activities: ActivityType[] }) => {
             </VStack>
           </Box>
           {loading || hasMore ? (
-            <Center ref={sentryRef} mt="10" w="full" h="16">
+            <Center ref={sentryRef} my="10" w="full" h="16">
               <Spinner size="xl" />
             </Center>
           ) : (
-            <Center mt="10">
+            <Center my="10">
               <Text fontWeight="semibold">{t('seenItAll')}</Text>
             </Center>
           )}
