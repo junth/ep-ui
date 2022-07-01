@@ -81,7 +81,7 @@ const Activity = ({ activities }: { activities: ActivityType[] }) => {
         <Heading
           my={{ base: 8, md: 12 }}
           as="h1"
-          size={{base: "lg", md: "2xl"}}
+          size={{ base: 'lg', md: '2xl' }}
           letterSpacing="wide"
         >
           Recent Activities
