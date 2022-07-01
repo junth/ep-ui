@@ -22,7 +22,10 @@ import { useAccount, useSignTypedData, useWaitForTransaction } from 'wagmi'
 import { NextRouter } from 'next/router'
 import { skipToken } from '@reduxjs/toolkit/dist/query'
 import { getWiki, useGetWikiQuery } from '@/services/wikis'
-import { getDraftFromLocalStorage } from '@/store/slices/wiki.slice'
+import {
+  getDraftFromLocalStorage,
+  removeDraftFromLocalStorage,
+} from '@/store/slices/wiki.slice'
 import { useToast } from '@chakra-ui/toast'
 import { store } from '@/store/store'
 import { Dict } from '@chakra-ui/utils'
@@ -236,6 +239,7 @@ export const useGetSignedHash = (deadline: number) => {
               setIsLoading(undefined)
               setActiveStep(3)
               setMsg(successMessage)
+              removeDraftFromLocalStorage()
               clearInterval(timer)
             }
           }
