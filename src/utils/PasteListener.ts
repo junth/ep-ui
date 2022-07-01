@@ -44,7 +44,7 @@ export const PasteListener = (e: Event) => {
 
     const transformedPasteHTML = sanitizedPaste.body.innerHTML
       .replace(/<br *\/?>/g, '<p/>') // fixes <br>s not being inserted to editor
-      .replace(/\[[0-9]+\](?!( *<\/a>))/g, '') // removes cite marks which are not wrapped in <a>
+      .replace(/\[[0-9]+\](?!( *(<\/sup>)? *<\/a>))/g, '') // removes cite marks which are not wrapped in <a>
 
     document.execCommand('insertHTML', false, transformedPasteHTML)
   }
