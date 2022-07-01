@@ -79,9 +79,9 @@ const Activity = ({ activities }: { activities: ActivityType[] }) => {
     <Box bgColor="pageBg" my={-8} py={4}>
       <Box w="min(90%, 1100px)" mx="auto">
         <Heading
-          my={{ base: 8, md: 16 }}
+          my={{ base: 8, md: 12 }}
           as="h1"
-          size="2xl"
+          size={{base: "lg", md: "2xl"}}
           letterSpacing="wide"
         >
           Recent Activities
