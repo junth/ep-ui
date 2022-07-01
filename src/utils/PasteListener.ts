@@ -42,7 +42,10 @@ export const PasteListener = (e: Event) => {
       toRemoveLinks[i].remove()
     }
 
-    const transformedPasteHTML = sanitizedPaste.body.innerHTML
+    const transformedPasteHTML = sanitizedPaste.body.innerHTML.replace(
+      /<br *\/?>/g,
+      '<p/>',
+    )
     document.execCommand('insertHTML', false, transformedPasteHTML)
   }
 }
