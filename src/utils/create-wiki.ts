@@ -255,8 +255,8 @@ export const useGetSignedHash = (deadline: number) => {
           clearInterval(timer)
         }
       }, 3000)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [refetch],
   )
 
