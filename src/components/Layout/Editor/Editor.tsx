@@ -6,11 +6,12 @@ import '@toast-ui/editor/dist/toastui-editor.css'
 import { Editor as ToastUIEditor } from '@toast-ui/react-editor'
 import wikiLink from '@/editor-plugins/wikiLink'
 import cite from '@/editor-plugins/cite'
-import { EditorContentOverride, whiteListedDomains } from '@/types/Wiki'
+import { EditorContentOverride } from '@/types/Wiki'
 import { Dict } from '@chakra-ui/utils'
 import { useGetWikiQuery } from '@/services/wikis'
 import { store } from '@/store/store'
 import media from '@/editor-plugins/media'
+import { PasteListener } from '@/utils/PasteListener'
 
 const ToastUIEditorJSX = ToastUIEditor as unknown as (
   props: Dict,
@@ -117,29 +118,13 @@ const Editor = ({ onChange, markdown = '' }: EditorType) => {
     }
   }, [editorRef, markdown, onChange])
 
-  const pasteListener = useCallback(() => {
-    const currentMd = editorRef.current?.getInstance().getMarkdown().toString()
-    const validURLRecognizer = new RegExp(
-      `^https?://(www\\.)?(${whiteListedDomains.join('|')})`,
-    )
-    const sanitizedMd = currentMd
-      ?.replace(/[<]br[^>]*[>]/, '\n')
-      .replace(/[<][/]br[^>]*[>]/, '\n')
-      .replace(/<[^>]+>/gm, '')
-      .replace(/\\/g, '')
-      .replace(/(!*)\[([^\]]*)\]\(([^\\)]+)\)/g, (_, p1, p2, p3) => {
-        if (p2.startsWith('#') || validURLRecognizer.test(p3))
-          return `[${p2}](${p3})`
-        return p1 === '!' ? '' : p2
-      })
-    onChange(sanitizedMd)
-  }, [onChange])
-
   useEffect(() => {
-    const editorWrapper = containerRef.current
-    editorWrapper?.addEventListener('paste', pasteListener)
-    return () => editorWrapper?.removeEventListener('paste', pasteListener)
-  }, [pasteListener])
+    const editorWrapper = document.querySelector(
+      'div.ProseMirror.toastui-editor-contents',
+    )
+    editorWrapper?.addEventListener('paste', PasteListener, true)
+    return () => editorWrapper?.removeEventListener('paste', PasteListener)
+  }, [])
 
   return (
     <Box ref={containerRef} m={0} w="full" h="full">
