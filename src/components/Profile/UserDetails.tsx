@@ -77,7 +77,7 @@ export const UserDetails = (props: UserDetailsProps) => {
                 zIndex: 'calc(var(--chakra-zIndices-sticky) - 1)',
               }}
               svgProps={{
-                boxSize: isSticky ? '16' : '32',
+                boxSize: isSticky ? '10' : '32',
                 overflow: 'hidden',
                 borderWidth: 2,
                 borderColor: 'white',
@@ -89,7 +89,7 @@ export const UserDetails = (props: UserDetailsProps) => {
 
           <Skeleton isLoaded={!loading}>
             <chakra.span
-              fontSize={isSticky ? '2xl' : '3xl'}
+              fontSize={isSticky ? 'md' : '3xl'}
               fontWeight="semibold"
               letterSpacing="tighter"
             >
@@ -98,7 +98,12 @@ export const UserDetails = (props: UserDetailsProps) => {
           </Skeleton>
         </Flex>
         <chakra.span display="flex" flex="1">
-          <ButtonGroup isAttached variant="outline" ml="auto" my="6">
+          <ButtonGroup
+            isAttached
+            variant="outline"
+            ml="auto"
+            my={isSticky ? 4 : 6}
+          >
             <Tooltip label={t('shareBttnText')} {...tooltipProps}>
               <IconButton
                 mr="-px"
@@ -107,6 +112,7 @@ export const UserDetails = (props: UserDetailsProps) => {
                 icon={<FaShareAlt />}
                 rounded="xl"
                 _hover={{ shadow: 'xl' }}
+                {...(isSticky && { boxSize: 6, rounded: '4' })}
               />
             </Tooltip>
             <Tooltip label={t('settingBttnText')} {...tooltipProps}>
@@ -119,6 +125,7 @@ export const UserDetails = (props: UserDetailsProps) => {
                 _hover={{ shadow: 'xl' }}
                 onClick={() => router.push('/account/settings')}
                 disabled={address !== data?.address}
+                {...(isSticky && { boxSize: 6, rounded: '4' })}
               />
             </Tooltip>
           </ButtonGroup>
