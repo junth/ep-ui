@@ -33,41 +33,50 @@ import {
   AiOutlineYoutube,
 } from 'react-icons/ai'
 import { CommonMetaIds, MData } from '@/types/Wiki'
-import Tags from '@/components/Layout/Editor/Highlights/HighlightsModal/Tags'
-import { slugifyText } from '@/utils/slugify'
 import { BsGlobe } from 'react-icons/bs'
 import { FaEthereum } from 'react-icons/fa'
+import { slugifyText } from '@/utils/slugify'
+import Tags from '@/components/Layout/Editor/Highlights/HighlightsModal/Tags'
 
 export const LINK_OPTIONS = [
   {
     id: CommonMetaIds.FACEBOOK_PROFILE,
     label: 'Facebook',
     icon: <AiOutlineFacebook />,
+    tests: [/https:\/\/(www.)?facebook.com\/\w+/],
   },
   {
     id: CommonMetaIds.INSTAGRAM_PROFILE,
     label: 'Instagram',
     icon: <AiOutlineInstagram />,
+    tests: [/https:\/\/(www.)?instagram.com\/\w+/],
   },
   {
     id: CommonMetaIds.TWITTER_PROFILE,
     label: 'Twitter',
     icon: <AiOutlineTwitter />,
+    tests: [/https:\/\/(www.)?twitter.com\/\w+/],
   },
   {
     id: CommonMetaIds.LINKEDIN_PROFILE,
     label: 'Linkedin',
     icon: <AiOutlineLinkedin />,
+    tests: [/https:\/\/(www.)?linkedin.com\/in\/\w+/],
   },
   {
     id: CommonMetaIds.YOUTUBE_PROFILE,
     label: 'Youtube',
     icon: <AiOutlineYoutube />,
+    tests: [/https:\/\/(www.)?youtube.com\/\w+/],
   },
   {
     id: CommonMetaIds.COINGECKO_PROFILE,
     label: 'Coingecko',
     icon: <GiTwoCoins />,
+    tests: [
+      /https:\/\/(www.)?coinmarketcap.com\/currencies\/\w+/,
+      /https:\/\/(www.)?coingecko.com\/en\/coins\//,
+    ],
   },
   {
     id: CommonMetaIds.WEBSITE,
@@ -93,8 +102,8 @@ const HighlightsModal = ({
   const { data: categoryOptions } = useGetCategoriesLinksQuery()
 
   const [currentLink, setCurrentLink] = useState<string>()
-
   const [currentLinkValue, setCurrentLinkValue] = useState<string>()
+  const [error, setError] = useState<string>('')
 
   const linksWithValue = LINK_OPTIONS.filter(
     med => !!currentWiki.metadata.find((m: MData) => m.id === med.id)?.value,
@@ -124,8 +133,17 @@ const HighlightsModal = ({
     }
   }
 
-  const addLink = () => {
-    updateLink(currentLink, currentLinkValue)
+  const upsertLinks = () => {
+    if (currentLinkValue) {
+      const link = LINK_OPTIONS.find(l => l.id === currentLink)
+      const linkIsValid = link?.tests?.some(t => t.test(currentLinkValue))
+      if (linkIsValid) {
+        updateLink(currentLink, currentLinkValue)
+        setError('')
+      } else {
+        setError(`Invalid ${link?.label} url format`)
+      }
+    }
   }
 
   const getWikiAttribute = (attr: string) => {
@@ -145,10 +163,11 @@ const HighlightsModal = ({
     } else {
       setCurrentLinkValue('')
     }
+    setError('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLink])
 
-  return isOpen ? (
+  return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl" {...rest}>
       <ModalOverlay />
       <ModalContent
@@ -244,10 +263,11 @@ const HighlightsModal = ({
                   }}
                   type="url"
                 />
-                <Button colorScheme="blue" mx="auto" onClick={addLink}>
+                <Button colorScheme="blue" mx="auto" onClick={upsertLinks}>
                   {atttributeExists(currentLink) ? 'Update' : 'Add'}
                 </Button>
               </Flex>
+              <chakra.span color="red.300">{error}</chakra.span>
               {linksWithValue.length > 0 && (
                 <ButtonGroup spacing="7" pt="3">
                   {linksWithValue.map(network => (
@@ -305,7 +325,7 @@ const HighlightsModal = ({
         </ModalFooter>
       </ModalContent>
     </Modal>
-  ) : null
+  )
 }
 
 export default HighlightsModal
