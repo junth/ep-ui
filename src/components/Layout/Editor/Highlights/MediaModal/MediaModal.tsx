@@ -144,7 +144,11 @@ const MediaModal = ({
                           <WikiImage
                             cursor="pointer"
                             flexShrink={0}
-                            imageURL={constructMediaUrl(media)}
+                            imageURL={
+                              media.source !== 'YOUTUBE'
+                                ? constructMediaUrl(media)
+                                : `https://i3.ytimg.com/vi/${media.name}/maxresdefault.jpg`
+                            }
                             h={{ base: '30px', lg: '40px' }}
                             w={{ base: '30px', lg: '40px' }}
                             borderRadius="lg"
