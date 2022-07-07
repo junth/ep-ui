@@ -10,6 +10,7 @@ type ImageInputType = {
   setImage: (name: string, f: ArrayBuffer) => void
   deleteImage?: () => void
   showFetchedImage: boolean
+  modalUpload: boolean
 }
 
 const ImageInput = ({
@@ -17,6 +18,7 @@ const ImageInput = ({
   setImage,
   deleteImage,
   showFetchedImage,
+  modalUpload,
 }: ImageInputType) => {
   const [imgSrc, setImageSrc] = useState<string>()
   const toast = useToast()
@@ -152,7 +154,11 @@ const ImageInput = ({
           textAlign="center"
           value=""
           onChange={handleOnImageInputChanges}
-          placeholder={`${t('pasteMainImgLabel')}`}
+          placeholder={
+            modalUpload
+              ? `${t('pasteModalMainImgLabel')}`
+              : `${t('pasteMainImgLabel')}`
+          }
         />
       )}
     </Flex>

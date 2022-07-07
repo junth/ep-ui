@@ -95,7 +95,7 @@ const MediaModal = ({
   const dropZoneActions = {
     setImage: handleSetImage,
     showFetchedImage: false,
-    textType: 'image or video',
+    textType: 'image',
   }
 
   return isOpen ? (
@@ -113,7 +113,7 @@ const MediaModal = ({
             </Text>
             <Text fontSize="sm" fontWeight="normal">
               Adding media makes an article more interactive and engaging. You
-              can upload jpg, gif and png files.
+              can upload jpg, gif and png files or link to youtube videos.
             </Text>
           </VStack>
         </ModalHeader>
@@ -210,10 +210,14 @@ const MediaModal = ({
             >
               <Dropzone
                 dropZoneActions={dropZoneActions}
-                dropzonePlaceHolderTitle={`Drag and drop a ${dropZoneActions.textType}, or click to select.`}
+                dropzonePlaceHolderTitle={`Drag and drop an ${dropZoneActions.textType} or click to select.`}
                 dropzonePlaceHolderSize="(10mb max)"
               />
-              <ImageInput setImage={handleSetImage} showFetchedImage={false} />
+              <ImageInput
+                setImage={handleSetImage}
+                showFetchedImage={false}
+                modalUpload={true}
+              />
             </Flex>
             {wiki.media !== undefined && wiki.media?.length > 0 && (
               <Box mb={8} justifyContent="center" display="flex">
