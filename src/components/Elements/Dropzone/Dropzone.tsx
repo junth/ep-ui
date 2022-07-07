@@ -19,8 +19,8 @@ type DropzoneType = {
     showFetchedImage: boolean
     textType: string
   }
-  dropzonePlaceHolderTitle: string
-  dropzonePlaceHolderSize: string
+  dropzonePlaceHolderTitle?: string
+  dropzonePlaceHolderSize?: string
 }
 
 const Dropzone = ({
