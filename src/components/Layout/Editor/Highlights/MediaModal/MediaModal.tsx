@@ -208,7 +208,11 @@ const MediaModal = ({
               py={5}
               mb={3}
             >
-              <Dropzone dropZoneActions={dropZoneActions} dropzonePlaceHolderTitle={`Drag and drop a ${dropZoneActions.textType}, or click to select.`} dropzonePlaceHolderSize='(10mb max)'/>
+              <Dropzone
+                dropZoneActions={dropZoneActions}
+                dropzonePlaceHolderTitle={`Drag and drop a ${dropZoneActions.textType}, or click to select.`}
+                dropzonePlaceHolderSize="(10mb max)"
+              />
               <ImageInput setImage={handleSetImage} showFetchedImage={false} />
             </Flex>
             {wiki.media !== undefined && wiki.media?.length > 0 && (

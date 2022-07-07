@@ -18,12 +18,16 @@ type DropzoneType = {
     initialImage?: string | undefined
     showFetchedImage: boolean
     textType: string
-  },
-  dropzonePlaceHolderTitle: string,
-  dropzonePlaceHolderSize: string,
+  }
+  dropzonePlaceHolderTitle: string
+  dropzonePlaceHolderSize: string
 }
 
-const Dropzone = ({ dropZoneActions, dropzonePlaceHolderTitle, dropzonePlaceHolderSize }: DropzoneType) => {
+const Dropzone = ({
+  dropZoneActions,
+  dropzonePlaceHolderTitle,
+  dropzonePlaceHolderSize,
+}: DropzoneType) => {
   const [paths, setPaths] = useState<Array<string>>([])
   const toast = useToast()
   const dispatch = useDispatch()
@@ -132,27 +136,25 @@ const Dropzone = ({ dropZoneActions, dropzonePlaceHolderTitle, dropzonePlaceHold
               <Text textAlign="center">Drop the files here ...</Text>
             ) : (
               <Box px="8" mb={!showFetchedImage ? '10' : '1'}>
-                { 
-                  dropzonePlaceHolderTitle ? 
+                {dropzonePlaceHolderTitle ? (
                   <>
-                  <Text textAlign="center" opacity="0.5" fontWeight="bold">
-                  {dropzonePlaceHolderTitle}
-                </Text>
-                <Text textAlign="center" opacity="0.5" fontWeight="bold">
-                  {dropzonePlaceHolderSize}
-                </Text>
+                    <Text textAlign="center" opacity="0.5" fontWeight="bold">
+                      {dropzonePlaceHolderTitle}
+                    </Text>
+                    <Text textAlign="center" opacity="0.5" fontWeight="bold">
+                      {dropzonePlaceHolderSize}
+                    </Text>
                   </>
-                : 
+                ) : (
                   <>
-                  <Text textAlign="center" opacity="0.5">
-                  Drag and drop a <b>{textType}</b>, or click to select.
-                  </Text>
-                  <Text textAlign="center" opacity="0.5" fontWeight="bold">
-                  (10mb max)
-                  </Text>
+                    <Text textAlign="center" opacity="0.5">
+                      Drag and drop a <b>{textType}</b>, or click to select.
+                    </Text>
+                    <Text textAlign="center" opacity="0.5" fontWeight="bold">
+                      (10mb max)
+                    </Text>
                   </>
-                
-                }
+                )}
               </Box>
             )}
           </Box>
