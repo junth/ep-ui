@@ -10,7 +10,7 @@ type ImageInputType = {
   setImage: (name: string, f: ArrayBuffer) => void
   deleteImage?: () => void
   showFetchedImage: boolean
-  modalUpload: boolean
+  modalUpload?: boolean
 }
 
 const ImageInput = ({
