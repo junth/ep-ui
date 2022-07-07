@@ -216,7 +216,7 @@ const MediaModal = ({
               <ImageInput
                 setImage={handleSetImage}
                 showFetchedImage={false}
-                modalUpload={true}
+                modalUpload
               />
             </Flex>
             {wiki.media !== undefined && wiki.media?.length > 0 && (
