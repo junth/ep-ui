@@ -40,7 +40,8 @@ const DisplayAvatar = ({
   if (profileData?.avatar) {
     content = (
       <Avatar
-        boxSize={size}
+        boxSize={`${size}px`}
+        mt="2px"
         src={`${config.pinataBaseUrl}${profileData.avatar}`}
         {...rest}
       />
