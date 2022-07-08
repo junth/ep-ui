@@ -35,7 +35,7 @@ export const UserDetails = ({ hide }: UserDetailsProps) => {
   const [, ensUserName, loading] = useENSData(address)
   const isSticky = headerIsSticky && hide
   const customLink = `${window.origin}/account/${
-  profileData?.username || address || ensUserName
+    profileData?.username || address || ensUserName
   }`
 
   const clipboard = useClipboard(customLink || '')
