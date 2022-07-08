@@ -8,6 +8,8 @@ import {
   Tooltip,
   TooltipProps,
   Skeleton,
+  Text,
+  VStack,
 } from '@chakra-ui/react'
 import { useProfileContext } from '@/components/Profile/utils'
 import { useRouter } from 'next/router'
@@ -20,6 +22,7 @@ import { useTranslation } from 'react-i18next'
 import shortenAccount from '@/utils/shortenAccount'
 import { useUserProfileData } from '@/services/profile/utils'
 import { RiSettings5Fill, RiShareFill } from 'react-icons/ri'
+import UserSocialLinks from './UserSocialLinks'
 
 export type UserDetailsProps = { hide?: boolean }
 
@@ -95,13 +98,23 @@ export const UserDetails = ({ hide }: UserDetailsProps) => {
           </Box>
 
           <Skeleton isLoaded={!loading}>
-            <chakra.span
-              fontSize={isSticky ? 'lg' : '3xl'}
-              fontWeight="semibold"
-              letterSpacing="tighter"
-            >
-              {profileData?.username || ensUserName || shortenAccount(address)}
-            </chakra.span>
+            <VStack>
+              <chakra.span
+                fontSize={isSticky ? 'lg' : '3xl'}
+                fontWeight="semibold"
+                letterSpacing="tighter"
+              >
+                {profileData?.username ||
+                  ensUserName ||
+                  shortenAccount(address)}
+              </chakra.span>
+              {profileData && !isSticky && (
+                <VStack spacing={4}>
+                  <Text textAlign="center">{profileData.bio}</Text>
+                  <UserSocialLinks links={profileData?.links[0]} />
+                </VStack>
+              )}
+            </VStack>
           </Skeleton>
         </Flex>
         <chakra.span display="flex" flex="1">
