@@ -7,7 +7,8 @@ import { UserProfileHeader } from '@/components/SEO/UserProfile'
 import config from '@/config'
 import { useUserProfileData } from '@/services/profile/utils'
 import { Flex, Spinner, Box } from '@chakra-ui/react'
-import { NextPage } from 'next'
+import { BaseProvider, StaticJsonRpcProvider } from '@ethersproject/providers'
+import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
@@ -65,5 +66,29 @@ const Profile: PageWithoutFooter = () => {
   )
 }
 Profile.noFooter = true
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const userIdentifier = context.params?.profile as string
+
+  // TODO: check if userIdentifier is from user profile and redirect to profile page
+
+  if (userIdentifier.endsWith('.eth')) {
+    const provider: BaseProvider = new StaticJsonRpcProvider(config.ensRPC)
+    const resolvedAddress = (await provider.resolveName(
+      userIdentifier,
+    )) as string
+    if (resolvedAddress) {
+      return {
+        redirect: {
+          destination: `/account/${resolvedAddress}`,
+          permanent: false,
+        },
+      }
+    }
+  }
+  return {
+    props: {},
+  }
+}
 
 export default React.memo(Profile)
