@@ -453,6 +453,18 @@ const CreateWikiContent = () => {
 
   if (!mounted) return null
 
+  const handlePublishDisable = () => {
+    if (
+      +wiki.content.split(' ').length >= 150 &&
+      wiki.title &&
+      wiki.images &&
+      +wiki.categories.length >= 1
+    ) {
+      return true
+    }
+    return false
+  }
+
   return (
     <Box scrollBehavior="auto" maxW="1900px" mx="auto">
       <HStack
@@ -589,6 +601,7 @@ const CreateWikiContent = () => {
             onClick={() => {
               saveOnIpfs()
             }}
+            disabled={!handlePublishDisable()}
           >
             Publish
           </Button>
