@@ -3,6 +3,7 @@ import { Collections } from '@/components/Profile/Collections'
 import { useProfile } from '@/components/Profile/useProfile'
 import UserInfo from '@/components/Profile/UserInfo'
 import { ProfileProvider } from '@/components/Profile/utils'
+import { UserProfileHeader } from '@/components/SEO/UserProfile'
 import config from '@/config'
 import { useUserProfileData } from '@/services/profile/utils'
 import { validateAddress } from '@/utils/validateAddress'
@@ -49,31 +50,39 @@ const Profile: PageWithoutFooter = () => {
   const profileContext = useProfile()
 
   return (
-    <ProfileProvider value={profileContext}>
-      <Flex mt={-2} direction="column" align="center" pos="relative">
-        <Image
-          width="full"
-          height="56"
-          objectFit="cover"
-          bgColor="profileBannerBg"
-          backgroundImage="/images/homepage-bg-white.png"
-          _dark={{
-            backgroundImage: '/images/homepage-bg-dark.png',
-          }}
-          src={`${config.pinataBaseUrl}${profileData?.banner}`}
-        />
-        {!loading ? (
-          <>
-            <UserInfo />
-            <Collections />
-          </>
-        ) : (
-          <Box mt="20">
-            <Spinner size="xl" />
-          </Box>
-        )}
-      </Flex>
-    </ProfileProvider>
+    <>
+      <UserProfileHeader
+        username={profileData?.username || address}
+        bio={profileData?.bio}
+        avatarIPFS={profileData?.avatar}
+        links={profileData?.links[0]}
+      />
+      <ProfileProvider value={profileContext}>
+        <Flex mt={-2} direction="column" align="center" pos="relative">
+          <Image
+            width="full"
+            height="56"
+            objectFit="cover"
+            bgColor="profileBannerBg"
+            backgroundImage="/images/homepage-bg-white.png"
+            _dark={{
+              backgroundImage: '/images/homepage-bg-dark.png',
+            }}
+            src={`${config.pinataBaseUrl}${profileData?.banner}`}
+          />
+          {!loading ? (
+            <>
+              <UserInfo />
+              <Collections />
+            </>
+          ) : (
+            <Box mt="20">
+              <Spinner size="xl" />
+            </Box>
+          )}
+        </Flex>
+      </ProfileProvider>
+    </>
   )
 }
 Profile.noFooter = true

@@ -16,7 +16,6 @@ import { useRouter } from 'next/router'
 import DisplayAvatar from '@/components/Elements/Avatar/Avatar'
 import { LoadingProfile } from '@/components/Profile/LoadingProfile'
 import { useENSData } from '@/hooks/useENSData'
-import { NextSeo } from 'next-seo'
 import { useAccount } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import shortenAccount from '@/utils/shortenAccount'
@@ -50,13 +49,6 @@ export const UserDetails = ({ hide }: UserDetailsProps) => {
   if (loading) return <LoadingProfile hide={hide} />
   return (
     <>
-      <NextSeo
-        title={`${ensUserName || address} Profile Page - Everipedia`}
-        openGraph={{
-          title: `${ensUserName || address} Profile Page - Everipedia`,
-          description: `${ensUserName || address} profile page`,
-        }}
-      />
       <Flex
         flexDir={{ base: isSticky ? 'row' : 'column', lg: 'row' }}
         align="center"
