@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomAvatar from 'boring-avatars'
 import {
   Avatar,
@@ -11,6 +11,8 @@ import {
 import { AvatarColorArray } from '@/data/AvatarData'
 import { RiAccountCircleLine } from 'react-icons/ri'
 import { useENSData } from '@/hooks/useENSData'
+import { useUserProfileData } from '@/services/profile/utils'
+import config from '@/config'
 
 type DisplayAvatarProps = ChakraProps & {
   address?: string | null
@@ -23,13 +25,27 @@ const DisplayAvatar = ({
   address,
   svgProps,
   wrapperProps,
-  size = 25,
+  size = 26,
   mt = 2,
   ...rest
 }: DisplayAvatarProps) => {
   const [avatar, ,] = useENSData(address)
+  const { profileData, setAccount } = useUserProfileData()
   let content = null
-  if (avatar) {
+
+  useEffect(() => {
+    if (address) setAccount(address)
+  }, [address, setAccount])
+
+  if (profileData?.avatar) {
+    content = (
+      <Avatar
+        boxSize={size}
+        src={`${config.pinataBaseUrl}${profileData.avatar}`}
+        {...rest}
+      />
+    )
+  } else if (avatar) {
     content = <Avatar size="xs" src={avatar} {...rest} />
   } else if (address && !avatar) {
     content = (
