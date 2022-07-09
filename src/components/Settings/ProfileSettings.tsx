@@ -354,7 +354,7 @@ const ProfileSettings = ({ settingsData }: ProfileSettingsProps) => {
       </Flex>
       <Button
         isLoading={isLoading}
-        disabled={isAvatarLoading || isBannerLoading}
+        disabled={isLoading || isAvatarLoading || isBannerLoading}
         loadingText="Submitting"
         type="submit"
         _disabled={{
