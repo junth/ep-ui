@@ -102,7 +102,9 @@ export const UserDetails = ({ hide }: UserDetailsProps) => {
               </chakra.span>
               {profileData && !isSticky && (
                 <VStack spacing={4}>
-                  <Text textAlign="center">{profileData.bio}</Text>
+                  <Text maxW="min(400px, 80vw)" textAlign="center">
+                    {profileData.bio}
+                  </Text>
                   <UserSocialLinks links={profileData?.links[0]} />
                 </VStack>
               )}

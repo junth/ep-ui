@@ -111,8 +111,8 @@ const ProfileSettings = ({ settingsData }: ProfileSettingsProps) => {
     return ''
   }
   const validateBio = (bio: string): string => {
-    if (bio.length > 140) {
-      return 'Bio must be 140 characters or less'
+    if (bio.length > 85) {
+      return 'Bio must be 85 characters or less'
     }
     return ''
   }
