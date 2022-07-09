@@ -257,7 +257,7 @@ const ProfileSettings = ({ settingsData }: ProfileSettingsProps) => {
           {/* PROFILE: LINKS */}
           <FormControl>
             <FormLabel htmlFor="links">Links</FormLabel>
-            <Box borderWidth="1px" borderRadius="md">
+            <Box overflow="hidden" borderWidth="1px" borderRadius="md">
               {/* LINKS: Twitter */}
               <InputGroup>
                 <InputLeftElement pointerEvents="none">
@@ -294,8 +294,16 @@ const ProfileSettings = ({ settingsData }: ProfileSettingsProps) => {
                   _focus={{ borderBottomColor: 'inherit' }}
                   value={website}
                   onChange={e => setWebsite(e.target.value)}
+                  type="url"
                   variant="flushed"
-                  placeholder="yoursite.io"
+                  _invalid={{
+                    bgColor: '#FF000022',
+                  }}
+                  isInvalid={
+                    website.length !== 0 &&
+                    !/^(http|https):\/\/[^ "]+$/.test(website)
+                  }
+                  placeholder="https://yoursite.io"
                 />
               </InputGroup>
             </Box>
