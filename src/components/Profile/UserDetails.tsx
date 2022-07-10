@@ -1,5 +1,4 @@
 import React from 'react'
-import { SettingsIcon } from '@chakra-ui/icons'
 import {
   Flex,
   chakra,
@@ -10,7 +9,6 @@ import {
   TooltipProps,
   Skeleton,
 } from '@chakra-ui/react'
-import { FaShareAlt } from 'react-icons/fa'
 import { useProfileContext } from '@/components/Profile/utils'
 import { useRouter } from 'next/router'
 import DisplayAvatar from '@/components/Elements/Avatar/Avatar'
@@ -20,17 +18,19 @@ import { NextSeo } from 'next-seo'
 import { useAccount } from 'wagmi'
 import { useTranslation } from 'react-i18next'
 import shortenAccount from '@/utils/shortenAccount'
+import { useUserProfileData } from '@/services/profile/utils'
+import { RiSettings5Fill, RiShareFill } from 'react-icons/ri'
 
 export type UserDetailsProps = { hide?: boolean }
 
-export const UserDetails = (props: UserDetailsProps) => {
-  const { hide } = props
+export const UserDetails = ({ hide }: UserDetailsProps) => {
   const router = useRouter()
   const { data } = useAccount()
   const address = router.query.profile as string
+  const { profileData } = useUserProfileData(address)
 
   const { headerIsSticky } = useProfileContext()
-  const [, username, loading] = useENSData(address)
+  const [, ensUserName, loading] = useENSData(address)
   const isSticky = headerIsSticky && hide
 
   const tooltipProps: Partial<TooltipProps> = {
@@ -48,13 +48,20 @@ export const UserDetails = (props: UserDetailsProps) => {
   return (
     <>
       <NextSeo
-        title={`${username || address} Profile Page - Everipedia`}
+        title={`${ensUserName || address} Profile Page - Everipedia`}
         openGraph={{
-          title: `${username || address} Profile Page - Everipedia`,
-          description: `${username || address} profile page`,
+          title: `${ensUserName || address} Profile Page - Everipedia`,
+          description: `${ensUserName || address} profile page`,
         }}
       />
-      <Flex align="center" justify="space-between" w="full" px="6" gap={3}>
+      <Flex
+        flexDir={{ base: isSticky ? 'row' : 'column', lg: 'row' }}
+        align="center"
+        justify="space-between"
+        w="full"
+        px={{ base: '0', lg: '6' }}
+        gap={3}
+      >
         <chakra.span flex="1" />
         <Flex
           direction={isSticky ? 'row' : 'column'}
@@ -71,7 +78,7 @@ export const UserDetails = (props: UserDetailsProps) => {
               borderColor="white"
               rounded="full"
               justifySelf="center"
-              {...(isSticky && { mt: 0, boxSize: 12 })}
+              {...(isSticky && { mt: 0, boxSize: 9 })}
               address={address}
               wrapperProps={{
                 zIndex: 'calc(var(--chakra-zIndices-sticky) - 1)',
@@ -89,30 +96,25 @@ export const UserDetails = (props: UserDetailsProps) => {
 
           <Skeleton isLoaded={!loading}>
             <chakra.span
-              fontSize={isSticky ? 'md' : '3xl'}
+              fontSize={isSticky ? 'lg' : '3xl'}
               fontWeight="semibold"
               letterSpacing="tighter"
             >
-              {username || shortenAccount(address)}
+              {profileData?.username || ensUserName || shortenAccount(address)}
             </chakra.span>
           </Skeleton>
         </Flex>
         <chakra.span display="flex" flex="1">
-          <ButtonGroup
-            isAttached
-            variant="outline"
-            ml="auto"
-            my={isSticky ? 4 : 6}
-          >
+          <ButtonGroup isAttached variant="outline" ml="auto" my={4}>
             <Tooltip label={t('shareBttnText')} {...tooltipProps}>
               <IconButton
                 mr="-px"
                 boxSize="12"
                 aria-label="Share"
-                icon={<FaShareAlt />}
+                icon={<RiShareFill size={isSticky ? '15' : '20'} />}
                 rounded="xl"
                 _hover={{ shadow: 'xl' }}
-                {...(isSticky && { boxSize: 6, rounded: '4' })}
+                {...(isSticky && { boxSize: 8, rounded: '4' })}
               />
             </Tooltip>
             <Tooltip label={t('settingBttnText')} {...tooltipProps}>
@@ -120,12 +122,12 @@ export const UserDetails = (props: UserDetailsProps) => {
                 cursor="pointer"
                 boxSize="12"
                 aria-label="Settings"
-                icon={<SettingsIcon />}
+                icon={<RiSettings5Fill size={isSticky ? '15' : '20'} />}
                 rounded="xl"
                 _hover={{ shadow: 'xl' }}
                 onClick={() => router.push('/account/settings')}
                 disabled={address !== data?.address}
-                {...(isSticky && { boxSize: 6, rounded: '4' })}
+                {...(isSticky && { boxSize: 8, rounded: '4' })}
               />
             </Tooltip>
           </ButtonGroup>

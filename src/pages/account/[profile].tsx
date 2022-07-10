@@ -4,6 +4,7 @@ import { useProfile } from '@/components/Profile/useProfile'
 import UserInfo from '@/components/Profile/UserInfo'
 import { ProfileProvider } from '@/components/Profile/utils'
 import config from '@/config'
+import { useUserProfileData } from '@/services/profile/utils'
 import { validateAddress } from '@/utils/validateAddress'
 import { Flex, Spinner, Box } from '@chakra-ui/react'
 import { BaseProvider, StaticJsonRpcProvider } from '@ethersproject/providers'
@@ -20,9 +21,11 @@ const Profile: PageWithoutFooter = () => {
   const provider: BaseProvider = new StaticJsonRpcProvider(config.ensRPC)
   const address = router.query.profile as string
   const [loading, setLoading] = useState<boolean>(true)
+  const { profileData, setAccount } = useUserProfileData(address)
 
   useEffect(() => {
     if (address) {
+      setAccount(address)
       if (!validateAddress(address)) {
         const lookUpAddress = async () => {
           const resolvedAddress = (await provider.resolveName(
@@ -47,12 +50,17 @@ const Profile: PageWithoutFooter = () => {
 
   return (
     <ProfileProvider value={profileContext}>
-      <Flex direction="column" align="center" pos="relative">
+      <Flex mt={-2} direction="column" align="center" pos="relative">
         <Image
           width="full"
           height="56"
           objectFit="cover"
-          src="https://lh3.googleusercontent.com/1xS2CAb5FcEtqJKjgPQNhbNwRgbB9_ypoD9TEgV02rTC06x_TaVxczHBrbEmjLtdoSfoY8Uc1bo-tTv48GsV0rTcOwdgYWGLd7ZHkj4=h600"
+          bgColor="profileBannerBg"
+          backgroundImage="/images/homepage-bg-white.png"
+          _dark={{
+            backgroundImage: '/images/homepage-bg-dark.png',
+          }}
+          src={`${config.pinataBaseUrl}${profileData?.banner}`}
         />
         {!loading ? (
           <>
@@ -70,4 +78,4 @@ const Profile: PageWithoutFooter = () => {
 }
 Profile.noFooter = true
 
-export default Profile
+export default React.memo(Profile)
